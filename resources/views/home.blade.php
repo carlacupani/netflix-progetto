@@ -1,11 +1,9 @@
 <html>
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-
   <title>Benvenuto su Netflix</title>
   <meta name="title" content="Netflix">
   <!-- FAVICON -->
@@ -15,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
   <!-- CSS LINK -->
-  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="./css/home.css">
   <!-- JS LINK-->
   <script src="./js/global.js" defer="true"></script>
   <script src="./js/home.js" type="module"></script>
@@ -58,7 +56,7 @@
       </button>
       <!-- ACCOUNT -->
       <div class="userInfo">
-        <a href="/profile">
+        <a href="./profile.php">
           <div class="avatar" style="background-image: url(<?php echo $userinfo['propic'] == null ? "../netflix2/images/netflix_avatar.png" : $userinfo['propic'] ?>)">
           </div>
         </a>

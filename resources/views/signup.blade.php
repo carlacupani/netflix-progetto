@@ -87,7 +87,7 @@
                         </div>
                         <a href="#">Hai dimenticato la password?</a>
                     </div>
-                    @endforeach
+                    
                     <button type="submit">Registrati</button>
                 </form>
                 <p class="sign-up">Hai già un account Netflix? <a href="{{ URL::to('login') }}" >Accedi</a></p>
