@@ -1,12 +1,5 @@
 <html>
 <head>
-    <link rel='stylesheet' href='{{ URL::to("css/signup.css") }}'>
-    <script>
-        const CHECK_USERNAME_URL = "{{ URL::to('signup/check/username') }}";
-        const CHECK_EMAIL_URL = "{{ URL::to('signup/check/email') }}";
-    </script>
-    <script src='{{ URL::to("js/signup.js") }}' defer></script>
-
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +9,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel='stylesheet' href='{{ URL::to("css/signup.css") }}'>
+    <script>
+        const CHECK_USERNAME_URL = "{{ URL::to('signup/check/username') }}";
+        const CHECK_EMAIL_URL = "{{ URL::to('signup/check/email') }}";
+    </script>
+    <!-- JS -->
+    <script src='{{ URL::to("js/signup.js") }}' defer></script>
 </head>
 
 <body>

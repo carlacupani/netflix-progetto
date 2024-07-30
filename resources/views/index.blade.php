@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 
 <head>
@@ -13,17 +12,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <!-- css link -->
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href='{{ URL::to("css/index.css") }}'>
     <!-- js link -->
-    <script src="js/index.js" defer></script>
+    <script src='{{ URL::to("js/index.js") }}' defer></script>
 </head>
 
 <body>
     <header>
         <!-- NAVBAR -->
         <nav>
-            <a href="../index.php">
-                <img id="logo1" src="./images/logo.png" class="logo1">
+            <a href="{{ URL::to('index') }}">
+                <img id="logo1" src="{{ URL::to('images/logo.png') }}" class="logo1">
             </a>
             <div class="navbar-right">
                 <div class="navbar-language-select">
@@ -58,7 +57,7 @@
                     dispositivi.</p>
             </div>
             <div class="img-col">
-                <img src="images/feature-1.png">
+                <img src="{{ URL::to('images/feature-1.png') }}">
             </div>
         </div>
     </section>

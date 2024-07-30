@@ -28,7 +28,7 @@
         <li><a href="#">Serie Tv</a></li>
         <li><a href="#">Film</a></li>
         <li><a href="#">Nuovi e popolari</a></li>
-        <li><a href="./profile.php">La mia lista</a></li>
+        <li><a href="profile">La mia lista</a></li>
       </ul>
     </div>
 

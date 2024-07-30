@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
@@ -12,71 +13,74 @@ use App\Models\Movie;
 
 class HomeController extends BaseController
 {
-public function showHome()
-{
-    if(!Session::has('user_id')){
-        return redirect('login');
+    public function showIndex()
+    {
+        return view('index');
     }
-return view('home');
-
-}
-
-public function showProfile()
-{
-    if(!Session::has('user_id')){
-        return redirect('login');
-    }
-    $user = User::find(Session::get('user_id'));
-    $movies = $user->movies;
-    # parse each content that is a json string
-    foreach($movies as $movie) {
-        $movie->content = json_decode($movie->content);
-    }
-    return view('profile')
-        ->with('user', $user)->with('movies', $movies);
-}
-
-public function editProfile(){}
-
-public function saveMovie()
-{
-    if (!Session::has('user_id')) {
-        return ['ok' => false];
+    public function showHome()
+    {
+        if (!Session::has('user_id')) {
+            return redirect('login');
+        }
+        return view('home');
     }
 
-    # skip if the song is already saved by the user
-    if (Song::where('song_id', Request::post('id'))->where('user_id', Session::get('user_id'))->first()) {
+    public function showProfile()
+    {
+        if (!Session::has('user_id')) {
+            return redirect('login');
+        }
+        $user = User::find(Session::get('user_id'));
+        $movies = $user->movies;
+        # parse each content that is a json string
+        foreach ($movies as $movie) {
+            $movie->content = json_decode($movie->content);
+        }
+        return view('profile')
+            ->with('user', $user)->with('movies', $movies);
+    }
+
+    public function editProfile()
+    {
+    }
+
+    public function saveMovie()
+    {
+        if (!Session::has('user_id')) {
+            return ['ok' => false];
+        }
+
+        # skip if the song is already saved by the user
+        if (Song::where('song_id', Request::post('id'))->where('user_id', Session::get('user_id'))->first()) {
+            return ['ok' => true];
+        }
+
+        $song_id = Request::post('id');
+        $song_title = Request::post('title');
+        $song_artist = Request::post('artist');
+        $song_duration = Request::post('duration');
+        $song_popularity = Request::post('popularity');
+        $song_image = Request::post('image');
+        $user_id = Session::get('user_id');
+
+        $song = new Song;
+        $song->song_id = $song_id;
+        $song->content = json_encode([
+            'id' => $song_id,
+            'title' => $song_title,
+            'artist' => $song_artist,
+            'duration' => $song_duration,
+            'popularity' => $song_popularity,
+            'image' => $song_image
+        ]);
+        $song->user_id = $user_id;
+        $song->save();
+
+
         return ['ok' => true];
     }
 
-    $song_id = Request::post('id');
-    $song_title = Request::post('title');
-    $song_artist = Request::post('artist');
-    $song_duration = Request::post('duration');
-    $song_popularity = Request::post('popularity');
-    $song_image = Request::post('image');
-    $user_id = Session::get('user_id');
-
-    $song = new Song;
-    $song->song_id = $song_id;
-    $song->content = json_encode([
-        'id' => $song_id,
-        'title' => $song_title,
-        'artist' => $song_artist,
-        'duration' => $song_duration,
-        'popularity' => $song_popularity,
-        'image' => $song_image
-    ]);
-    $song->user_id = $user_id;
-    $song->save();
-
-
-    return ['ok' => true];
-}
-
-public function deleteMovie(){
-
-}
-
-
+    public function deleteMovie()
+    {
+    }
 }
