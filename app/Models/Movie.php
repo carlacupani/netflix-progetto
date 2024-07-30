@@ -1,17 +1,16 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Movie extends Model
 {
-    protected $table = 'users';
+    protected $table = 'movies';
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    public function songs()
+    public function user()
     {
-        return $this->hasMany("App\Models\Movie", "user_id");
+        return $this->belongsTo("App\Models\User");
     }
 }
