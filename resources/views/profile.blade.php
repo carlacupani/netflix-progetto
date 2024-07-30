@@ -13,10 +13,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <!-- CSS LINK -->
-    <link rel="stylesheet" href="./css/profile.css">
+    <link rel="stylesheet" href='{{ URL::to("css/profile.css") }}'>
     <!-- JS LINK-->
-    <script src="./js/global.js" defer="true"></script>
-    <script src="./js/profile.js" type="module"></script>
+    <script src='{{ URL::to("js/global.js") }}' defer="true"></script>
+    <script src='{{ URL::to("js/profile.js") }}' type="module"></script>
 </head>
 
 <body>

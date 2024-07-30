@@ -5,7 +5,7 @@
         const CHECK_USERNAME_URL = "{{ URL::to('signup/check/username') }}";
         const CHECK_EMAIL_URL = "{{ URL::to('signup/check/email') }}";
     </script>
-    <script src='{{ URL::to("signup.js") }}' defer></script>
+    <script src='{{ URL::to("js/signup.js") }}' defer></script>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -87,7 +87,7 @@
                         </div>
                         <a href="#">Hai dimenticato la password?</a>
                     </div>
-                    
+
                     <button type="submit">Registrati</button>
                 </form>
                 <p class="sign-up">Hai già un account Netflix? <a href="{{ URL::to('login') }}" >Accedi</a></p>
