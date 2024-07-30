@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
@@ -11,11 +12,17 @@ use App\Models\User;
 
 class AuthController extends BaseController
 {
+    /**
+     * Show the login form.
+     */
     public function showLoginForm()
     {
         return view('login');
     }
 
+    /**
+     * Handle user login.
+     */
     public function login(Request $request)
     {
         if (Auth::check()) {
@@ -39,21 +46,30 @@ class AuthController extends BaseController
         ])->onlyInput('username');
     }
 
+    /**
+     * Show the signup form.
+     */
     public function showSignupForm()
     {
         return view('signup');
     }
 
+    /**
+     * Check if the username or email is already taken.
+     */
     public function check(Request $request, $field)
     {
         if (empty($request->query('q')) || !in_array($field, ['username', 'email'])) {
-            return ['exists' => false];
+            return response()->json(['exists' => false]);
         }
 
         $exists = User::where($field, $request->query('q'))->exists();
-        return ['exists' => $exists];
+        return response()->json(['exists' => $exists]);
     }
 
+    /**
+     * Handle user signup.
+     */
     public function signup(Request $request)
     {
         if (Auth::check()) {
@@ -75,13 +91,13 @@ class AuthController extends BaseController
                         ->withInput();
         }
 
-        $user = new User;
-        $user->username = $request->input('username');
-        $user->password = Hash::make($request->input('password'));
-        $user->name = $request->input('name');
-        $user->surname = $request->input('surname');
-        $user->email = $request->input('email');
-        $user->save();
+        $user = User::create([
+            'username' => $request->input('username'),
+            'password' => Hash::make($request->input('password')),
+            'name' => $request->input('name'),
+            'surname' => $request->input('surname'),
+            'email' => $request->input('email'),
+        ]);
 
         Auth::login($user);
 

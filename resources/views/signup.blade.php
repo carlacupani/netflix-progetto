@@ -1,6 +1,6 @@
 <html>
 <head>
-    <link rel='stylesheet' href='{{ URL::to("signup.css") }}'>
+    <link rel='stylesheet' href='{{ URL::to("css/signup.css") }}'>
     <script>
         const CHECK_USERNAME_URL = "{{ URL::to('signup/check/username') }}";
         const CHECK_EMAIL_URL = "{{ URL::to('signup/check/email') }}";

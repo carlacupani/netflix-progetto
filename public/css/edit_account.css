@@ -1,0 +1,347 @@
+:root {
+    /*---COLORS---*/
+    --background: rgba(15, 17, 21, 1);
+    --banner-background: rgba(51, 51, 51, 1);
+    --white-alpha-20: rgba(255, 255, 255, 0.2);
+    --on-background: rgba(229, 238, 255, 1);
+    --on-surface: rgba(234, 229, 255, 1);
+    --on-surface-variant: rgba(111, 111, 113, 1);
+    --primary: rgba(229, 9, 20, 1);
+    --primary-variant: rgba(196, 8, 18, 1);
+    --rating-color: rgba(250, 183, 0, 1);
+    --surface: rgba(26, 24, 32, 1);
+    --text-color: rgba(149, 148, 153, 1);
+    --white: rgba(255, 255, 255, 1);
+    --blue: rgba(0, 113, 235, 1);
+    /*---GRADIENT-COLORS---*/
+    --banner-overlay: 90deg, hsl(220, 17%, 7%) 0%, rgba(15, 17, 21, 0.5) 100%;
+    --bottom-overlay: 180deg, rgba(26, 24, 32, 0), rgba(26, 24, 32, 1);
+    /*---FONT-FAMILY---*/
+    --ff-dm-sans: 'DM Sans', sans-serif;
+    /*---FONT-SIZE---*/
+    --fs-heading: 64px;
+    --fs-title-lg: 41.6px;
+    --fs-title: 32px;
+    --fs-body: 28.8px;
+    --fs-button: 24px;
+    --fs-label: 16px;
+    /*---FONT-WEIGHT*/
+    --weight-bold: 700;
+    --weight-light: 400;
+    /*---SHADOW---*/
+    --shadow-1: 0 1px 4px rgba(0, 0, 0, 0.75);
+    --shadow-2: 0 2px 4px rgba(219, 0, 37, 0.3);
+    /*---BORDER-RADIUS---*/
+    --radius-4: 4px;
+    --radius-8: 8px;
+    --radius-16: 16px;
+    --radius-24: 24px;
+    --radius-36: 36px;
+    /*---TRANSITION---*/
+    --transition-short: 250ms ease;
+    --transition-long: 500ms ease;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: var(--ff-dm-sans);
+    box-sizing: border-box;
+}
+body{
+    background: var(--background);
+    color: var(--white);
+}
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--banner-background);
+    border-radius: var(--radius-8);
+}
+/*---HEADER---*/
+header{
+    width: 100%;
+    height: 1000px;
+    background-color: var(--background);
+    background-size: cover;
+    background-position: center;
+    padding: 10px 8%;
+    position: relative;
+}
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 50px;
+}
+button{
+    cursor: pointer;
+}
+.logo1{
+    width: 167px;
+    height: 45px;
+    margin-right: auto;
+}
+.logo2{
+    width: 167px;
+    height: 45px;
+    margin-right: auto;
+    display: none;
+}
+
+.header-content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.header-content h1{
+    font-size: 48px;
+    line-height: 70px;
+    font-weight: 900;
+}
+.header-content h3{
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+
+.header-content .nav-bar img {
+    width: 170px;
+}
+
+.header-content .edit-account-body {
+    width: 450px;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 40px 60px;
+    border-radius: var(--radius-8);
+}
+
+.edit-account-body .title {
+    font-size: var(--fs-title);
+    font-weight: 900;
+}
+
+.edit-account-body .edit-account-form {
+    margin: 30px 0 30px;
+}
+
+.edit-account-form .form-control {
+    position: relative;
+    margin: 15px 0;
+}
+
+.form-control input {
+    width: 100%;
+    background-color: var(--banner-background);
+    border: none;
+    outline: none;
+    border-radius: var(--radius-4);
+    color: var(--white);
+    font-size: var(--fs-label);
+    padding: 15px 20px;
+}
+
+.form-control input:is(:focus, :valid) {
+    background-color: #444;
+    padding: 20px 20px 10px;
+}
+
+.form-control label {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
+    color: #8c8c8c;
+    transition: all 0.1s ease;
+}
+
+.form-control input:is(:focus, :valid)~label {
+    font-size: 12px;
+    transform: translateY(-130%);
+    margin-top: 2px 0 20px;
+}
+
+.container-btn{
+    justify-content: center;
+}
+
+.edit-account-btn {
+    height: 50px;
+    background: var(--on-surface-variant);
+    border: none;
+    border-radius: var(--radius-16);
+    outline: none;
+    color: var(--white);
+    font-size: var(--fs-label);
+    font-weight: var(--weight-bold);
+    letter-spacing: 1px;
+    cursor: pointer;
+    margin-left: 20px;
+    padding: 0 30px;
+}
+
+.edit-account-btn:hover {
+    background-color: var(--primary-variant);
+}
+
+.edit-account-body a {
+    text-decoration: none;
+}
+
+.edit-account-body a:hover {
+    text-decoration: underline;
+}
+
+.edit-account-body :where(label, p, a) {
+    color: var(--text-color);
+}
+
+.edit-account-form .form-help {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-account-form .allow {
+    display: flex;
+}
+
+.edit-account-form .allow input {
+    margin-right: 5px;
+    accent-color: var(--text-color);
+}
+
+.edit-account-form .form-help :where(label, a) {
+    font-size: 14px;
+}
+
+.edit-account-body .sign-up a {
+    color: var(--white);
+}
+
+.edit-bod .short-desc {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.edit-body .short-desc a {
+    color: var(--blue);
+}
+
+.header-content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.header-content h1{
+    font-size: 48px;
+    line-height: 70px;
+    font-weight: 900;
+}
+.header-content h3{
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+
+form span {
+    opacity: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    transition: opacity 0.3s ease;
+}
+
+
+
+/*---footer---*/
+.row{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 72px 0;
+}
+footer{
+    padding: 50px 15% 10px;
+    border-top: var(--radius-8) solid #333;
+    color: var(--text-color);
+}
+footer h2{
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 12px;
+}
+footer .col{
+    flex-basis: 25%;
+    flex-grow: 1;
+    margin-bottom: 20px;
+}
+footer .col a{
+    display: block;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+footer .row{
+    align-items: flex-start;
+    padding: 10px 0;
+}
+footer .language-btn{
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: var(--radius-4);
+}
+.copyright-txt{
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+/*---media-query-small-screen---*/
+@media only screen and (max-width: 600px){
+    .logo{
+        width: 100px;
+    }
+    nav button{
+        padding: 5px 10px;
+    }
+    nav .language-btn{
+        padding: 4px 8px;
+    }
+    .header-content{
+        position: unset;
+        transform: none;
+        padding-top: 150px;
+    }
+    .header-content h1{
+        font-size: 30px;
+    }
+    .container .edit-account-body {
+        width: 100%;
+        height: 100%;
+        background-color: var(--background);
+        padding: 60px 50px;
+    }
+}
