@@ -18,6 +18,8 @@ class ApiController extends BaseController
     {
         $config = [
             'api_base_url' => env('API_BASE_URL'),
+            'api_image_base_url' => env('API_IMAGE_BASE_URL'),
+            'api_key'=> env('API_KEY'),
             'api_key_auth' => env('API_KEY_AUTH'),
         ];
 
