@@ -36,5 +36,7 @@ public function showProfile()
         ->with('user', $user)->with('movies', $movies);
 }
 
+public function editProfile(){}
+
 
 }

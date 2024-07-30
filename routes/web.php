@@ -7,7 +7,8 @@ use App\Http\Controllers\ApiController;
 
 
 // Index routes
-//Route::get('index', [AuthController::class, 'index'])->name('index');
+Route::get('index', [HomeController::class, 'showIndex'])->name('index');
+Route::get('/', [HomeController::class, 'showIndex'])->name('index');
 
 // Login routes
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -18,19 +19,25 @@ Route::get('signup', [AuthController::class, 'showSignupForm'])->name('signup');
 Route::post('signup', [AuthController::class, 'signup'])->name('signup');
 Route::get('signup/check/{field}', [AuthController::class, 'check'])->name('signup_check');
 
-
 // Home routes
 Route::get('home', [HomeController::class, 'showHome'])->name('home');
-Route::get('/', 'App\Http\Controllers\HomeController@home');
 
-// Api outes
-Route::get('genre_movie_list', [ApiController::class, 'getGenreMovieList'])->name('genre_movie_list');
-Route::get('search_content', [ApiController::class, 'getSearchMovie'])->name('search_movie');
-Route::post('save_movie', [ApiController::class, 'save_movie'])->name('save_movie');
+// Api routes
+Route::get('genre/movie/list', [ApiController::class, 'getGenreMovieList'])->name('genre_movie_list');
+Route::get('search/movie', [ApiController::class, 'getSearchMovie'])->name('search_movie');
+Route::get('movie/details', [ApiController::class,'getDetailsMovie'])->name('details_movie');
+Route::get('movie/recommendations', [ApiController::class,'getRecommendationsMovie'])->name('recommendations_movie');
+Route::get('movie/popular', [ApiController::class,'getPopularMovieList'])->name('popular_movie');
+Route::get('movie/toprated', [ApiController::class,'getTopratedMovie'])->name('toprated_movie');
+Route::get('trending/movie/week', [ApiController::class,'getTrendingMovie'])->name('trending_movie');
+Route::get('movie/upcoming', [ApiController::class,'getUpcomingMovie'])->name('upcoming_movie');
+
+Route::post('movie/save', [ApiController::class, 'saveMovie'])->name('save_movie');
+
 
 // Profile routes
 Route::get('profile', [HomeController::class, 'showProfile'])->name('profile');
-
+Route::post('edit_profile', [HomeController::class, 'editProfile'])->name('edit_profile');
 
 // Logout routes
 Route::get('logout', function() {
