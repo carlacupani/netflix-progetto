@@ -17,6 +17,7 @@ class HomeController extends BaseController
     {
         return view('index');
     }
+    
     public function showHome()
     {
         if (!Session::has('user_id')) {
