@@ -14,12 +14,13 @@ use App\Models\Movie;
 class ApiController extends BaseController
 {
 
+    // Recupera la lista dei generi dei film
     public function getGenreMovieList()
     {
         $config = [
             'api_base_url' => env('API_BASE_URL'),
             'api_image_base_url' => env('API_IMAGE_BASE_URL'),
-            'api_key'=> env('API_KEY'),
+            'api_key' => env('API_KEY'),
             'api_key_auth' => env('API_KEY_AUTH'),
         ];
 
@@ -51,16 +52,86 @@ class ApiController extends BaseController
         }
     }
 
-    public function search_movie()
+    // Recupera la lista di film in base ad un parola di ricerca
+    public function getSearchMovie()
     {
         $config = [
             'api_base_url' => env('API_BASE_URL'),
+            'api_image_base_url' => env('API_IMAGE_BASE_URL'),
+            'api_key' => env('API_KEY'),
             'api_key_auth' => env('API_KEY_AUTH'),
         ];
+        $query = urlencode($_GET["q"]);
+        $url = $config['api_base_url'] . "/search/movie?include_adult=false&language=it-IT&page=1&query=" . $query;
+
         $curl = curl_init();
 
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => [
+                "Authorization: Bearer " . $config['api_key_auth'],
+                "accept: application/json"
+            ],
+        ]);
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            echo $response;
+        }
     }
 
+    // Recupera la lista dei dettagli di un determinato film
+    public function getDetailsMovie()
+    {
+        $config = [
+            'api_base_url' => env('API_BASE_URL'),
+            'api_image_base_url' => env('API_IMAGE_BASE_URL'),
+            'api_key' => env('API_KEY'),
+            'api_key_auth' => env('API_KEY_AUTH'),
+        ];
+        //`https://api.themoviedb.org/3/movie/${movieId}?api_key=${api_key}&append_to_response=casts,videos,images,releases&language=it`,
+        $movieId = urlencode($_GET["q"]);
+        $url = $config['api_base_url'] . "/movie/" . $movieId . "?append_to_response=casts,videos,images,releases&language=it-IT";
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => [
+                "Authorization: Bearer " . $config['api_key_auth'],
+                "accept: application/json"
+            ],
+        ]);
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            echo $response;
+        }
+    }
     public function save_movie()
     {
         if (!Session::has('user_id')) {

@@ -25,7 +25,7 @@ Route::get('/', 'App\Http\Controllers\HomeController@home');
 
 // Api outes
 Route::get('genre_movie_list', [ApiController::class, 'getGenreMovieList'])->name('genre_movie_list');
-Route::get('search_content', [ApiController::class, 'search_movie'])->name('search_movie');
+Route::get('search_content', [ApiController::class, 'getSearchMovie'])->name('search_movie');
 Route::post('save_movie', [ApiController::class, 'save_movie'])->name('save_movie');
 
 // Profile routes
