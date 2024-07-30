@@ -21,6 +21,8 @@ Route::get('signup/check/{field}', [AuthController::class, 'check'])->name('sign
 
 // Home routes
 Route::get('home', [HomeController::class, 'showHome'])->name('home');
+Route::post('save_movie', [HomeController::class, 'saveMovie'])->name('save_movie');
+Route::post('delete_movie', [HomeController::class, 'deleteMovie'])->name('delete_movie');
 
 // Api routes
 Route::get('genre/movie/list', [ApiController::class, 'getGenreMovieList'])->name('genre_movie_list');
@@ -28,11 +30,9 @@ Route::get('search/movie', [ApiController::class, 'getSearchMovie'])->name('sear
 Route::get('movie/details', [ApiController::class,'getDetailsMovie'])->name('details_movie');
 Route::get('movie/recommendations', [ApiController::class,'getRecommendationsMovie'])->name('recommendations_movie');
 Route::get('movie/popular', [ApiController::class,'getPopularMovieList'])->name('popular_movie');
-Route::get('movie/toprated', [ApiController::class,'getTopratedMovie'])->name('toprated_movie');
+Route::get('movie/top_rated', [ApiController::class,'getTopratedMovie'])->name('toprated_movie');
 Route::get('trending/movie/week', [ApiController::class,'getTrendingMovie'])->name('trending_movie');
 Route::get('movie/upcoming', [ApiController::class,'getUpcomingMovie'])->name('upcoming_movie');
-
-Route::post('movie/save', [ApiController::class, 'saveMovie'])->name('save_movie');
 
 
 // Profile routes

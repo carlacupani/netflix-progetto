@@ -38,5 +38,45 @@ public function showProfile()
 
 public function editProfile(){}
 
+public function saveMovie()
+{
+    if (!Session::has('user_id')) {
+        return ['ok' => false];
+    }
+
+    # skip if the song is already saved by the user
+    if (Song::where('song_id', Request::post('id'))->where('user_id', Session::get('user_id'))->first()) {
+        return ['ok' => true];
+    }
+
+    $song_id = Request::post('id');
+    $song_title = Request::post('title');
+    $song_artist = Request::post('artist');
+    $song_duration = Request::post('duration');
+    $song_popularity = Request::post('popularity');
+    $song_image = Request::post('image');
+    $user_id = Session::get('user_id');
+
+    $song = new Song;
+    $song->song_id = $song_id;
+    $song->content = json_encode([
+        'id' => $song_id,
+        'title' => $song_title,
+        'artist' => $song_artist,
+        'duration' => $song_duration,
+        'popularity' => $song_popularity,
+        'image' => $song_image
+    ]);
+    $song->user_id = $user_id;
+    $song->save();
+
+
+    return ['ok' => true];
+}
+
+public function deleteMovie(){
+
+}
+
 
 }
