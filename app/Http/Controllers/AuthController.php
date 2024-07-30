@@ -30,11 +30,11 @@ class AuthController extends BaseController
         }
 
         $request->validate([
-            'username' => 'required|string',
+            'email' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        $credentials = $request->only('username', 'password');
+        $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
@@ -43,7 +43,7 @@ class AuthController extends BaseController
 
         return back()->withErrors([
             'username' => 'Le credenziali non corrispondono ai nostri record.',
-        ])->onlyInput('username');
+        ])->onlyInput('email');
     }
 
     /**
@@ -57,14 +57,17 @@ class AuthController extends BaseController
     /**
      * Check if the username or email is already taken.
      */
-    public function check(Request $request, $field)
+    public function check($field)
     {
-        if (empty($request->query('q')) || !in_array($field, ['username', 'email'])) {
-            return response()->json(['exists' => false]);
+        if(empty(Request::get('q'))) {
+            return ['exists' => false];
+        }
+        if(!in_array($field, ['username', 'email'])) {
+            return ['exists' => false];
         }
 
-        $exists = User::where($field, $request->query('q'))->exists();
-        return response()->json(['exists' => $exists]);
+        $user = User::where($field, Request::get('q'))->first();
+        return ['exists' => $user ? true : false];
     }
 
     /**

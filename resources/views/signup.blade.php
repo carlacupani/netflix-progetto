@@ -50,12 +50,14 @@
                     <div class="form-control">
                         <div class="username">
                         <input type="text" name="username" value='{{ old("username") }}' required />
+                        <span class="username"></span>
                         <label for="username">Username</label>
                         </div>
                     </div>
                     <div class="form-control">
                         <div class="email">
                             <input type="text" name="email" value='{{ old("email") }}' required />
+                            <span class="email"></span>
                             <label for="email">Indirizzo Email</label>
                         </div>
                     </div>

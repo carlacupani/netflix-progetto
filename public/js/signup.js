@@ -55,7 +55,7 @@ function checkUsername(event) {
         input.parentNode.classList.add('errorj');
         formStatus.username = false;
     } else {
-        fetch("check_username.php?q=" + encodeURIComponent(input.value)).then(fetchResponse).then(jsonCheckUsername);
+        fetch(CHECK_USERNAME_URL +"?q=" + encodeURIComponent(input.value)).then(fetchResponse).then(jsonCheckUsername);
     }    
 }
 
@@ -68,7 +68,7 @@ function checkEmail(event) {
         document.querySelector('.email').classList.add('errorj');
         formStatus.email = false;
     } else {
-        fetch("check_email.php?q=" + encodeURIComponent(String(emailInput.value).toLowerCase())).then(fetchResponse).then(jsonCheckEmail);
+        fetch(CHECK_EMAIL_URL +"?q=" + encodeURIComponent(String(emailInput.value).toLowerCase())).then(fetchResponse).then(jsonCheckEmail);
     }
 }
 

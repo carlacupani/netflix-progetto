@@ -22,7 +22,7 @@
     <!--HEADER-->
     <header>
         <nav>
-            <a href="../index.php">
+            <a href="{{ URL::to('index') }}">
                 <img id="logo1" src="{{ URL::to('images/logo.png') }}" class="logo1" alt="Netflix Logo">
             </a>
         </nav>

@@ -31,7 +31,7 @@
                         <option value="en">Inglese</option>
                     </select>
                 </div>
-                <button class="login-btn" onclick="window.location.href='login.php'">Accedi</button>
+                <button class="login-btn" onclick="window.location.href='login'">Accedi</button>
             </div>
         </nav>
         <!-- BANNER -->
@@ -39,13 +39,15 @@
             <h1>Film, serie TV e tanto altro, senza limiti</h1>
             <h3>Guarda ciò che vuoi ovunque. Disdici quando vuoi.</h3>
             <p>Vuoi guardare Netflix? Inserisci l'indirizzo email per abbonarti o riattivare il tuo abbonamento.</p>
-            <form class="email-signup" action="./signup.php" method="GET">
+            <div class="email-signup" >
                 <div class="form-control">
-                    <input type="email" id="signup-email" name="email" required>
+                    <input type="email" id="signup-email-1" name="email" required>
                     <label for="email_phone">Indirizzo Email</label>
                 </div>
-                <button type="submit" id="signup-btn">Inizia</button>
-            </form>
+                <a >
+                    <button disabled type="submit" id="signup-btn-1">Inizia</button>
+                </a>
+            </div>
         </div>
     </header>
     <!-- SECTION 1 -->
@@ -65,7 +67,7 @@
     <section>
         <div class="row">
             <div class="img-col">
-                <img src="images/feature-3.png">
+                <img src="{{ URL::to('images/feature-3.png') }}">
             </div>
             <div class="text-col">
                 <h2>Guarda Netflix ovunque</h2>
@@ -81,7 +83,7 @@
                 <p>I bambini scoprono nuove avventure in compagnia dei loro personaggi preferiti in uno spazio tutto loro già incluso nel tuo abbonamento.</p>
             </div>
             <div class="img-col">
-                <img src="images/feature-4.png">
+                <img src="{{ URL::to('images/feature-4.png') }}">
             </div>
         </div>
     </section>
@@ -89,7 +91,7 @@
     <section>
         <div class="row">
             <div class="img-col">
-                <img src="images/feature-2.png">
+                <img src="{{ URL::to('images/feature-2.png') }}">
             </div>
             <div class="text-col">
                 <h2>Scarica le tue serie da guardare offline</h2>
@@ -103,7 +105,7 @@
         <ul class="accordion">
             <li>
                 <button id="qst1">Cos'è Netflix?
-                    <img src="./images/icons8-x-50.png">
+                    <img src="{{ URL::to('images/icons8-x-50.png') }}">
                 </button>
                 <div class="content">
                     <p>Netflix è un servizio di streaming che offre una varietà di serie TV, film, documentari pluripremiati e tanto altro su una vasta gamma di dispositivi connessi a Internet.
@@ -112,7 +114,7 @@
             </li>
             <li>
                 <button id="qst2">Quanto costa Netflix?
-                    <img src="./images/icons8-x-50.png">
+                    <img src="{{ URL::to('images/icons8-x-50.png') }}">
                 </button>
                 <div class="content">
                     <p>Guarda Netflix su smartphone, tablet, Smart TV, laptop o dispositivi per lo streaming, il tutto per un importo mensile fisso.
@@ -121,7 +123,7 @@
             </li>
             <li>
                 <button id="qst3">Dove posso guardare Netflix?
-                    <img src="./images/icons8-x-50.png">
+                    <img src="{{ URL::to('images/icons8-x-50.png') }}">
                 </button>
                 <div class="content">
                     <p>Guarda Netflix dove vuoi, quando vuoi. Accedi al tuo account per guardare subito Netflix dal tuo computer su netflix.com oppure da qualsiasi dispositivo connesso a Internet che supporta l'app Netflix, come smart TV, smartphone, tablet, lettori multimediali per streaming e console per videogiochi.
@@ -130,7 +132,7 @@
             </li>
             <li>
                 <button id="qst4">Come posso disdire?
-                    <img src="./images/icons8-x-50.png">
+                    <img src="{{ URL::to('images/icons8-x-50.png') }}">
                 </button>
                 <div class="content">
                     <p>Netflix è flessibile. Nessun contratto fastidioso e nessun impegno. Puoi facilmente disdire il tuo contratto online con due clic.
@@ -139,7 +141,7 @@
             </li>
             <li>
                 <button id="qst5">Cosa posso guardare su Netflix?
-                    <img src="./images/icons8-x-50.png">
+                    <img src="{{ URL::to('images/icons8-x-50.png') }}">
                 </button>
                 <div class="content">
                     <p>Netflix ha un nutrito catalogo di lungometraggi, documentari, serie TV, anime, originali Netflix pluripremiati e tanto altro. Guarda tutto quello che vuoi, in qualsiasi momento.</p>
@@ -147,7 +149,7 @@
             </li>
             <li>
                 <button id="qst6">Netflix è adatto ai bambini?
-                    <img src="./images/icons8-x-50.png">
+                    <img src="{{ URL::to('images/icons8-x-50.png') }}">
                 </button>
                 <div class="content">
                     <p>L'area Netflix Bambini, già inclusa nell'abbonamento, offre ai genitori un maggiore controllo sui contenuti e ai più piccoli uno spazio dedicato dove guardare serie TV e film per tutta la famiglia.
@@ -156,13 +158,15 @@
             </li>
         </ul>
         <small>Vuoi guardare Netflix? Inserisci l'indirizzo email per abbonarti o riattivare il tuo abbonamento.</small>
-        <form class="email-signup" action="./signup.php" method="GET">
+        <div class="email-signup">
             <div class="form-control">
-                <input type="email" id="signup-email" name="email" required>
+                <input type="email" id="signup-email-2" name="email" required>
                 <label for="email_phone">Indirizzo Email</label>
             </div>
-            <button type="submit" id="signup-btn">Inizia</button>
-        </form>
+            <a >
+                <button disabled type="submit" id="signup-btn-2">Inizia</button>
+            </a>
+        </div>
     </div>
     <!-- FOOTER -->
     <footer>

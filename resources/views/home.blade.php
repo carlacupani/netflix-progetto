@@ -21,19 +21,18 @@
 
 
 <body>
-
   <!--HEADER-->
   <header class="header" id="home" >
     <div class="navbar-left">
       <a href="./home.php" class="logo">
-        <img src="./images/logo.png" width="140" height="32">
+        <img src='{{ URL::to("images/logo.css") }}' width="140" height="32">
       </a>
       <ul class="navbar-links">
         <li><a href="#home">Home</a></li>
         <li><a href="#">Serie Tv</a></li>
         <li><a href="#">Film</a></li>
         <li><a href="#">Nuovi e popolari</a></li>
-        <li><a href="./profile.php">La mia lista</a></li>
+        <li><a href='{{ URL::to("profile") }}'>La mia lista</a></li>
       </ul>
     </div>
 

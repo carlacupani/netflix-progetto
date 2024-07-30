@@ -16,15 +16,31 @@ readMoreButtons.forEach(button => {
     });
 });
 
+
 // Gestisce l'invio dell'email e aggiorna il testo del pulsante
-var btnInviaEmail = document.getElementById("signup-btn");
-btnInviaEmail.addEventListener("click", function() {
-    var campoEmail = document.getElementById("signup-email");
-    var testoInserito = campoEmail.value;
-    console.log("Testo dell'email:", testoInserito);
-    btnInviaEmail.classList.add("email-inviata");
-    btnInviaEmail.textContent = "Email Inviata!";
-});
+function setupEmailValidation(emailInputId, signupButtonId) {
+    const emailInput = document.getElementById(emailInputId);
+    const signupButton = document.getElementById(signupButtonId);
+    const signupLink = signupButton.parentElement;
+
+    emailInput.addEventListener("input", function () {
+        if (isValidEmail(emailInput.value)) {
+            signupButton.disabled = false;
+            signupLink.setAttribute("href", "signup");
+        } else {
+            signupButton.disabled = true;
+            signupLink.removeAttribute("href");
+        }
+    });
+}
+
+function isValidEmail(email) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+}
+
+setupEmailValidation("signup-email-1", "signup-btn-1");
+setupEmailValidation("signup-email-2", "signup-btn-2");
 
 // Mostra il secondo logo e nasconde il primo al passaggio del mouse
 function showLogo2() {
