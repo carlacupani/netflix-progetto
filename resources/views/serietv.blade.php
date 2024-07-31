@@ -32,7 +32,6 @@
         <li><a href="{{ URL::to("home") }}">Home</a></li>
         <li><a href="#">Serie Tv</a></li>
         <li><a href="#">Film</a></li>
-        <li><a href="#">Nuovi e popolari</a></li>
         <li><a href="{{ URL::to("profile") }}">La mia lista</a></li>
       </ul>
     </div>

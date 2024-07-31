@@ -160,6 +160,7 @@ const heroBanner = function ({ results: movieList }) {
   fetchDataFromServer("/movie/upcoming", createMovieList, "In uscita");
   fetchDataFromServer("/trending/movie/week", createMovieList, "In tendenza questa settimana");
   fetchDataFromServer("/movie/top_rated", createMovieList, "Più votati");
+  fetchDataFromServer("/movie/popular", createMovieList, "Più popolari tra i giovani");
 
 };
 

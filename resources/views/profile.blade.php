@@ -55,7 +55,7 @@
             <!-- ACCOUNT -->
             <div class="userInfo">
                 <a href="./profile.php">
-                    <div class="avatar" style="background-image: url(<?php echo $userinfo['propic'] == null ? "./netflix2/images/netflix_avatar.png" : $userinfo['propic'] ?>)">
+                    <div class="avatar" >
                     </div>
                 </a>
             </div>
@@ -65,18 +65,17 @@
     <!--PROFILE-->
     <section class="profile-section">
         <div class="profile">
-            <div class="profile-pic" style="background-image: url(<?php echo $userinfo['propic'] == null ? "./netflix2/images/netflix_avatar.png" : $userinfo['propic'] ?>)">
+            <div class="profile-pic" >
             </div>
 
-            <span class="profile-name">
-                <?php echo $userinfo['name'] . " " . $userinfo['surname'] ?>
+            <span class="profile-name">carla
             </span>
         </div>
         <div class="profile-buttons">
-            <a href="edit_account.php">
+            <a href="{{ URL::to("edit_profile") }}">
                 <button class="edit-account-btn" id="edit-account-btn">Modifica Dati</button>
             </a>
-            <a href='/logout'>
+            <a href="{{ URL::to("logout") }}">
                 <button class="logout-btn" id="logout-btn">Logout</button>
             </a>
         </div>

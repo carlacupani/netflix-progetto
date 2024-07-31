@@ -160,6 +160,7 @@ const heroBanner = function ({ results: serieList }) {
   fetchDataFromServer("/serietv/on_the_air", createSerieList, "In uscita");
   fetchDataFromServer("/trending/tv/week", createSerieList, "In tendenza questa settimana");
   fetchDataFromServer("/serietv/top_rated", createSerieList, "Più votati");
+  fetchDataFromServer("/serietv/popular", createSerieList, "Più popolari tra i giovani");
 
 };
 

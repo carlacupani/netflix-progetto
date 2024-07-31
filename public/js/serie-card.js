@@ -65,10 +65,10 @@ export function createSerieCard(serie) {
 
   // Crea il link per i dettagli
   const anchor = document.createElement("a");
-  anchor.href = "./detail.php";
+  anchor.href = "serietv/details";
   anchor.classList.add("card-btn");
   anchor.name = name;
-  anchor.setAttribute("onclick", `getSerietvDetail(${id})`);
+  anchor.setAttribute("onclick", `getMovieDetail(${id})`);
 
   card.appendChild(anchor);
 

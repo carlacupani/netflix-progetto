@@ -19,15 +19,14 @@
   <!--HEADER-->
   <header class="header" id="home">
     <div class="navbar-left">
-      <a href="./home.php" class="logo">
-        <img src="./images/logo.png" width="140" height="32">
+      <a href="{{ URL::to("home") }}" class="logo">
+        <img src='{{ URL::to("images/logo.png") }}' width="140" height="32">
       </a>
       <ul class="navbar-links">
-        <li><a href="./home.php">Home</a></li>
-        <li><a href="#">Serie Tv</a></li>
+        <li><a href="{{ URL::to("home") }}">Home</a></li>
+        <li><a href="{{ URL::to("serie") }}">Serie Tv</a></li>
         <li><a href="#">Film</a></li>
-        <li><a href="#">Nuovi e popolari</a></li>
-        <li><a href="profile">La mia lista</a></li>
+        <li><a href="{{ URL::to("profile") }}">La mia lista</a></li>
       </ul>
     </div>
 
@@ -50,7 +49,7 @@
       </button>
       <!-- ACCOUNT -->
       <div class="userInfo">
-        <a href="./profile.php">
+        <a href="{{ URL::to("profile") }}">
           <div class="avatar" style="background-image: url(<?php echo $userinfo['propic'] == null ? "./netflix2/images/netflix_avatar.png" : $userinfo['propic'] ?>)">
           </div>
         </a>

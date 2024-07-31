@@ -51,7 +51,7 @@ const filterVideos = function (videoList) {
 };
 
 // Recupera i dettagli del film dall'API di TMDB
-fetchDataFromServer("get_details_movie.php?q="+encodeURIComponent(movieId), function(movie) {
+fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(movie) {
     const {
       backdrop_path,
       poster_path,
@@ -288,7 +288,7 @@ fetchDataFromServer("get_details_movie.php?q="+encodeURIComponent(movieId), func
       const formData = new FormData();
       formData.append('movieId', movieId);
     
-      fetch("check_movie.php", {
+      fetch("check_movie", {
         method: 'POST',
         body: formData
       })
@@ -340,7 +340,7 @@ fetchDataFromServer("get_details_movie.php?q="+encodeURIComponent(movieId), func
 
     // Recupera e aggiunge i film suggeriti dall'API di TMDB
     
-    fetchDataFromServer("get_recommendations_movie.php?mid="+encodeURIComponent(movieId), addSuggestedMovies);
+    fetchDataFromServer("movie/recommendations?mid="+encodeURIComponent(movieId), addSuggestedMovies);
 
   }
 );

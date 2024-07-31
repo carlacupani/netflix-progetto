@@ -40,7 +40,7 @@ class HomeController extends BaseController
 
     public function showProfile()
     {
-        if (!Session::has('user_id')) {
+        /**if (!Session::has('user_id')) {
             return redirect('login');
         }
         $user = User::find(Session::get('user_id'));
@@ -50,9 +50,14 @@ class HomeController extends BaseController
             $movie->content = json_decode($movie->content);
         }
         return view('profile')
-            ->with('user', $user)->with('movies', $movies);
+            ->with('user', $user)->with('movies', $movies); */
+            return view('profile');
     }
 
+    public function showEditProfile()
+    {
+        return view('edit_profile');
+    }
     public function editProfile()
     {
     }
