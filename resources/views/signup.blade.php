@@ -3,6 +3,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TOKEN -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Modifica Profilo Netflix</title>
     <meta name="title" content="Netflix">
     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">

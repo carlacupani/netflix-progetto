@@ -62,9 +62,10 @@ class AuthController extends BaseController
     /**
      * Check if the username or email is already taken.
      */
-    public function checkEmail($field, Request $request)
+    public function checkEmail(Request $request)
     {
-        $email = DB::table('users')->where('email',$field)->value('email');
+        $field = $request->input('email');
+        $exists = DB::table('users')->where('email', $field)->exists();
         if (empty($email) || $email == '' || $email == null ) {
             return ['exists' => false];
         }else{
@@ -72,14 +73,13 @@ class AuthController extends BaseController
         }
     }
 
-    public function checkUsername($field, Request $request)
+    public function checkUsername(Request $request, $field)
     {
-        $username = DB::table('users')->where('username',$field)->value('username');
-        if (empty($username) || $username == '' || $username == null ) {
-            return ['exists' => false];
-        }else{
+        if (DB::table('users')->where('username',$field)->exists()) {
             return ['exists'=> true];
-        }
+                }else{
+                   return ['exists' => false];
+                }
     }
 
 

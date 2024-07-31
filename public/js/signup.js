@@ -48,6 +48,8 @@ function fetchResponse(response) {
 
 function checkUsername(event) {
     const input = document.querySelector('.username input');
+    const username = input.value;
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     // Verifica il formato del nome utente e invia richiesta al server
     if (!/^[a-zA-Z0-9_]{1,15}$/.test(input.value)) {
@@ -55,9 +57,20 @@ function checkUsername(event) {
         input.parentNode.classList.add('errorj');
         formStatus.username = false;
     } else {
-        fetch("/signup/check/username").then(fetchResponse).then(jsonCheckUsername);
+        fetch("/signup/check/username", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': token // Includi il token CSRF
+            },
+            body: JSON.stringify({ username : username })
+        })
+        .then(fetchResponse)
+        .catch(error => console.error('Error:', error));
     }    
 }
+
+
 
 function checkEmail(event) {
     const emailInput = document.querySelector('.email input');
@@ -68,7 +81,17 @@ function checkEmail(event) {
         document.querySelector('.email').classList.add('errorj');
         formStatus.email = false;
     } else {
-        fetch("/signup/check/email").then(fetchResponse).then(jsonCheckEmail);
+        fetch("/signup/check/email", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: emailInput })
+        })
+        .then(fetchResponse)
+        .then(jsonCheckEmail)
+        .catch(error => console.error('Error:', error));
+        
     }
 }
 
@@ -133,6 +156,7 @@ function checkSignup(event) {
 }
 
 const formStatus = { 'upload': true };
+
 document.querySelector('.name input').addEventListener('blur', checkName);
 document.querySelector('.surname input').addEventListener('blur', checkSurname);
 document.querySelector('.username input').addEventListener('blur', checkUsername);

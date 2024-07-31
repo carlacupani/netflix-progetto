@@ -73,7 +73,6 @@ class HomeController extends BaseController
             return ['ok' => false];
         }
 
-        # skip if the song is already saved by the user
         if (Movie::where('movie_id', $request->post('id'))->where('user_id', Session::get('user_id'))->first()) {
             return ['ok' => true];
         }

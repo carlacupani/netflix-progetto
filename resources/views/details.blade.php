@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- TOKEN -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <!--google font link-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,7 +52,7 @@
       <!-- ACCOUNT -->
       <div class="userInfo">
         <a href="{{ URL::to("profile") }}">
-          <div class="avatar" style="background-image: url(<?php echo $userinfo['propic'] == null ? "./netflix2/images/netflix_avatar.png" : $userinfo['propic'] ?>)">
+          <div class="avatar">
           </div>
         </a>
       </div>

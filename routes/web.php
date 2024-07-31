@@ -18,8 +18,8 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 // Signup routes
 Route::get('signup', [AuthController::class, 'showSignupForm'])->name('signup');
 Route::post('signup', [AuthController::class, 'signup'])->name('signup');
-Route::get('signup/check/username', [AuthController::class, 'checkUsername'])->name('check_username');
-Route::get('signup/check/email', [AuthController::class, 'checkEmail'])->name('check_email');
+Route::post('signup/check/username', [AuthController::class, 'checkUsername'])->name('check_username');
+Route::post('signup/check/email', [AuthController::class, 'checkEmail'])->name('check_email');
 
 // Home routes
 Route::get('home', [HomeController::class, 'showHome'])->name('home');
