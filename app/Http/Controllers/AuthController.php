@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class AuthController extends BaseController
@@ -25,25 +22,32 @@ class AuthController extends BaseController
      */
     public function login(Request $request)
     {
-        if (Auth::check()) {
+        if (Session::has('user_id')) {
             return redirect('home');
         }
-
-        $request->validate([
-            'email' => 'required|string',
-            'password' => 'required|string',
-        ]);
-
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('home');
+    
+        $error = array();
+    
+        if (!empty($request->input('username')) && !empty($request->input('password'))) {
+            $user = User::where('username', $request->input('username'))->first();
+            
+            if (!$user) {
+                $error['username'] = "Username non trovato";
+            } else {
+                if (!password_verify($request->input('password'), $user->password)) {
+                    $error['password'] = "Password errata";
+                }
+            }
+        } else {
+            $error['username'] = "Inserisci username e password";
         }
-
-        return back()->withErrors([
-            'username' => 'Le credenziali non corrispondono ai nostri record.',
-        ])->onlyInput('email');
+    
+        if (count($error) == 0) {
+            Session::put('user_id', $user->id);
+            return redirect('home');
+        } else {
+            return redirect('login')->withInput()->withErrors($error);
+        }
     }
 
     /**
@@ -75,35 +79,63 @@ class AuthController extends BaseController
      */
     public function signup(Request $request)
     {
-        if (Auth::check()) {
+        if (Session::has('user_id')) {
             return redirect('home');
         }
-
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|string|max:15|regex:/^[a-zA-Z0-9_]{1,15}$/|unique:users,username',
-            'password' => 'required|string|min:8|confirmed',
-            'email' => 'required|string|email|max:255|unique:users,email',
-            'name' => 'required|string|max:255',
-            'surname' => 'required|string|max:255',
-            'allow' => 'required|accepted',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('signup')
-                        ->withErrors($validator)
-                        ->withInput();
+    
+        $error = array();
+    
+        // Verifica l'esistenza di dati POST
+        if (!empty($request->input("username")) && !empty($request->input("password")) && !empty($request->input('email')) && !empty($request->input('name')) && 
+            !empty($request->input('surname')) && !empty($request->input('confirm_password')) && !empty($request->input('allow')))
+        {
+            # USERNAME
+            // Controlla che l'username rispetti il pattern specificato
+            if (!preg_match('/^[a-zA-Z0-9_]{1,15}$/', $request->input('username'))) {
+                $error['username'] = "Username non valido";
+            } else {
+                if (User::where('username', $request->input('username'))->first()) {
+                    $error['username'] = "Username già utilizzato";
+                }
+            }
+            # PASSWORD
+            if (strlen($request->input("password")) < 8) {
+                $error['password'] = "Caratteri password insufficienti";
+            } 
+            # CONFERMA PASSWORD
+            if ($request->input('password') != $request->input('confirm_password')) {
+                $error['password'] = "Le password non coincidono";
+            }
+            # EMAIL
+            if (!filter_var($request->input('email'), FILTER_VALIDATE_EMAIL)) {
+                $error['email'] = "Email non valida";
+            } else {
+                if (User::where('email', $request->input('email'))->first()) {
+                    $error['email'] = "Email già utilizzata";
+                }
+            }
+    
+            # REGISTRAZIONE NEL DATABASE
+            if (count($error) == 0) {
+                $password = password_hash($request->input('password'), PASSWORD_BCRYPT);
+    
+                $user = new User;
+                $user->username = $request->input('username');
+                $user->password = $password;
+                $user->name = $request->input('name');
+                $user->surname = $request->input('surname');
+                $user->email = $request->input('email');
+                $user->save();
+    
+                Session::put('user_id', $user->id);
+                return redirect('home');
+            }
+        } else {
+            $error[] = "Compila tutti i campi";
         }
-
-        $user = User::create([
-            'username' => $request->input('username'),
-            'password' => Hash::make($request->input('password')),
-            'name' => $request->input('name'),
-            'surname' => $request->input('surname'),
-            'email' => $request->input('email'),
-        ]);
-
-        Auth::login($user);
-
-        return redirect('home');
+    
+        return redirect('signup')->withInput()->withErrors($error);
     }
+
+
 }

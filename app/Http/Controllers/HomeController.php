@@ -20,9 +20,9 @@ class HomeController extends BaseController
     
     public function showHome()
     {
-    #    if (!Session::has('user_id')) {
-     #       return redirect('login');
-      #  }
+        if (!Session::has('user_id')) {
+            return redirect('login');
+        }
         return view('home');
     }
     public function showTrending()
@@ -74,11 +74,11 @@ class HomeController extends BaseController
         }
 
         # skip if the song is already saved by the user
-        if (Song::where('song_id', Request::post('id'))->where('user_id', Session::get('user_id'))->first()) {
+        if (Movie::where('movie_id', Request::post('id'))->where('user_id', Session::get('user_id'))->first()) {
             return ['ok' => true];
         }
 
-        $song_id = Request::post('id');
+        $movie_id = Request::post('id');
         $song_title = Request::post('title');
         $song_artist = Request::post('artist');
         $song_duration = Request::post('duration');
@@ -86,18 +86,18 @@ class HomeController extends BaseController
         $song_image = Request::post('image');
         $user_id = Session::get('user_id');
 
-        $song = new Song;
-        $song->song_id = $song_id;
-        $song->content = json_encode([
-            'id' => $song_id,
+        $movie = new Song;
+        $movie->movie_id = $movie_id;
+        $movie->content = json_encode([
+            'id' => $movie_id,
             'title' => $song_title,
             'artist' => $song_artist,
             'duration' => $song_duration,
             'popularity' => $song_popularity,
             'image' => $song_image
         ]);
-        $song->user_id = $user_id;
-        $song->save();
+        $movie->user_id = $user_id;
+        $movie->save();
 
 
         return ['ok' => true];
