@@ -11,9 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <!-- CSS -->
     <link rel='stylesheet' href='{{ URL::to("css/signup.css") }}'>
-    <script>
-        const CHECK_USERNAME_URL = "{{ URL::to('signup/check/username') }}";
-        const CHECK_EMAIL_URL = "{{ URL::to('signup/check/email') }}";
     </script>
     <!-- JS -->
     <script src='{{ URL::to("js/signup.js") }}' defer></script>

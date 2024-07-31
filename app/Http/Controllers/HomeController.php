@@ -20,9 +20,9 @@ class HomeController extends BaseController
     
     public function showHome()
     {
-        if (!Session::has('user_id')) {
-            return redirect('login');
-        }
+       # if (!Session::has('user_id')) {
+        #    return redirect('login');
+       # }
         return view('home');
     }
     public function showTrending()
@@ -67,34 +67,43 @@ class HomeController extends BaseController
         return view('details');
     }
     
-    public function saveMovie()
+    public function saveMovie(Request $request)
     {
         if (!Session::has('user_id')) {
             return ['ok' => false];
         }
 
         # skip if the song is already saved by the user
-        if (Movie::where('movie_id', Request::post('id'))->where('user_id', Session::get('user_id'))->first()) {
+        if (Movie::where('movie_id', $request->post('id'))->where('user_id', Session::get('user_id'))->first()) {
             return ['ok' => true];
         }
 
-        $movie_id = Request::post('id');
-        $song_title = Request::post('title');
-        $song_artist = Request::post('artist');
-        $song_duration = Request::post('duration');
-        $song_popularity = Request::post('popularity');
-        $song_image = Request::post('image');
+        $movieId = $request->post('movieId');
+        $title = $request->post('title');
+        $release_date = $request->post('release_date');
+        $runtime = $request->post('runtime');
+        $vote_average = $request->post('vote_average');
+        $genres = $request->post('genres');
+        $overview = $request->post('overview');
+        $backdrop_path = $request->post('backdrop_path');
+        $poster_path = $request->post('poster_path');
+        $genre_ids = $request->post('genre_ids');
+        
         $user_id = Session::get('user_id');
 
-        $movie = new Song;
-        $movie->movie_id = $movie_id;
+        $movie = new Movie;
+        $movie->movie_id = $movieId;
         $movie->content = json_encode([
-            'id' => $movie_id,
-            'title' => $song_title,
-            'artist' => $song_artist,
-            'duration' => $song_duration,
-            'popularity' => $song_popularity,
-            'image' => $song_image
+            'movieId', $movieId,
+            'title', $title,
+            'release_date', $release_date,
+            'runtime', $runtime,
+            'vote_average', $vote_average,
+            'genres', $genres,
+            'overview', $overview,
+            'backdrop_path', $backdrop_path,
+            'poster_path', $poster_path,
+            'genre_ids', $genre_ids
         ]);
         $movie->user_id = $user_id;
         $movie->save();

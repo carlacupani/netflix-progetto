@@ -46,9 +46,9 @@ class ApiController extends BaseController
     }
 
     // Recupera la lista di film in base ad un parola di ricerca
-    public function getSearchMovie()
+    public function getSearchMovie(Request $request)
     {
-        $query = urlencode(Request::get("q"));
+        $query = urlencode($request->get("q"));
         $url = env('API_BASE_URL') . "/search/movie?include_adult=false&language=it-IT&page=1&query=" . $query;
 
         $curl = curl_init();
@@ -80,10 +80,10 @@ class ApiController extends BaseController
     }
 
     // Recupera la lista dei dettagli di un determinato film
-    public function getDetailsMovie()
+    public function getDetailsMovie(Request $request)
     {
         //`https://api.themoviedb.org/3/movie/${movieId}?api_key=${api_key}&append_to_response=casts,videos,images,releases&language=it`,
-        $movieId = urlencode(Request::get("q"));
+        $movieId = urlencode($request->get("q"));
         $url = env('API_BASE_URL') . "/movie/" . $movieId . "?append_to_response=casts,videos,images,releases&language=it-IT";
 
         $curl = curl_init();
@@ -146,11 +146,11 @@ class ApiController extends BaseController
     }
 
     // Recupera la lista dei film raccomandati in base ad un determinato film
-    public function getRecommendationsMovie()
+    public function getRecommendationsMovie(Request $request)
     {
         //https://api.themoviedb.org/3/movie/533535/recommendations?api_key=d78d423f56d4447b1dde96e58bf54216&page=1&language=it
         //`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${api_key}&page=1&language=it`
-        $movieId = urlencode(Request::get("mid"));
+        $movieId = urlencode($request->get("mid"));
         $url = env('API_BASE_URL') . "/movie/" . $movieId . "/recommendations?language=it-IT&page=1";
 
         $curl = curl_init();
@@ -275,9 +275,9 @@ class ApiController extends BaseController
     }
 
     // Recupera i dettagli di una determinata serie tv
-    public function getDetailsSerietv()
+    public function getDetailsSerietv(Request $request)
     {
-        $serieId = urlencode(Request::get("q"));
+        $serieId = urlencode($request->get("q"));
         $url = env('API_BASE_URL') . "/tv/" . $serieId . "?append_to_response=casts,videos,images,releases&language=it-IT";
 
         $curl = curl_init();
@@ -309,9 +309,9 @@ class ApiController extends BaseController
     }
 
     // Recupera la lista dei film raccomandati in base ad un determinato film
-    public function getRecommendationsSerietv()
+    public function getRecommendationsSerietv(Request $request)
     {
-        $serieId = urlencode(Request::get("mid"));
+        $serieId = urlencode($request->get("mid"));
         $url = env('API_BASE_URL') . "/tv/" . $serieId . "/recommendations?language=it-IT&page=1";
 
         $curl = curl_init();
@@ -497,9 +497,9 @@ class ApiController extends BaseController
     }
 
     // Recupera la lista delle serie tv in base ad un parametro di ricerca
-    public function getSearchSerietv()
+    public function getSearchSerietv(Request $request)
     {
-        $query = urlencode(Request::get("q"));
+        $query = urlencode($request->get("q"));
         $url = env('API_BASE_URL') . "/search/tv?include_adult=false&language=it-IT&page=1&query=" . $query;
 
         $curl = curl_init();

@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends BaseController
 {
@@ -61,18 +62,26 @@ class AuthController extends BaseController
     /**
      * Check if the username or email is already taken.
      */
-    public function check($field)
+    public function checkEmail($field, Request $request)
     {
-        if(empty(Request::get('q'))) {
+        $email = DB::table('users')->where('email',$field)->value('email');
+        if (empty($email) || $email == '' || $email == null ) {
             return ['exists' => false];
+        }else{
+            return ['exists'=> true];
         }
-        if(!in_array($field, ['username', 'email'])) {
-            return ['exists' => false];
-        }
-
-        $user = User::where($field, Request::get('q'))->first();
-        return ['exists' => $user ? true : false];
     }
+
+    public function checkUsername($field, Request $request)
+    {
+        $username = DB::table('users')->where('username',$field)->value('username');
+        if (empty($username) || $username == '' || $username == null ) {
+            return ['exists' => false];
+        }else{
+            return ['exists'=> true];
+        }
+    }
+
 
     /**
      * Handle user signup.

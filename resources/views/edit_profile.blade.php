@@ -1,5 +1,4 @@
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <!-- CSS LINK -->
-    <link rel="stylesheet" href='{{ URL::to("css/edit_profile.css") }}'>>
+    <link rel="stylesheet" href='{{ URL::to("css/edit_profile.css") }}'>
     <!-- JS LINK -->
     <script src='{{ URL::to("js/edit_profile.js") }}' defer></script>
 </head>
@@ -31,7 +30,7 @@
             <div class="edit-account-body">
                 <h2 class="title">Modifica Profilo</h2>
                 <form name="edit" method="post" enctype="multipart/form-data" action="#" class="edit-account-form" autocomplete="off">
-                    <input type="hidden" name="current_avatar"  />
+                    <input type="hidden" name="current_avatar" />
                     <div class="form-control">
                         <div class="name">
                             <input type="text" name="name"  required />
@@ -51,7 +50,7 @@
                         </div>
                     </div>
                     <div class="form-control">
-                        <div class="email"> 
+                        <div class="email">
                             <input type="text" name="email"  required />
                             <label for="email">Indirizzo Email</label>
                         </div>
