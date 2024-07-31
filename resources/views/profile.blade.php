@@ -1,5 +1,4 @@
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,15 +22,15 @@
     <!--HEADER-->
     <header class="header">
         <div class="navbar-left">
-            <a href="./home.php" class="logo">
-                <img src="./images/logo.png" width="140" height="32">
+            <a href="{{ URL::to("home") }}" class="logo">
+                <img src="{{ URL::to("images/logo.png") }}" width="140" height="32">
             </a>
             <ul class="navbar-links">
-                <li><a href="./home.php">Home</a></li>
-                <li><a href="#">Serie Tv</a></li>
-                <li><a href="./all_film.php">Film</a></li>
-                <li><a href="./upcoming-movie.php">Nuovi e popolari</a></li>
-                <li><a href="./profile.php">La mia lista</a></li>
+                <li><a href="{{ URL::to("home") }}">Home</a></li>
+                <li><a href="{{ URL::to("serietv") }}">Serie Tv</a></li>
+                <li><a href="{{ URL::to("film") }}">Film</a></li>
+                <li><a href="{{ URL::to("trending") }}">Nuovi e popolari</a></li>
+                <li><a href="{{ URL::to("profile") }}">La mia lista</a></li>
             </ul>
         </div>
 

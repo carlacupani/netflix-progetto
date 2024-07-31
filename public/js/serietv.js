@@ -2,8 +2,8 @@
 /* Importazione di tutte le componenti e funzioni */
 
 import { imageBaseURL, fetchDataFromServer } from "./api.js";
-import { createMovieCard } from "./movie-card.js";
-import { searchMovie } from "./search-movie.js";
+import { createSerieCard } from "./serie-card.js";
+import { searchSerie } from "./search-serie.js";
 
 const pageContent = document.querySelector("[page-content]");
 
@@ -23,19 +23,19 @@ const genreList = {
 };
 
 // Fetch della lista dei generi dal server
-fetch("/genre/movie/list")
+fetch("/genre/serietv/list")
   .then((response) => response.json())
   .then((data) => {
     // Popolazione della lista dei generi con i dati ricevuti dal server
     for (const { id, name } of data.genres) {
       genreList[id] = name;
     }
-    fetchDataFromServer("/movie/popular", heroBanner);
+    fetchDataFromServer("/serietv/popular", heroBanner);
 })
   .catch((error) => console.error("Error:", error));
 
 // Funzione per creare l'hero banner con i film popolari
-const heroBanner = function ({ results: movieList }) {
+const heroBanner = function ({ results: serieList }) {
   const banner = document.createElement("section");
   banner.classList.add("banner");
   banner.ariaLabel = "Film popolari";
@@ -56,17 +56,17 @@ const heroBanner = function ({ results: movieList }) {
   let controlItemIndex = 0;
 
   // Creazione degli elementi slider per ogni film nella lista
-  for (const [index, movie] of movieList.entries()) {
+  for (const [index, serie] of serieList.entries()) {
     const {
       backdrop_path,
-      title,
-      release_date,
+      name, //title
+      first_air_date, //release_date
       genre_ids,
       overview,
       poster_path,
       vote_average,
       id,
-    } = movie;
+    } = serie;
 
     const sliderItem = document.createElement("div");
     sliderItem.classList.add("slider-item");
@@ -74,7 +74,7 @@ const heroBanner = function ({ results: movieList }) {
 
     const img = document.createElement("img");
     img.src = `${imageBaseURL}w1280${backdrop_path}`;
-    img.alt = title;
+    img.alt = name;
     img.classList.add("img-cover");
     img.loading = index === 0 ? "eager" : "lazy"; // Il primo elemento viene caricato subito, gli altri lazy
     sliderItem.appendChild(img);
@@ -84,7 +84,7 @@ const heroBanner = function ({ results: movieList }) {
 
     const h2 = document.createElement("h2");
     h2.classList.add("heading");
-    h2.textContent = title;
+    h2.textContent = name;
     bannerContent.appendChild(h2);
 
     const metaList = document.createElement("div");
@@ -93,7 +93,7 @@ const heroBanner = function ({ results: movieList }) {
     const metaItemReleaseDate = document.createElement("div");
     metaItemReleaseDate.classList.add("meta-item");
     metaItemReleaseDate.textContent =
-      release_date?.split("-")[0] ?? "Not Released"; // Mostra solo l'anno di uscita
+    first_air_date?.split("-")[0] ?? "Not Released"; // Mostra quando andato in onda 
     metaList.appendChild(metaItemReleaseDate);
 
     const metaItemRating = document.createElement("div");
@@ -116,7 +116,7 @@ const heroBanner = function ({ results: movieList }) {
     const btn = document.createElement("a");
     btn.href = "details"; // Link ai dettagli del film
     btn.classList.add("btn");
-    btn.setAttribute("onclick", `getMovieDetail(${id})`); // Funzione per ottenere i dettagli del film
+    btn.setAttribute("onclick", `getSerietvDetail(${id})`); // Funzione per ottenere i dettagli del film
 
     const playCircleImg = document.createElement("img");
     playCircleImg.src = "./images/play_circle.png";
@@ -143,7 +143,7 @@ const heroBanner = function ({ results: movieList }) {
 
     const controlItemImg = document.createElement("img");
     controlItemImg.src = `${imageBaseURL}w154${poster_path}`;
-    controlItemImg.alt = `Slide to ${title}`;
+    controlItemImg.alt = `Slide to ${name}`;
     controlItemImg.loading = "lazy"; // Caricamento lazy delle immagini di controllo
     controlItemImg.draggable = false;
     controlItemImg.classList.add("img-cover");
@@ -157,9 +157,9 @@ const heroBanner = function ({ results: movieList }) {
   
   /* Sezioni della homepage (Top rated, Upcoming, Trending movies) */
   // Fetch delle sezioni della homepage (In uscita, In tendenza questa settimana, Più votati)
-  fetchDataFromServer("/movie/upcoming", createMovieList, "In uscita");
-  fetchDataFromServer("/trending/movie/week", createMovieList, "In tendenza questa settimana");
-  fetchDataFromServer("/movie/top_rated", createMovieList, "Più votati");
+  fetchDataFromServer("/serietv/on_the_air", createSerieList, "In uscita");
+  fetchDataFromServer("/trending/tv/week", createSerieList, "In tendenza questa settimana");
+  fetchDataFromServer("/serietv/top_rated", createSerieList, "Più votati");
 
 };
 
@@ -191,20 +191,20 @@ const addHeroSlide = function () {
 };
 
 // Funzione per creare la lista dei film nelle sezioni della homepage
-const createMovieList = function ({ results: movieList }, title) {
-  const movieListElem = document.createElement("section");
-  movieListElem.classList.add("movie-list");
-  movieListElem.ariaLabel = `${title}`;
+const createSerieList = function ({ results: serieList }, name) {
+  const serieListElem = document.createElement("section");
+  serieListElem.classList.add("serie-list");
+  serieListElem.ariaLabel = `${name}`;
 
-  const titleWrapper = document.createElement("div");
-  titleWrapper.classList.add("title-wrapper");
+  const nameWrapper = document.createElement("div");
+  nameWrapper.classList.add("name-wrapper");
 
   const h3 = document.createElement("h3");
-  h3.classList.add("title-large");
-  h3.textContent = title; // Titolo della sezione
-  titleWrapper.appendChild(h3);
+  h3.classList.add("name-large");
+  h3.textContent = name; // Titolo della sezione
+  nameWrapper.appendChild(h3);
 
-  movieListElem.appendChild(titleWrapper);
+  serieListElem.appendChild(nameWrapper);
 
   const sliderList = document.createElement("div");
   sliderList.classList.add("slider-list");
@@ -213,16 +213,16 @@ const createMovieList = function ({ results: movieList }, title) {
   sliderInner.classList.add("slider-inner");
   sliderList.appendChild(sliderInner);
 
-  movieListElem.appendChild(sliderList);
+  serieListElem.appendChild(sliderList);
 
   // Creazione delle card dei film per la sezione
-  for (const movie of movieList) {
-    const movieCard = createMovieCard(movie);
-    sliderInner.appendChild(movieCard);
+  for (const serie of serieList) {
+    const serieCard = createSerieCard(serie);
+    sliderInner.appendChild(serieCard);
   }
 
-  pageContent.appendChild(movieListElem);
+  pageContent.appendChild(serieListElem);
 };
 
 // Avvia la ricerca
-searchMovie();
+searchSerie();

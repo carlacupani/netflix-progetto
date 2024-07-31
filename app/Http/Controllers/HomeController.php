@@ -20,10 +20,22 @@ class HomeController extends BaseController
     
     public function showHome()
     {
-        if (!Session::has('user_id')) {
-            return redirect('login');
-        }
+    #    if (!Session::has('user_id')) {
+     #       return redirect('login');
+      #  }
         return view('home');
+    }
+    public function showTrending()
+    {
+        return view('trending');
+    }
+    public function showSerietv()
+    {
+        return view('serietv');
+    }
+    public function showMovieall()
+    {
+        return view('movie_all');
     }
 
     public function showProfile()
@@ -45,6 +57,11 @@ class HomeController extends BaseController
     {
     }
 
+    public function showDetails()
+    {
+        return view('details');
+    }
+    
     public function saveMovie()
     {
         if (!Session::has('user_id')) {
@@ -84,4 +101,6 @@ class HomeController extends BaseController
     public function deleteMovie()
     {
     }
+
+    
 }

@@ -14,10 +14,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
   <!-- CSS LINK -->
-  <link rel="stylesheet" href='{{ URL::to("css/home.css") }}'>
+  <link rel="stylesheet" href='{{ URL::to("css/serietv.css") }}'>
   <!-- JS LINK -->
   <script src='{{ URL::to("js/global.js") }}' defer="true"></script>
-  <script src='{{ URL::to("js/home.js") }}' type="module"></script>
+  <script src='{{ URL::to("js/serietv.js") }}' type="module"></script>
 </head>
 
 
@@ -30,7 +30,7 @@
       </a>
       <ul class="navbar-links">
         <li><a href="{{ URL::to("home") }}">Home</a></li>
-        <li><a href="{{ URL::to("serietv") }}">Serie Tv</a></li>
+        <li><a href="#">Serie Tv</a></li>
         <li><a href="#">Film</a></li>
         <li><a href="#">Nuovi e popolari</a></li>
         <li><a href="{{ URL::to("profile") }}">La mia lista</a></li>

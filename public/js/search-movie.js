@@ -3,7 +3,7 @@
 import { fetchDataFromServer } from "./api.js";
 import { createMovieCard } from "./movie-card.js";
 
-export function search() {
+export function searchMovie() {
   const searchWrapper = document.querySelector("[search-wrapper]");
   const searchField = document.querySelector("[search-field]");
 
@@ -29,7 +29,7 @@ export function search() {
     // Ritarda la ricerca per evitare chiamate eccessive
     searchTimeout = setTimeout(function () {
       fetchDataFromServer(
-        "get_search_movie.php?q=" + encodeURIComponent(searchField.value),
+        "/search/movie?q=" + encodeURIComponent(searchField.value),
         function ({ results: movieList }) {
           searchWrapper.classList.remove("searching");
           searchResultModal.classList.add("active");

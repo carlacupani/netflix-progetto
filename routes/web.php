@@ -22,10 +22,16 @@ Route::get('signup/check/{field}', [AuthController::class, 'check'])->name('sign
 
 // Home routes
 Route::get('home', [HomeController::class, 'showHome'])->name('home');
+Route::get('trending', [HomeController::class, 'showTrending'])->name('trending');
+Route::get('serietv', [HomeController::class, 'showSerietv'])->name('serietv');
+Route::get('movie_all', [HomeController::class, 'showMovieall'])->name('movie_all');
+
+// Details page routes
 Route::post('save_movie', [HomeController::class, 'saveMovie'])->name('save_movie');
 Route::post('delete_movie', [HomeController::class, 'deleteMovie'])->name('delete_movie');
+Route::get('details', [HomeController::class, 'showDetails'])->name('details');
 
-// Api routes
+// Api film routes
 Route::get('genre/movie/list', [ApiController::class, 'getGenreMovieList'])->name('genre_movie_list');
 Route::get('search/movie', [ApiController::class, 'getSearchMovie'])->name('search_movie');
 Route::get('movie/details', [ApiController::class,'getDetailsMovie'])->name('details_movie');
@@ -35,6 +41,15 @@ Route::get('movie/top_rated', [ApiController::class,'getTopratedMovie'])->name('
 Route::get('trending/movie/week', [ApiController::class,'getTrendingMovie'])->name('trending_movie');
 Route::get('movie/upcoming', [ApiController::class,'getUpcomingMovie'])->name('upcoming_movie');
 
+// Api serietv routes
+Route::get('serietv/details', [ApiController::class,'getDetailsSerietv'])->name('serietv_details');
+Route::get('serietv/recommendations', [ApiController::class,'getRecommendationsSerietv'])->name('recommendations_serietv');
+Route::get('trending/tv/week', [ApiController::class,'getTrendingSerietv'])->name('trending_serietv');
+Route::get('serietv/on_the_air', [ApiController::class,'getOntheairSerietv'])->name('ontheair_movie');
+Route::get('serietv/top_rated', [ApiController::class,'getTopratedSerietv'])->name('toprated_serietv');
+Route::get('serietv/popular', [ApiController::class,'getPopularSerietv'])->name('popular_serietv');
+Route::get('genre/serietv/list', [ApiController::class, 'getGenreSerietvList'])->name('genre_serietv_list');
+Route::get('search/serietv', [ApiController::class, 'getSearchSerietv'])->name('search_serietv');
 
 // Profile routes
 Route::get('profile', [HomeController::class, 'showProfile'])->name('profile');
