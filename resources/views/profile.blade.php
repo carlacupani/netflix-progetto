@@ -28,10 +28,8 @@
                 <img src="{{ URL::to("images/logo.png") }}" width="140" height="32">
             </a>
             <ul class="navbar-links">
-                <li><a href="{{ URL::to("home") }}">Home</a></li>
+                <li><a href="{{ URL::to("home") }}">Film</a></li>
                 <li><a href="{{ URL::to("serietv") }}">Serie Tv</a></li>
-                <li><a href="{{ URL::to("film") }}">Film</a></li>
-                <li><a href="{{ URL::to("trending") }}">Nuovi e popolari</a></li>
                 <li><a href="{{ URL::to("profile") }}">La mia lista</a></li>
             </ul>
         </div>

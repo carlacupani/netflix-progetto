@@ -114,7 +114,7 @@ const heroBanner = function ({ results: serieList }) {
     bannerContent.appendChild(bannerText);
 
     const btn = document.createElement("a");
-    btn.href = "details"; // Link ai dettagli del film
+    btn.href = "details_serietv"; // Link ai dettagli del film
     btn.classList.add("btn");
     btn.setAttribute("onclick", `getSerietvDetail(${id})`); // Funzione per ottenere i dettagli del film
 

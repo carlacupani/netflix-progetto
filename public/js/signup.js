@@ -61,7 +61,7 @@ function checkUsername(event) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': token // Includi il token CSRF
+                'X-CSRF-TOKEN': token 
             },
             body: JSON.stringify({ username : username })
         })
@@ -74,6 +74,8 @@ function checkUsername(event) {
 
 function checkEmail(event) {
     const emailInput = document.querySelector('.email input');
+    const email = emailInput.value;
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     // Verifica la validità dell'email e invia richiesta al server
     if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(String(emailInput.value).toLowerCase())) {
@@ -84,12 +86,12 @@ function checkEmail(event) {
         fetch("/signup/check/email", {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': token
             },
-            body: JSON.stringify({ email: emailInput })
+            body: JSON.stringify({ email: email })
         })
         .then(fetchResponse)
-        .then(jsonCheckEmail)
         .catch(error => console.error('Error:', error));
         
     }
@@ -117,7 +119,7 @@ function checkConfirmPassword(event) {
     }
 }
 
-function checkUpload(event) {
+/** function checkUpload(event) {
     const upload_original = document.getElementById('upload_original');
     document.querySelector('#upload .file_name').textContent = upload_original.files[0].name;
     const o_size = upload_original.files[0].size;
@@ -144,6 +146,7 @@ function clickSelectFile(event) {
     // Simula un clic sul campo di upload del file
     document.querySelector('#upload_original').click();
 }
+ */
 
 function checkSignup(event) {
     const checkbox = document.querySelector('.allow input');
@@ -163,6 +166,6 @@ document.querySelector('.username input').addEventListener('blur', checkUsername
 document.querySelector('.email input').addEventListener('blur', checkEmail);
 document.querySelector('.password input').addEventListener('blur', checkPassword);
 document.querySelector('.confirm_password input').addEventListener('blur', checkConfirmPassword);
-document.querySelector('#upload').addEventListener('click', clickSelectFile);
-document.querySelector('#upload_original').addEventListener('change', checkUpload);
+//document.querySelector('#upload').addEventListener('click', clickSelectFile);
+//document.querySelector('#upload_original').addEventListener('change', checkUpload);
 document.querySelector('form').addEventListener('submit', checkSignup);

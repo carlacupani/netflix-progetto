@@ -1,5 +1,4 @@
-<html lang="en">
-
+<html>
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +13,7 @@
   <link rel="stylesheet" href='{{ URL::to("css/home.css") }}'>
   <!--custom js link-->
   <script src='{{ URL::to("js/global.js") }}' defer></script>
-  <script src='{{ URL::to("js/detail.js") }}' type="module"></script>
+  <script src='{{ URL::to("js/detail_movie.js") }}' type="module"></script>
 </head>
 
 <body>
@@ -25,9 +24,8 @@
         <img src='{{ URL::to("images/logo.png") }}' width="140" height="32">
       </a>
       <ul class="navbar-links">
-        <li><a href="{{ URL::to("home") }}">Home</a></li>
-        <li><a href="{{ URL::to("serie") }}">Serie Tv</a></li>
-        <li><a href="#">Film</a></li>
+        <li><a href="{{ URL::to("home") }}">Film</a></li>
+        <li><a href="{{ URL::to("serietv") }}">Serie Tv</a></li>
         <li><a href="{{ URL::to("profile") }}">La mia lista</a></li>
       </ul>
     </div>

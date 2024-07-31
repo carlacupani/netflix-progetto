@@ -64,23 +64,32 @@ class AuthController extends BaseController
      */
     public function checkEmail(Request $request)
     {
-        $field = $request->input('email');
-        $exists = DB::table('users')->where('email', $field)->exists();
-        if (empty($email) || $email == '' || $email == null ) {
-            return ['exists' => false];
-        }else{
-            return ['exists'=> true];
+        $email = $request->input('email');
+    
+        $users_row = DB::table('users')->where('email', $email)->count();
+    
+        if ($users_row > 0) {
+            return response()->json(['exists' => true]);
+        } else {
+            return response()->json(['exists' => false]);
         }
     }
 
-    public function checkUsername(Request $request, $field)
+    public function checkUsername(Request $request)
     {
-        if (DB::table('users')->where('username',$field)->exists()) {
-            return ['exists'=> true];
-                }else{
-                   return ['exists' => false];
-                }
+        $username = $request->input('username'); // Ottieni il nome utente dal corpo della richiesta
+    
+        // Ottieni le righe degli utenti che corrispondono al nome utente
+        $users_row = DB::table('users')->where('username', $username)->count();
+    
+        // Controlla se la query ha restituito almeno una riga
+        if ($users_row > 0) {
+            return response()->json(['exists' => true]);
+        } else {
+            return response()->json(['exists' => false]);
+        }
     }
+
 
 
     /**

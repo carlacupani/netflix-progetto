@@ -72,7 +72,7 @@
                             <label for="confirm_password">Conferma la password</label>
                         </div>
                     </div>
-                    <div class="form-control">
+                    <!-- <div class="form-control">
                         <div class="fileupload" >
                             <input type="file" name="avatar" accept='.jpg, .jpeg, image/gif, image/png, .png' id="upload_original"/>
                             <div id="upload">
@@ -82,6 +82,7 @@
                             <span>Le dimensioni del file superano 7 MB</span>
                         </div>
                     </div>
+                    -->
                     <div class="form-help">
                         <div class="allow" value="1" {{ old('allow') ? 'checked' : '' }} >
                             <label for="allow">Accetto i termini e condizioni d'uso</label>

@@ -8,18 +8,20 @@ use Illuminate\Support\Facades\Session;
 
 
 // Index routes
-Route::get('index', [HomeController::class, 'showIndex'])->name('index');
-Route::get('/', [HomeController::class, 'showIndex'])->name('index');
+Route::get('index', [HomeController::class, 'showIndex']);
+Route::get('/', [HomeController::class, 'showIndex']);
 
 // Login routes
-Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('login', [AuthController::class, 'login'])->name('login');
+Route::get('login', [AuthController::class, 'showLoginForm']);
+Route::post('login', [AuthController::class, 'login']);
 
 // Signup routes
-Route::get('signup', [AuthController::class, 'showSignupForm'])->name('signup');
-Route::post('signup', [AuthController::class, 'signup'])->name('signup');
-Route::post('signup/check/username', [AuthController::class, 'checkUsername'])->name('check_username');
-Route::post('signup/check/email', [AuthController::class, 'checkEmail'])->name('check_email');
+Route::get('signup', [AuthController::class, 'showSignupForm']);
+Route::post('signup', [AuthController::class, 'signup']);
+// check field routes
+Route::post('signup/check/username', [AuthController::class, 'checkUsername']);
+Route::post('signup/check/email', [AuthController::class, 'checkEmail']);
+
 
 // Home routes
 Route::get('home', [HomeController::class, 'showHome'])->name('home');
@@ -27,10 +29,12 @@ Route::get('trending', [HomeController::class, 'showTrending'])->name('trending'
 Route::get('serietv', [HomeController::class, 'showSerietv'])->name('serietv');
 Route::get('movie_all', [HomeController::class, 'showMovieall'])->name('movie_all');
 
+
 // Details page routes
 Route::post('save_movie', [HomeController::class, 'saveMovie'])->name('save_movie');
 Route::post('delete_movie', [HomeController::class, 'deleteMovie'])->name('delete_movie');
-Route::get('details', [HomeController::class, 'showDetails'])->name('details');
+Route::get('details_movie', [HomeController::class, 'showDetailsMovie']);
+Route::get('details_serietv', [HomeController::class, 'showDetailsSerietv']);
 
 // Api film routes
 Route::get('genre/movie/list', [ApiController::class, 'getGenreMovieList'])->name('genre_movie_list');

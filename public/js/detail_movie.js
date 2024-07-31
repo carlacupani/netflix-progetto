@@ -3,7 +3,7 @@
 // Importa le costanti e funzioni necessarie da altri moduli
 import { imageBaseURL, fetchDataFromServer } from "./api.js";
 import { createMovieCard } from "./movie-card.js";
-import { search } from "./search.js";
+import { searchMovie } from "./search-movie.js";
 
 // Recupera l'ID del film dal local storage
 const movieId = window.localStorage.getItem("movieId");
@@ -255,7 +255,7 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
       formData.append('backdrop_path', backdrop_path);
       formData.append('poster_path', poster_path);
     
-      const url = isAddedToFavorites ? "delete_movie.php" : "save_movie.php";
+      const url = isAddedToFavorites ? "delete_movie" : "save_movie";
       // Controlla lo stato per determinare l'URL
     
       // Invia la richiesta al server
@@ -383,4 +383,4 @@ const addSuggestedMovies = function ({ results: movieList }, title) {
 };
 
 // Richiama la funzione di ricerca
-search();
+searchMovie();

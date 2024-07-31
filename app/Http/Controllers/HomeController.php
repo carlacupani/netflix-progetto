@@ -62,9 +62,13 @@ class HomeController extends BaseController
     {
     }
 
-    public function showDetails()
+    public function showDetailsMovie()
     {
-        return view('details');
+        return view('details_movie');
+    }
+    public function showDetailsSerietv()
+    {
+        return view('details_serietv');
     }
     
     public function saveMovie(Request $request)

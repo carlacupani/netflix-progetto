@@ -65,7 +65,7 @@ export function createMovieCard(movie) {
 
   // Crea il link per i dettagli
   const anchor = document.createElement("a");
-  anchor.href = "./detail.php";
+  anchor.href = "details_movie";
   anchor.classList.add("card-btn");
   anchor.title = title;
   anchor.setAttribute("onclick", `getMovieDetail(${id})`);
