@@ -1,6 +1,6 @@
 "use strict";
 
-// Importa le costanti e funzioni necessarie da altri moduli
+// Importa le costanti e le funzioni necessarie da altri moduli
 import { imageBaseURL, fetchDataFromServer } from "./api.js";
 import { createSerieCard } from "./serie-card.js";
 import { searchSerie } from "./search-serie.js";
@@ -10,7 +10,8 @@ const serieId = window.localStorage.getItem("serieId");
 
 // Seleziona l'elemento del contenuto della pagina
 const pageContent = document.querySelector("[page-content]");
-// Estrae e formatta i generi del film come stringa separata da virgole
+
+// Funzione per estrarre e formattare i generi della serie come stringa separata da virgole
 const getGenres = function (genreList) {
   const newGenreList = [];
 
@@ -19,7 +20,7 @@ const getGenres = function (genreList) {
   return newGenreList.join(", ");
 };
 
-// Estrae e formatta i generi della serie come stringa separata da virgole
+// Funzione per estrarre e formattare i creatori della serie come stringa separata da virgole
 const getCreators = function (creatorsList) {
   const newCreatorsList = [];
 
@@ -45,10 +46,10 @@ fetchDataFromServer(`serietv/details?q=${encodeURIComponent(serieId)}`, function
     created_by,
   } = serie;
 
-  // Imposta il titolo della pagina
+  // Imposta il titolo della pagina con il nome della serie
   document.title = `${name} - Netflix`;
 
-  // Crea l'elemento principale dei dettagli della serie
+  // Crea l'elemento principale per i dettagli della serie
   const serieDetail = document.createElement("div");
   serieDetail.classList.add("serie-detail");
 
@@ -96,12 +97,12 @@ fetchDataFromServer(`serietv/details?q=${encodeURIComponent(serieId)}`, function
   const ratingSpan = document.createElement("span");
   ratingSpan.classList.add("span");
   // Verifica se `vote_average` è definito e numerico prima di chiamare `toFixed`
-  ratingSpan.textContent = (vote_average != null && !isNaN(vote_average)) ? vote_average.toFixed(1) : "N/A";
-
+  ratingSpan.textContent = vote_average.toFixed(1);
 
   metaItemRating.appendChild(ratingImg);
   metaItemRating.appendChild(ratingSpan);
 
+  // Separatori tra i meta dati
   const separator1 = document.createElement("div");
   separator1.classList.add("separator");
 
@@ -137,7 +138,7 @@ fetchDataFromServer(`serietv/details?q=${encodeURIComponent(serieId)}`, function
   overviewP.classList.add("overview");
   overviewP.textContent = overview;
 
-  // Aggiunge i dettagli della serie
+  // Aggiunge i dettagli della serie (creatori)
   const detailList = document.createElement("ul");
   detailList.classList.add("detail-list");
 
@@ -211,5 +212,5 @@ const addSuggestedSeries = function ({ results: serieList }) {
   pageContent.appendChild(serieListElem);
 };
 
-// Richiama la funzione di ricerca
+// Richiama la funzione di ricerca per gestire la ricerca delle serie
 searchSerie();

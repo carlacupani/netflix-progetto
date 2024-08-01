@@ -1,9 +1,11 @@
 "use strict";
 
+// Importa le funzioni necessarie da altri moduli
 import { fetchDataFromServer } from "./api.js";
 import { createMovieCard } from "./movie-card.js";
 
 export function searchMovie() {
+  // Seleziona gli elementi della pagina necessari per la ricerca
   const searchWrapper = document.querySelector("[search-wrapper]");
   const searchField = document.querySelector("[search-field]");
 
@@ -14,27 +16,31 @@ export function searchMovie() {
 
   let searchTimeout;
 
+  // Aggiunge un ascoltatore per l'evento di input del campo di ricerca
   searchField.addEventListener("input", function () {
+    // Se il campo di ricerca è vuoto, nasconde i risultati e interrompe la ricerca
     if (!searchField.value.trim()) {
-      // Nasconde i risultati se il campo di ricerca è vuoto
       searchResultModal.classList.remove("active");
       searchWrapper.classList.remove("searching");
       clearTimeout(searchTimeout);
       return;
     }
 
+    // Aggiunge una classe per indicare che è in corso una ricerca
     searchWrapper.classList.add("searching");
     clearTimeout(searchTimeout);
 
-    // Ritarda la ricerca per evitare chiamate eccessive
+    // Ritarda l'esecuzione della ricerca per evitare chiamate eccessive al server
     searchTimeout = setTimeout(function () {
+      // Effettua una richiesta al server per ottenere i dati dei film
       fetchDataFromServer(
         "/search/movie?q=" + encodeURIComponent(searchField.value),
         function ({ results: movieList }) {
+          // Rimuove la classe di ricerca e mostra i risultati
           searchWrapper.classList.remove("searching");
           searchResultModal.classList.add("active");
 
-          // Rimuove i risultati precedenti
+          // Pulisce i risultati precedenti se presenti
           while (searchResultModal.firstChild) {
             searchResultModal.removeChild(searchResultModal.firstChild);
           }
@@ -50,13 +56,16 @@ export function searchMovie() {
           heading.textContent = searchField.value;
           searchResultModal.appendChild(heading);
 
+          // Crea un contenitore per la lista dei film
           const movieListContainer = document.createElement("div");
           movieListContainer.classList.add("movie-list");
 
+          // Crea un contenitore per la visualizzazione a griglia dei film
           const gridList = document.createElement("div");
           gridList.classList.add("grid-list");
           movieListContainer.appendChild(gridList);
 
+          // Aggiunge il contenitore della lista dei film al modale dei risultati
           searchResultModal.appendChild(movieListContainer);
 
           // Crea e aggiunge una scheda per ogni film trovato
@@ -66,6 +75,6 @@ export function searchMovie() {
           }
         }
       );
-    }, 500);
+    }, 500); // Ritarda la ricerca di 500 millisecondi
   });
 }

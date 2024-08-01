@@ -1,19 +1,23 @@
 "use strict";
-/* Importazione di tutte le componenti e funzioni */
 
+/* Importazione delle componenti e delle funzioni necessarie dai moduli */
 import { imageBaseURL, fetchDataFromServer } from "./api.js";
 import { createSerieCard } from "./serie-card.js";
 import { searchSerie } from "./search-serie.js";
 
+// Seleziona l'elemento del contenuto della pagina
 const pageContent = document.querySelector("[page-content]");
 
-/* Fetch di tutti i generi es: [ { "id": "123", "name": "Action" } ]
-   poi cambia il formato del genere es: { 123: "Action" } */
+/* 
+  Creazione di un oggetto `genreList` per gestire i generi delle serie TV.
+  Il metodo `asString` converte una lista di ID di generi in una stringa di nomi di generi.
+*/
 const genreList = {
-  // crea una stringa di generi a partire dagli id dei generi es: [23, 43] -> "Action, Romance".
+  // Converte una lista di ID di generi in una stringa di nomi di generi separati da virgola
   asString(genreIdList) {
     let newGenreList = [];
 
+    // Aggiunge il nome del genere alla lista se l'ID è presente in `genreList`
     for (const genreId of genreIdList) {
       this[genreId] && newGenreList.push(this[genreId]);
     }
@@ -26,19 +30,20 @@ const genreList = {
 fetch("/genre/serietv/list")
   .then((response) => response.json())
   .then((data) => {
-    // Popolazione della lista dei generi con i dati ricevuti dal server
+    // Popola `genreList` con i dati ricevuti dal server
     for (const { id, name } of data.genres) {
       genreList[id] = name;
     }
+    // Recupera le serie TV popolari e crea l'hero banner
     fetchDataFromServer("/serietv/popular", heroBanner);
-})
+  })
   .catch((error) => console.error("Error:", error));
 
-// Funzione per creare l'hero banner con i film popolari
+// Funzione per creare l'hero banner con le serie TV popolari
 const heroBanner = function ({ results: serieList }) {
   const banner = document.createElement("section");
   banner.classList.add("banner");
-  banner.ariaLabel = "Film popolari";
+  banner.ariaLabel = "Serie TV popolari";
 
   const bannerSlider = document.createElement("div");
   bannerSlider.classList.add("banner-slider");
@@ -55,12 +60,12 @@ const heroBanner = function ({ results: serieList }) {
 
   let controlItemIndex = 0;
 
-  // Creazione degli elementi slider per ogni film nella lista
+  // Creazione degli elementi slider per ogni serie TV nella lista
   for (const [index, serie] of serieList.entries()) {
     const {
       backdrop_path,
-      name, //title
-      first_air_date, //release_date
+      name, // Titolo della serie
+      first_air_date, // Data di prima messa in onda
       genre_ids,
       overview,
       poster_path,
@@ -72,6 +77,7 @@ const heroBanner = function ({ results: serieList }) {
     sliderItem.classList.add("slider-item");
     sliderItem.setAttribute("slider-item", "");
 
+    // Crea e imposta l'immagine di sfondo per l'elemento slider
     const img = document.createElement("img");
     img.src = `${imageBaseURL}w1280${backdrop_path}`;
     img.alt = name;
@@ -79,6 +85,7 @@ const heroBanner = function ({ results: serieList }) {
     img.loading = index === 0 ? "eager" : "lazy"; // Il primo elemento viene caricato subito, gli altri lazy
     sliderItem.appendChild(img);
 
+    // Crea e imposta il contenuto del banner
     const bannerContent = document.createElement("div");
     bannerContent.classList.add("banner-content");
 
@@ -87,13 +94,14 @@ const heroBanner = function ({ results: serieList }) {
     h2.textContent = name;
     bannerContent.appendChild(h2);
 
+    // Crea e imposta la lista dei meta dati della serie TV
     const metaList = document.createElement("div");
     metaList.classList.add("meta-list");
 
     const metaItemReleaseDate = document.createElement("div");
     metaItemReleaseDate.classList.add("meta-item");
     metaItemReleaseDate.textContent =
-    first_air_date?.split("-")[0] ?? "Not Released"; // Mostra quando andato in onda 
+      first_air_date?.split("-")[0] ?? "Non rilasciato"; // Mostra l'anno di prima messa in onda
     metaList.appendChild(metaItemReleaseDate);
 
     const metaItemRating = document.createElement("div");
@@ -103,20 +111,23 @@ const heroBanner = function ({ results: serieList }) {
 
     bannerContent.appendChild(metaList);
 
+    // Aggiunge il genere della serie TV
     const genreP = document.createElement("p");
     genreP.classList.add("genre");
-    genreP.textContent = genreList.asString(genre_ids); // Converte gli id dei generi in una stringa
+    genreP.textContent = genreList.asString(genre_ids); // Converte gli ID dei generi in una stringa
     bannerContent.appendChild(genreP);
 
+    // Aggiunge la descrizione della serie TV
     const bannerText = document.createElement("p");
     bannerText.classList.add("banner-text");
-    bannerText.textContent = overview; // Descrizione del film
+    bannerText.textContent = overview;
     bannerContent.appendChild(bannerText);
 
+    // Crea e imposta il pulsante per accedere ai dettagli della serie TV
     const btn = document.createElement("a");
-    btn.href = "details_serietv"; // Link ai dettagli del film
+    btn.href = "details_serietv"; // Link ai dettagli della serie TV
     btn.classList.add("btn");
-    btn.setAttribute("onclick", `getSerietvDetail(${id})`); // Funzione per ottenere i dettagli del film
+    btn.setAttribute("onclick", `getSerietvDetail(${id})`); // Funzione per ottenere i dettagli della serie TV
 
     const playCircleImg = document.createElement("img");
     playCircleImg.src = "./images/play_circle.png";
@@ -136,6 +147,7 @@ const heroBanner = function ({ results: serieList }) {
     sliderItem.appendChild(bannerContent);
     bannerSlider.appendChild(sliderItem);
 
+    // Crea il controllo dello slider per la navigazione tra le slide
     const controlItem = document.createElement("button");
     controlItem.classList.add("poster-box", "slider-item");
     controlItem.setAttribute("slider-control", `${controlItemIndex}`);
@@ -152,19 +164,19 @@ const heroBanner = function ({ results: serieList }) {
     controlInner.appendChild(controlItem);
   }
 
+  // Aggiunge il banner alla pagina e inizializza lo slider
   pageContent.appendChild(banner);
-  addHeroSlide(); // Aggiunta della funzionalità di slide all'hero banner
-  
-  /* Sezioni della homepage (Top rated, Upcoming, Trending movies) */
-  // Fetch delle sezioni della homepage (In uscita, In tendenza questa settimana, Più votati)
+  addHeroSlide();
+
+  /* Fetch delle sezioni della homepage */
+  // Recupera le serie TV in uscita, in tendenza questa settimana, e più votate
   fetchDataFromServer("/serietv/on_the_air", createSerieList, "In uscita");
   fetchDataFromServer("/trending/tv/week", createSerieList, "In tendenza questa settimana");
   fetchDataFromServer("/serietv/top_rated", createSerieList, "Più votati");
   fetchDataFromServer("/serietv/popular", createSerieList, "Più popolari tra i giovani");
-
 };
 
-// Funzione per aggiungere lo slide all'hero banner
+// Funzione per aggiungere la funzionalità di slide all'hero banner
 const addHeroSlide = function () {
   const sliderItems = document.querySelectorAll("[slider-item]");
   const sliderControls = document.querySelectorAll("[slider-control]");
@@ -175,23 +187,23 @@ const addHeroSlide = function () {
   lastSliderItem.classList.add("active");
   lastSliderControl.classList.add("active");
 
+  // Funzione per gestire il cambiamento di slide
   const sliderStart = function () {
     lastSliderItem.classList.remove("active");
     lastSliderControl.classList.remove("active");
 
-    sliderItems[Number(this.getAttribute("slider-control"))].classList.add(
-      "active"
-    );
+    sliderItems[Number(this.getAttribute("slider-control"))].classList.add("active");
     this.classList.add("active");
 
     lastSliderItem = sliderItems[Number(this.getAttribute("slider-control"))];
     lastSliderControl = this;
   };
 
-  addEventOnElements(sliderControls, "click", sliderStart); // Aggiunta dell'evento click per il controllo dello slide
+  // Aggiunge l'evento click ai controlli dello slider
+  addEventOnElements(sliderControls, "click", sliderStart);
 };
 
-// Funzione per creare la lista dei film nelle sezioni della homepage
+// Funzione per creare e aggiungere le card delle serie TV nelle sezioni della homepage
 const createSerieList = function ({ results: serieList }, name) {
   const serieListElem = document.createElement("section");
   serieListElem.classList.add("serie-list");
@@ -216,14 +228,15 @@ const createSerieList = function ({ results: serieList }, name) {
 
   serieListElem.appendChild(sliderList);
 
-  // Creazione delle card dei film per la sezione
+  // Creazione delle card delle serie TV per la sezione
   for (const serie of serieList) {
     const serieCard = createSerieCard(serie);
     sliderInner.appendChild(serieCard);
   }
 
+  // Aggiunge la sezione della lista delle serie TV al contenuto della pagina
   pageContent.appendChild(serieListElem);
 };
 
-// Avvia la ricerca
+// Avvia la ricerca delle serie TV
 searchSerie();

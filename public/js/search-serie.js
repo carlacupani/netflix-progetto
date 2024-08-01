@@ -1,9 +1,11 @@
 "use strict";
 
+// Importa le funzioni necessarie da altri moduli
 import { fetchDataFromServer } from "./api.js";
 import { createSerieCard } from "./serie-card.js";
 
 export function searchSerie() {
+  // Seleziona gli elementi della pagina necessari per la ricerca
   const searchWrapper = document.querySelector("[search-wrapper]");
   const searchField = document.querySelector("[search-field]");
 
@@ -14,27 +16,31 @@ export function searchSerie() {
 
   let searchTimeout;
 
+  // Aggiunge un ascoltatore per l'evento di input del campo di ricerca
   searchField.addEventListener("input", function () {
+    // Se il campo di ricerca è vuoto, nasconde i risultati e interrompe la ricerca
     if (!searchField.value.trim()) {
-      // Nasconde i risultati se il campo di ricerca è vuoto
       searchResultModal.classList.remove("active");
       searchWrapper.classList.remove("searching");
       clearTimeout(searchTimeout);
       return;
     }
 
+    // Aggiunge una classe per indicare che è in corso una ricerca
     searchWrapper.classList.add("searching");
     clearTimeout(searchTimeout);
 
-    // Ritarda la ricerca per evitare chiamate eccessive
+    // Ritarda l'esecuzione della ricerca per evitare chiamate eccessive al server
     searchTimeout = setTimeout(function () {
+      // Effettua una richiesta al server per ottenere i dati delle serie TV
       fetchDataFromServer(
         "/search/serietv?q=" + encodeURIComponent(searchField.value),
         function ({ results: serieList }) {
+          // Rimuove la classe di ricerca e mostra i risultati
           searchWrapper.classList.remove("searching");
           searchResultModal.classList.add("active");
 
-          // Rimuove i risultati precedenti
+          // Pulisce i risultati precedenti se presenti
           while (searchResultModal.firstChild) {
             searchResultModal.removeChild(searchResultModal.firstChild);
           }
@@ -50,6 +56,7 @@ export function searchSerie() {
           heading.textContent = searchField.value;
           searchResultModal.appendChild(heading);
 
+          // Crea un contenitore per la lista delle serie TV
           const serieListContainer = document.createElement("div");
           serieListContainer.classList.add("serie-list");
 
@@ -59,13 +66,13 @@ export function searchSerie() {
 
           searchResultModal.appendChild(serieListContainer);
 
-          // Crea e aggiunge una scheda per ogni film trovato
+          // Crea e aggiunge una scheda per ogni serie TV trovata
           for (const serie of serieList) {
             const serieCard = createSerieCard(serie);
             gridList.appendChild(serieCard);
           }
         }
       );
-    }, 500);
+    }, 500); // Ritarda la ricerca di 0.5secondi
   });
 }
