@@ -5,6 +5,7 @@ import { imageBaseURL, fetchDataFromServer } from "./api.js";
 import { createMovieCard } from "./movie-card.js";
 import { searchMovie } from "./search-movie.js";
 
+
 // Recupera l'ID del film dal local storage
 const movieId = window.localStorage.getItem("movieId");
 

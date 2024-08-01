@@ -26,3 +26,13 @@ const getMovieList = function (urlParam, genreName) {
   window.localStorage.setItem("urlParam", urlParam);
   window.localStorage.setItem("genreName", genreName);
 };
+
+const getSerietvDetail = function (serieId) {
+  window.localStorage.setItem("serieId", String(serieId));
+};
+
+// Funzione per memorizzare l'URL della richiesta e il nome del genere nel local storage
+const getSerieList = function (urlParam, genreName) {
+  window.localStorage.setItem("urlParam", urlParam);
+  window.localStorage.setItem("genreName", genreName);
+};

@@ -5,262 +5,190 @@ import { imageBaseURL, fetchDataFromServer } from "./api.js";
 import { createSerieCard } from "./serie-card.js";
 import { searchSerie } from "./search-serie.js";
 
-// Recupera l'ID del film dal local storage
+// Recupera l'ID della serie dal local storage
 const serieId = window.localStorage.getItem("serieId");
 
 // Seleziona l'elemento del contenuto della pagina
 const pageContent = document.querySelector("[page-content]");
-
 // Estrae e formatta i generi del film come stringa separata da virgole
-function getGenres(genreList) {
+const getGenres = function (genreList) {
   const newGenreList = [];
-  console.log(genreList);
+
   for (const { name } of genreList) newGenreList.push(name);
+
   return newGenreList.join(", ");
 };
 
+// Estrae e formatta i generi della serie come stringa separata da virgole
+const getCreators = function (creatorsList) {
+  const newCreatorsList = [];
 
-// Recupera i dettagli del film dall'API di TMDB
-fetchDataFromServer("serietv/details?q="+encodeURIComponent(serieId), function(serie) {
-    const {
-      backdrop_path,
-      poster_path,
-      name,
-      number_of_episodes, //runtime
-      number_of_seasons,//runtime,
-      vote_average,
-      genres,
-      overview,
-    } = serie;
+  for (const { name } of creatorsList) newCreatorsList.push(name);
 
-    // Imposta il titolo della pagina
-    document.name = `${name} - Netflix`;
+  return newCreatorsList.join(", ");
+};
 
-    // Crea l'elemento principale dei dettagli del film
-    const serieDetail = document.createElement("div");
-    serieDetail.classList.add("serie-detail");
+// Recupera i dettagli della serie dall'API
+fetchDataFromServer(`serietv/details?q=${encodeURIComponent(serieId)}`, function (serie) {
+  const {
+    backdrop_path,
+    poster_path,
+    name,
+    first_air_date,
+    last_air_date,
+    episode_run_time,
+    number_of_episodes,
+    number_of_seasons,
+    vote_average,
+    genres,
+    overview,
+    created_by,
+  } = serie;
 
-    // Crea e imposta l'immagine di sfondo
-    const backdropImage = document.createElement("div");
-    backdropImage.classList.add("backdrop-image");
-    backdropImage.style.backgroundImage = `url('${imageBaseURL}${
-      "w1280" || "original"
-    }${backdrop_path || poster_path}')`;
+  // Imposta il titolo della pagina
+  document.title = `${name} - Netflix`;
 
-    // Crea e imposta il poster del film
-    const figure = document.createElement("figure");
-    figure.classList.add("poster-box", "serie-poster");
+  // Crea l'elemento principale dei dettagli della serie
+  const serieDetail = document.createElement("div");
+  serieDetail.classList.add("serie-detail");
 
-    const img = document.createElement("img");
-    img.src = `${imageBaseURL}w342${poster_path}`;
-    img.alt = `${name} poster`;
-    img.classList.add("img-cover");
-    figure.appendChild(img);
+  // Crea e imposta l'immagine di sfondo
+  const backdropImage = document.createElement("div");
+  backdropImage.classList.add("backdrop-image");
+  backdropImage.style.backgroundImage = `url('${imageBaseURL}${backdrop_path ? "w1280" : "original"}${backdrop_path || poster_path}')`;
 
-    // Crea il contenitore dei dettagli del film
-    const detailBox = document.createElement("div");
-    detailBox.classList.add("detail-box");
+  // Crea e imposta il poster della serie
+  const figure = document.createElement("figure");
+  figure.classList.add("poster-box", "serie-poster");
 
-    // Crea il contenuto dei dettagli 
-    const detailContent = document.createElement("div");
-    detailContent.classList.add("detail-content");
+  const img = document.createElement("img");
+  img.src = `${imageBaseURL}w342${poster_path}`;
+  img.alt = `${name} poster`;
+  img.classList.add("img-cover");
+  figure.appendChild(img);
 
-    // Imposta il titolo
-    const heading = document.createElement("h1");
-    heading.classList.add("heading");
-    heading.textContent = name;
+  // Crea il contenitore dei dettagli della serie
+  const detailBox = document.createElement("div");
+  detailBox.classList.add("detail-box");
 
-    // Crea e imposta i meta dati (valutazione, durata, data di rilascio, certificazione)
-    const metaList = document.createElement("div");
-    metaList.classList.add("meta-list");
+  // Crea il contenuto dei dettagli della serie
+  const detailContent = document.createElement("div");
+  detailContent.classList.add("detail-content");
 
-    const metaItemRating = document.createElement("div");
-    metaItemRating.classList.add("meta-item");
+  // Imposta il titolo della serie
+  const heading = document.createElement("h1");
+  heading.classList.add("heading");
+  heading.textContent = name;
 
-    const ratingImg = document.createElement("img");
-    ratingImg.src = "./images/star.png";
-    ratingImg.width = 20;
-    ratingImg.height = 20;
-    ratingImg.alt = "rating";
+  // Crea e imposta i meta dati della serie (valutazione, durata, data di rilascio)
+  const metaList = document.createElement("div");
+  metaList.classList.add("meta-list");
 
-    const ratingSpan = document.createElement("span");
-    ratingSpan.classList.add("span");
-    ratingSpan.textContent = vote_average;
+  const metaItemRating = document.createElement("div");
+  metaItemRating.classList.add("meta-item");
 
-    metaItemRating.appendChild(ratingImg);
-    metaItemRating.appendChild(ratingSpan);
+  const ratingImg = document.createElement("img");
+  ratingImg.src = "./images/star.png";
+  ratingImg.width = 20;
+  ratingImg.height = 20;
+  ratingImg.alt = "rating";
 
-    const separator1 = document.createElement("div");
-    separator1.classList.add("separator");
-
-    const metaItemNumber_of_episodes = document.createElement("div");
-    metaItemNumber_of_episodes.classList.add("meta-item");
-    metaItemNumber_of_episodes.textContent = `${number_of_episodes}m`;
-
-    const separator2 = document.createElement("div");
-    separator2.classList.add("separator");
-
-    const metaItemNumber_of_seasons = document.createElement("div");
-    metaItemNumber_of_seasons.classList.add("meta-item");
-    metaItemNumber_of_seasons.textContent = `${number_of_seasons}m`;
+  const ratingSpan = document.createElement("span");
+  ratingSpan.classList.add("span");
+  // Verifica se `vote_average` è definito e numerico prima di chiamare `toFixed`
+  ratingSpan.textContent = (vote_average != null && !isNaN(vote_average)) ? vote_average.toFixed(1) : "N/A";
 
 
-    metaList.appendChild(metaItemRating);
-    metaList.appendChild(separator1);
-    metaList.appendChild(metaItemNumber_of_seasons);
-    metaList.appendChild(separator2);
-    metaList.appendChild(metaItemNumber_of_episodes);
+  metaItemRating.appendChild(ratingImg);
+  metaItemRating.appendChild(ratingSpan);
 
-    // Aggiunge il genere del film
-    const genreP = document.createElement("p");
-    genreP.classList.add("genre");
-    genreP.textContent = getGenres(genres);
+  const separator1 = document.createElement("div");
+  separator1.classList.add("separator");
 
-    // Aggiunge la descrizione del film
-    const overviewP = document.createElement("p");
-    overviewP.classList.add("overview");
-    overviewP.textContent = overview;
+  const metaItemRuntime = document.createElement("div");
+  metaItemRuntime.classList.add("meta-item");
+  metaItemRuntime.textContent = `${episode_run_time && episode_run_time.length > 0 ? episode_run_time[0] : "N/A"} min`;
 
-    
-    
-    detailContent.appendChild(heading);
-    detailContent.appendChild(metaList);
-    detailContent.appendChild(genreP);
-    detailContent.appendChild(overviewP);
-    detailContent.appendChild(detailList);
+  const separator2 = document.createElement("div");
+  separator2.classList.add("separator");
 
-    detailBox.appendChild(detailContent);
+  const metaItemFirstAirDate = document.createElement("div");
+  metaItemFirstAirDate.classList.add("meta-item");
+  metaItemFirstAirDate.textContent = first_air_date ? first_air_date.split("-")[0] : "N/A";
 
-    const sliderList = document.createElement("div");
-    sliderList.classList.add("slider-list");
+  const metaItemLastAirDate = document.createElement("div");
+  metaItemLastAirDate.classList.add("meta-item");
+  metaItemLastAirDate.textContent = last_air_date ? last_air_date.split("-")[0] : "N/A";
 
-    const sliderInner = document.createElement("div");
-    sliderInner.classList.add("slider-inner");
+  metaList.appendChild(metaItemRating);
+  metaList.appendChild(separator1);
+  metaList.appendChild(metaItemRuntime);
+  metaList.appendChild(separator2);
+  metaList.appendChild(metaItemFirstAirDate);
+  metaList.appendChild(metaItemLastAirDate);
 
-    sliderList.appendChild(sliderInner);
+  // Aggiunge il genere della serie
+  const genreP = document.createElement("p");
+  genreP.classList.add("genre");
+  genreP.textContent = getGenres(genres);
 
-    detailBox.appendChild(sliderList);
+  // Aggiunge la descrizione della serie
+  const overviewP = document.createElement("p");
+  overviewP.classList.add("overview");
+  overviewP.textContent = overview;
 
-    serieDetail.appendChild(backdropImage);
-    serieDetail.appendChild(figure);
-    serieDetail.appendChild(detailBox);
-    
-    // Crea e aggiunge il bottone per aggiungere ai preferiti
-    const addToFavoritesButton = document.createElement("button");
-    addToFavoritesButton.classList.add("add-to-favorites");
-    addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
-    
-    // Verifica l'esistenza di detailBox e detailContent
-    if (detailBox && detailContent) {
-      detailBox.insertBefore(addToFavoritesButton, detailContent);
-    } else {
-      console.error("detailBox o detailContent non trovati");
-    }
-    
-    // Variabile per tracciare se il film è nei preferiti
-    let isAddedToFavorites = false;
-    
-    // Funzione per gestire il salvataggio del film
-    function saveSerie() {
-      // Prepara i dati da inviare al server
-      const formData = new FormData();
-      formData.append('serieId', serieId);
-      formData.append('name', name);
-      formData.append('first_air_date', first_air_date);
-      formData.append('number_of_episodes', number_of_episodes);
-      formData.append('number_of_seasons', number_of_seasons);
-      formData.append('vote_average', vote_average);
-      formData.append('genres', getGenres(genres)); // Usando la funzione per ottenere la stringa dei generi
-      formData.append('overview', overview);
-      formData.append('backdrop_path', backdrop_path);
-      formData.append('poster_path', poster_path);
-    
-      const url = isAddedToFavorites ? "delete_serie" : "save_serie";
-      // Controlla lo stato per determinare l'URL
-    
-      // Invia la richiesta al server
-      fetch(url, {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.ok) {
-          if (isAddedToFavorites) {
-            addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
-          } else {
-            addToFavoritesButton.textContent = "Aggiunto!";
-          }
-          isAddedToFavorites = !isAddedToFavorites; // Alterna lo stato
-        } else {
-          addToFavoritesButton.textContent = "Errore";
-        }
-      })
-      .catch(error => {
-        console.error('Errore:', error);
-        addToFavoritesButton.textContent = "Errore";
-      });
-    }
-    
-    // Funzione per inizializzare lo stato del bottone
-    function checkIfSerieIsFavorited() {
-      // Prepara i dati da inviare al server
-      const formData = new FormData();
-      formData.append('serieId', serieId);
-    
-      fetch("check_serie", {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.isFavorited) {
-          addToFavoritesButton.textContent = "Aggiunto!";
-          isAddedToFavorites = true;
-        } else {
-          addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
-          isAddedToFavorites = false;
-        }
-      })
-      .catch(error => {
-        console.error('Errore:', error);
-      });
-    }
-    
-    // Aggiungi l'evento click al bottone
-    addToFavoritesButton.addEventListener("click", function() {
-      console.log("Button clicked!"); // Log per verificare il click
-      saveSerie();
-    });
-    
-    // Chiamata per verificare lo stato iniziale del film
-    checkIfSerieIsFavorited();
-    
-    
-    // Aggiunge i dettagli del film al contenuto della pagina
-    pageContent.appendChild(serietvDetail);
+  // Aggiunge i dettagli della serie
+  const detailList = document.createElement("ul");
+  detailList.classList.add("detail-list");
 
-    // Recupera e aggiunge i film suggeriti dall'API di TMDB
-    fetchDataFromServer("serietv/recommendations?mid="+encodeURIComponent(serietvId), addSuggestedSerie);
+  const listItemCreatedBy = document.createElement("div");
+  listItemCreatedBy.classList.add("list-item");
 
-  }
-);
+  const listNameCreatedBy = document.createElement("p");
+  listNameCreatedBy.classList.add("list-name");
+  listNameCreatedBy.textContent = "Creato Da";
 
-// Funzione per aggiungere i film suggeriti alla pagina
-const addSuggestedSerie = function ({ results: serieList }, name) {
+  const listCreatedBy = document.createElement("p");
+  listCreatedBy.textContent = getCreators(created_by);
 
+  listItemCreatedBy.appendChild(listNameCreatedBy);
+  listItemCreatedBy.appendChild(listCreatedBy);
+
+  detailList.appendChild(listItemCreatedBy);
+
+  detailContent.appendChild(heading);
+  detailContent.appendChild(metaList);
+  detailContent.appendChild(genreP);
+  detailContent.appendChild(overviewP);
+  detailContent.appendChild(detailList);
+
+  detailBox.appendChild(detailContent);
+
+  serieDetail.appendChild(backdropImage);
+  serieDetail.appendChild(figure);
+  serieDetail.appendChild(detailBox);
+
+  // Aggiunge i dettagli della serie al contenuto della pagina
+  pageContent.appendChild(serieDetail);
+
+  // Recupera e aggiunge le serie suggerite dall'API
+  fetchDataFromServer(`serietv/recommendations?sid=${encodeURIComponent(serieId)}`, addSuggestedSeries);
+});
+
+// Funzione per aggiungere le serie suggerite alla pagina
+const addSuggestedSeries = function ({ results: serieList }) {
   const serieListElem = document.createElement("section");
   serieListElem.classList.add("serie-list");
   serieListElem.ariaLabel = "Potrebbe piacerti";
 
-  const nameWrapper = document.createElement("div");
-  nameWrapper.classList.add("name-wrapper");
+  const titleWrapper = document.createElement("div");
+  titleWrapper.classList.add("name-wrapper");
 
-  const nameLarge = document.createElement("h3");
-  nameLarge.classList.add("name-large");
-  nameLarge.textContent = "Potrebbe piacerti";
+  const titleLarge = document.createElement("h3");
+  titleLarge.classList.add("name-large");
+  titleLarge.textContent = "Potrebbe piacerti";
 
-  nameWrapper.appendChild(nameLarge);
+  titleWrapper.appendChild(titleLarge);
 
   const sliderList = document.createElement("div");
   sliderList.classList.add("slider-list");
@@ -270,16 +198,16 @@ const addSuggestedSerie = function ({ results: serieList }, name) {
 
   sliderList.appendChild(sliderInner);
 
-  serieListElem.appendChild(nameWrapper);
+  serieListElem.appendChild(titleWrapper);
   serieListElem.appendChild(sliderList);
 
-  // Crea e aggiunge una scheda per ogni suggerito
-  for ( const serie of serieList ) {
+  // Crea e aggiunge una scheda per ogni serie suggerita
+  for (const serie of serieList) {
     const serieCard = createSerieCard(serie);
     sliderInner.appendChild(serieCard);
   }
 
-  // Aggiunge la sezione dei film suggeriti al contenuto della pagina
+  // Aggiunge la sezione delle serie suggerite al contenuto della pagina
   pageContent.appendChild(serieListElem);
 };
 
