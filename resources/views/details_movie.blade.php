@@ -25,8 +25,8 @@
       </a>
       <ul class="navbar-links">
         <li><a href="{{ URL::to("home") }}">Film</a></li>
-        <li><a href="{{ URL::to("serietv") }}">Serie Tv</a></li>
-        <li><a href="{{ URL::to("profile") }}">La mia lista</a></li>
+        <li><a href="{{ URL::to("profile") }}">Serie Tv</a></li>
+        <!--<li><a href="{{ URL::to("serietv") }}">Serie Tv</a></li> -->
       </ul>
     </div>
 

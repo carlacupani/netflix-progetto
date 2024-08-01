@@ -30,7 +30,7 @@
             <div class="edit-account-body">
                 <h2 class="title">Modifica Profilo</h2>
                 <form name="edit" method="post" enctype="multipart/form-data" action="#" class="edit-account-form" autocomplete="off">
-                    <input type="hidden" name="current_avatar"/>
+                    <input type="hidden" name="current_avatar" />
                     <div class="form-control">
                         <div class="name">
                             <input type="text" name="name"  required />

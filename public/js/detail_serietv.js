@@ -169,6 +169,98 @@ fetchDataFromServer(`serietv/details?q=${encodeURIComponent(serieId)}`, function
   serieDetail.appendChild(figure);
   serieDetail.appendChild(detailBox);
 
+      // Crea e aggiunge il bottone per aggiungere ai preferiti
+      const addToFavoritesButton = document.createElement("button");
+      addToFavoritesButton.classList.add("add-to-favorites");
+      addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
+      
+      // Verifica l'esistenza di detailBox e detailContent
+      if (detailBox && detailContent) {
+        detailBox.insertBefore(addToFavoritesButton, detailContent);
+      } else {
+        console.error("detailBox o detailContent non trovati");
+      }
+      
+      // Variabile per tracciare se il film è nei preferiti
+      let isAddedToFavorites = false;
+      
+      // Funzione per gestire il salvataggio del film
+      function saveMovie() {
+        // Prepara i dati da inviare al server
+        const formData = new FormData();
+        formData.append('serieId', serieId);
+        formData.append('name', name);
+        formData.append('first_air_date', first_air_date);
+        formData.append('last_air_date', last_air_date);
+        formData.append('episode_run_time', episode_run_time);
+        formData.append('vote_average', vote_average);
+        formData.append('genres', getGenres(genres));
+        formData.append('created_by', getCreators(created_by)); // Usando la funzione per ottenere la stringa dei generi
+        formData.append('overview', overview);
+        formData.append('backdrop_path', backdrop_path);
+        formData.append('poster_path', poster_path);
+      
+        const url = isAddedToFavorites ? "delete_movie" : "save_movie";
+        // Controlla lo stato per determinare l'URL
+      
+        // Invia la richiesta al server
+        fetch(url, {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.ok) {
+            if (isAddedToFavorites) {
+              addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
+            } else {
+              addToFavoritesButton.textContent = "Aggiunto!";
+            }
+            isAddedToFavorites = !isAddedToFavorites; // Alterna lo stato
+          } else {
+            addToFavoritesButton.textContent = "Errore";
+          }
+        })
+        .catch(error => {
+          console.error('Errore:', error);
+          addToFavoritesButton.textContent = "Errore";
+        });
+      }
+      
+      // Funzione per inizializzare lo stato del bottone
+      function checkIfSerieIsFavorited() {
+        // Prepara i dati da inviare al server
+        const formData = new FormData();
+        formData.append('serieId',serieId);
+      
+        fetch("check_movie", {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.isFavorited) {
+            addToFavoritesButton.textContent = "Aggiunto!";
+            isAddedToFavorites = true;
+          } else {
+            addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
+            isAddedToFavorites = false;
+          }
+        })
+        .catch(error => {
+          console.error('Errore:', error);
+        });
+      }
+      
+      // Aggiungi l'evento click al bottone
+      addToFavoritesButton.addEventListener("click", function() {
+        console.log("Button clicked!"); // Log per verificare il click
+        saveMovie();
+      });
+      
+      // Chiamata per verificare lo stato iniziale del film
+      checkIfSerieIsFavorited();
+
   // Aggiunge i dettagli della serie al contenuto della pagina
   pageContent.appendChild(serieDetail);
 

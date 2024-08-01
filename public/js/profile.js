@@ -5,7 +5,7 @@ import { fetchDataFromServer } from "./api.js";
 
 const pageContent = document.querySelector("[page-content]");
 
-const createFavoriteList = function (movies) {
+const createFavoriteMovieList = function (movies) {
   // Controllo se la lista dei film è vuota
   if (movies.length === 0) {
     const noFavoritesMessage = document.createElement("p");
@@ -53,4 +53,7 @@ const createFavoriteList = function (movies) {
 };
 
 // Fetch dei film preferiti dal server
-fetchDataFromServer("get_favorites.php", createFavoriteList);
+fetchDataFromServer("favorite_movie", createFavoriteMovieList);
+
+// fetchDataFromServer("favorite_movie", createFavoriteSerieList); 
+

@@ -25,17 +25,9 @@ class HomeController extends BaseController
        # }
         return view('home');
     }
-    public function showTrending()
-    {
-        return view('trending');
-    }
     public function showSerietv()
     {
         return view('serietv');
-    }
-    public function showMovieall()
-    {
-        return view('movie_all');
     }
 
     public function showProfile()
@@ -60,6 +52,7 @@ class HomeController extends BaseController
     }
     public function editProfile()
     {
+
     }
 
     public function showDetailsMovie()
@@ -76,11 +69,17 @@ class HomeController extends BaseController
         if (!Session::has('user_id')) {
             return ['ok' => false];
         }
-
-        if (Movie::where('movie_id', $request->post('id'))->where('user_id', Session::get('user_id'))->first()) {
+        
+        // Verifica se il film esiste già per l'utente
+        $filmEsistente = Movie::where('content->movieId', $request->post('movieId'))
+                              ->where('user', Session::get('user_id'))
+                              ->first();
+        
+        if ($filmEsistente) {
             return ['ok' => true];
         }
-
+        
+        // Raccogli i dati dal request
         $movieId = $request->post('movieId');
         $title = $request->post('title');
         $release_date = $request->post('release_date');
@@ -93,30 +92,69 @@ class HomeController extends BaseController
         $genre_ids = $request->post('genre_ids');
         
         $user_id = Session::get('user_id');
-
-        $movie = new Movie;
-        $movie->movie_id = $movieId;
-        $movie->content = json_encode([
-            'movieId', $movieId,
-            'title', $title,
-            'release_date', $release_date,
-            'runtime', $runtime,
-            'vote_average', $vote_average,
-            'genres', $genres,
-            'overview', $overview,
-            'backdrop_path', $backdrop_path,
-            'poster_path', $poster_path,
-            'genre_ids', $genre_ids
+        
+        // Crea un nuovo record per il film
+        $film = new Movie;
+        $film->user = $user_id; // Imposta l'ID dell'utente
+        $film->content = json_encode([
+            'movieId' => $movieId,
+            'title' => $title,
+            'release_date' => $release_date,
+            'runtime' => $runtime,
+            'vote_average' => $vote_average,
+            'genres' => $genres,
+            'overview' => $overview,
+            'backdrop_path' => $backdrop_path,
+            'poster_path' => $poster_path,
+            'genre_ids' => $genre_ids
         ]);
-        $movie->user_id = $user_id;
-        $movie->save();
-
+        $film->save();
 
         return ['ok' => true];
+        
     }
 
-    public function deleteMovie()
+    public function deleteMovie(Request $request)
     {
+        if (!Session::has('user_id')) {
+            return ['ok' => false];
+        }
+
+        // Recupera l'ID dell'utente dalla sessione
+        $user_id = Session::get('user_id');
+
+        // Recupera l'ID del film dalla richiesta
+        $movieId = $request->post('movieId');
+
+        // Verifica se il film esiste per l'utente
+        $filmEsistente = Movie::where('content->movieId', $movieId)
+            ->where('user', $user_id)
+            ->first();
+
+        if ($filmEsistente) {
+            // Elimina il film se esiste
+            $filmEsistente->delete();
+            return ['ok' => true];
+        }
+
+        return ['ok' => false];
+    }
+
+    public function getFavoriteMovie(Request $request)
+    {
+        // Verifica se l'ID utente è presente nella sessione
+        if (!Session::has('user_id')) {
+            return response()->json(['ok' => false, 'error' => 'Unauthorized'], 401);
+        }
+
+        // Recupera l'ID dell'utente dalla sessione
+        $user_id = Session::get('user_id');
+
+        // Esegui la query per trovare i film preferiti dell'utente
+        $films = Movie::where('user_id', $user_id)->get();
+
+        // Restituisci i film in formato JSON
+        return response()->json(['ok' => true, 'films' => $films]);
     }
 
     

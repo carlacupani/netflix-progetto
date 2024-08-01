@@ -36,6 +36,7 @@ Route::post('delete_movie', [HomeController::class, 'deleteMovie'])->name('delet
 Route::get('details_movie', [HomeController::class, 'showDetailsMovie']);
 Route::get('details_serietv', [HomeController::class, 'showDetailsSerietv']);
 
+
 // Api film routes
 Route::get('genre/movie/list', [ApiController::class, 'getGenreMovieList'])->name('genre_movie_list');
 Route::get('search/movie', [ApiController::class, 'getSearchMovie'])->name('search_movie');
@@ -60,6 +61,8 @@ Route::get('search/serietv', [ApiController::class, 'getSearchSerietv'])->name('
 Route::get('profile', [HomeController::class, 'showProfile'])->name('profile');
 Route::get('edit_profile', [HomeController::class, 'showEditProfile'])->name('edit_profile');
 Route::post('edit_profile', [HomeController::class, 'editProfile'])->name('edit_profile');
+Route::get('favorite_movie', [HomeController::class, 'getFavoriteMovie'])->name('favorite_movie');
+
 
 // Logout routes
 Route::get('logout', function() {

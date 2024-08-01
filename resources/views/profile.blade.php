@@ -29,7 +29,7 @@
             </a>
             <ul class="navbar-links">
                 <li><a href="{{ URL::to("home") }}">Film</a></li>
-                <li><a href="{{ URL::to("serietv") }}">Serie Tv</a></li>
+                <!--<li><a href="{{ URL::to("serietv") }}">Serie Tv</a></li> -->
                 <li><a href="{{ URL::to("profile") }}">La mia lista</a></li>
             </ul>
         </div>
@@ -54,7 +54,7 @@
         -->
             <!-- ACCOUNT -->
             <div class="userInfo">
-                <a href="./profile.php">
+                <a href="{{ URL::to("profile") }}">
                     <div class="avatar" >
                     </div>
                 </a>
@@ -66,9 +66,11 @@
     <section class="profile-section">
         <div class="profile">
             <div class="profile-pic" >
+
             </div>
 
-            <span class="profile-name">Nome
+            <span class="profile-name">
+                {{ $user->username }}
             </span>
         </div>
         <div class="profile-buttons">
@@ -83,7 +85,9 @@
     </section>
     <!--FAVORITE FILMS-->
     <main>
-        <article class="container" page-content></article>
+        <article class="container" page-content>
+            
+        </article>
     </main>
 
     <!--FOOTER-->

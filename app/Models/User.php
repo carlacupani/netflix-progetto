@@ -10,8 +10,8 @@ class User extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    public function songs()
+    public function films()
     {
-        return $this->hasMany("App\Models\Movie", "user_id");
+        return $this->hasMany("App\Models\Movie", "user");
     }
 }
