@@ -30,7 +30,7 @@
             <div class="edit-account-body">
                 <h2 class="title">Modifica Profilo</h2>
                 <form name="edit" method="post" enctype="multipart/form-data" action="#" class="edit-account-form" autocomplete="off">
-                    <input type="hidden" name="current_avatar" />
+                    <input type="hidden" name="current_avatar"/>
                     <div class="form-control">
                         <div class="name">
                             <input type="text" name="name"  required />
@@ -65,16 +65,6 @@
                         <div class="confirm_password">
                             <input type="password" name="confirm_new_password" />
                             <label for="confirm_new_password">Conferma Nuova Password</label>
-                        </div>
-                    </div>
-                    <div class="form-control">
-                        <div class="fileupload">
-                            <input type="file" name="avatar" accept='.jpg, .jpeg, image/gif, image/png' id="upload_original" />
-                            <div id="upload">
-                                <div class="file_name">Seleziona un file...</div>
-                                <div class="file_size"></div>
-                            </div>
-                            <span>Le dimensioni del file superano 7 MB</span>
                         </div>
                     </div>
                     <div class="container-btn">
