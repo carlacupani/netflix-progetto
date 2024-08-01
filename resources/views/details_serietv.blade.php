@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
   <!--css link-->
-  <link rel="stylesheet" href='{{ URL::to("css/home.css") }}'>
+  <link rel="stylesheet" href='{{ URL::to("css/serietv.css") }}'>
   <!--custom js link-->
   <script src='{{ URL::to("js/global.js") }}' defer></script>
   <script src='{{ URL::to("js/detail_serietv.js") }}' type="module"></script>
