@@ -68,7 +68,7 @@
             <div class="profile-pic" >
             </div>
 
-            <span class="profile-name">carla
+            <span class="profile-name">Nome
             </span>
         </div>
         <div class="profile-buttons">

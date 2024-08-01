@@ -225,6 +225,7 @@ nav{
     width: 48px;
     height: 48px;
     border-radius: var(--radius-8);
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png');
     background-color: var(--white);
     background-size: cover;
     background-position: center;
@@ -501,7 +502,10 @@ nav{
 }
 
 .profile-pic {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png');
     background-color: var(--white);
+    background-size: cover;
+    background-position: center;
     border-radius: 50%;
     width: 60px;
     height: 60px;
