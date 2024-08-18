@@ -30,23 +30,23 @@ Assicurati di avere i seguenti strumenti installati prima di procedere con l'ins
 
 Segui questi passaggi per configurare l'ambiente di sviluppo e avviare il progetto.
 
-1. Clonare il repository:
+### Clonare il repository:
     ```bash
     git clone https://github.com/carlacupani/netflix-progetto.git
     cd netflix-progetto
 
-2. Installare le dipendenze PHP e JavaScript:
+### Installare le dipendenze PHP e JavaScript:
     composer install
     npm install
     npm run dev
 
-4. Configurare l'ambiente:
-   cp .env.example .env
+### Configurare l'ambiente:
+    cp .env.example .env
 
-5. Migrare il database:
-   php artisan migrate
+### Migrare il database:
+    php artisan migrate
 
-## Avviare il server di sviluppo
+### Avviare il server di sviluppo
     php artisan serve
 L'applicazione sarà accessibile su http://localhost:8000.
 
