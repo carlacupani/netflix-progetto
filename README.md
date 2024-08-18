@@ -51,6 +51,6 @@ Segui questi passaggi per configurare l'ambiente di sviluppo e avviare il proget
 L'applicazione sarà accessibile su http://localhost:8000.
 
 ## Contatti
-Per qualsiasi domanda o suggerimento, puoi contattarmi via email: cpnclp00@example.com
+Per qualsiasi domanda o suggerimento, puoi contattarmi via email: cpnclp00@gmail.com
 
 
