@@ -1,66 +1,56 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Netflix Clone
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Clone di Netflix sviluppato per un progetto universitario. Questo progetto è una replica del famoso servizio di streaming, progettato per dimostrare competenze in sviluppo web utilizzando Laravel.
 
-## About Laravel
+## Descrizione
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Questo progetto è un clone di Netflix, realizzato come parte di un progetto accademico. L'obiettivo è riprodurre alcune delle funzionalità principali di Netflix, come la visualizzazione di film e serie TV, la gestione degli utenti. È stato sviluppato utilizzando il framework PHP Laravel e altri strumenti moderni di sviluppo web.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Funzionalità
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Il clone di Netflix include le seguenti funzionalità:
 
-## Learning Laravel
+- **Visualizzare film e serie TV:** Gli utenti possono navigare e visualizzare una vasta gamma di film e serie TV disponibili.
+- **Visualizzare i dettagli di film e serie TV:** Ogni film e serie TV ha una pagina dedicata che mostra i dettagli come il titolo, la descrizione, il genere, la durata, il cast e altro.
+- **Aggiungere o rimuovere film e serie TV dai preferiti:** Gli utenti possono aggiungere film e serie TV alla loro lista di preferiti e rimuoverli quando lo desiderano.
+- **Visualizzare la lista dei preferiti nella pagina del profilo:** Gli utenti possono accedere alla loro pagina profilo per vedere tutti i film e le serie TV che hanno aggiunto ai preferiti.
+- **Modificare i dati del profilo:** Gli utenti possono aggiornare le informazioni del proprio profilo, come il nome, il cognome, l'username, l'email e la password.
+- **Integrazione con TMDB:** L'applicazione utilizza le API di TMDB per ottenere informazioni su film e serie TV. Le chiavi API per accedere a TMDB sono configurabili nel file `.env`.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Prerequisiti
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Assicurati di avere i seguenti strumenti installati prima di procedere con l'installazione:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP >= 8.0
+- Composer
+- MySQL
+- [TMDB API Key](https://www.themoviedb.org/settings/api)
 
-## Laravel Sponsors
+## Installazione
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Segui questi passaggi per configurare l'ambiente di sviluppo e avviare il progetto.
 
-### Premium Partners
+1. Clonare il repository:
+    ```bash
+    git clone https://github.com/carlacupani/netflix-progetto.git
+    cd netflix-progetto
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+2. Installare le dipendenze PHP e JavaScript:
+    composer install
+    npm install
+    npm run dev
 
-## Contributing
+4. Configurare l'ambiente:
+   cp .env.example .env
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5. Migrare il database:
+   php artisan migrate
 
-## Code of Conduct
+## Avviare il server di sviluppo
+    php artisan serve
+L'applicazione sarà accessibile su http://localhost:8000.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Contatti
+Per qualsiasi domanda o suggerimento, puoi contattarmi via email: cpnclp00@example.com
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
