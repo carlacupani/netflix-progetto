@@ -62,8 +62,8 @@ Route::get('genre/serietv/list', [ApiController::class, 'getGenreSerietvList'])-
 Route::get('search/serietv', [ApiController::class, 'getSearchSerietv'])->name('search_serietv');
 
 // Profile routes
-Route::get('user/profile', [HomeController::class, 'showProfile'])->name('profile');
-Route::get('', [HomeController::class, 'showEditProfile'])->name('edit_profile');
+Route::get('profile', [HomeController::class, 'showProfile'])->name('profile');
+Route::get('edit_profile', [HomeController::class, 'showEditProfile'])->name('edit_profile');
 Route::post('edit_profile', [HomeController::class, 'editProfile'])->name('edit_profile');
 Route::get('favorite_movie', [HomeController::class, 'getFavoriteMovie'])->name('favorite_movie');
 
