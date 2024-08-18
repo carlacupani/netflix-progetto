@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Movie;
 
@@ -20,9 +21,9 @@ class HomeController extends BaseController
     
     public function showHome()
     {
-       # if (!Session::has('user_id')) {
-        #    return redirect('login');
-       # }
+        if (!Session::has('user_id')) {
+            return redirect('login');
+        }
         return view('home');
     }
     public function showSerietv()
@@ -32,19 +33,35 @@ class HomeController extends BaseController
 
     public function showProfile()
     {
-        /**if (!Session::has('user_id')) {
+        // Verifica se l'utente è autenticato
+        if (!Session::has('user_id')) {
             return redirect('login');
         }
+        
+        // Trova l'utente tramite l'ID salvato nella sessione
         $user = User::find(Session::get('user_id'));
-        $movies = $user->movies;
-        # parse each content that is a json string
-        foreach ($movies as $movie) {
-            $movie->content = json_decode($movie->content);
+        
+        // Verifica se l'utente è stato trovato
+        if (!$user) {
+            return redirect('login'); // Oppure un'altra azione appropriata
         }
+        
+        // Recupera i film associati all'utente, se presenti
+        $movies = $user->movies ?? collect();
+    
+        // Verifica se ci sono film e decodifica il contenuto JSON
+        if ($movies->isNotEmpty()) {
+            foreach ($movies as $movie) {
+                $movie->content = json_decode($movie->content);
+            }
+        }
+        
+        // Ritorna la vista del profilo con i dati dell'utente e i film
         return view('profile')
-            ->with('user', $user)->with('movies', $movies); */
-            return view('profile');
+            ->with('user', $user)
+            ->with('movies', $movies);
     }
+    
 
     public function showEditProfile()
     {
@@ -64,6 +81,28 @@ class HomeController extends BaseController
         return view('details_serietv');
     }
     
+    public function checkMovie(Request $request){
+
+        $movieId = $request->input('movieId');
+        $userid = $request->input('movieId');
+
+        // Query per verificare se il film è presente nei preferiti dell'utente
+        $result = DB::table('films')
+                    ->where('user', $userid)
+                    ->whereRaw("JSON_EXTRACT(content, '$.movieId') = ?", [$movieId])
+                    ->exists();
+    
+        // Controlla se ci sono risultati
+        if ($result) {
+            // Il film è stato aggiunto ai preferiti
+            return response()->json(['isFavorited' => true]);
+        } else {
+            // Il film non è stato aggiunto ai preferiti
+            return response()->json(['isFavorited' => false]);
+        }
+        
+    }
+
     public function saveMovie(Request $request)
     {
         if (!Session::has('user_id')) {

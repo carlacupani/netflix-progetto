@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends BaseController
 {
@@ -29,18 +30,18 @@ class AuthController extends BaseController
     
         $error = array();
     
-        if (!empty($request->input('username')) && !empty($request->input('password'))) {
-            $user = User::where('username', $request->input('username'))->first();
+        if (!empty($request->input('email')) && !empty($request->input('password'))) {
+            $user = User::where('email', $request->input('email'))->first();
             
             if (!$user) {
-                $error['username'] = "Username non trovato";
+                $error['email'] = "Email non trovata";
             } else {
                 if (!password_verify($request->input('password'), $user->password)) {
                     $error['password'] = "Password errata";
                 }
             }
         } else {
-            $error['username'] = "Inserisci username e password";
+            $error['email'] = "Inserisci email e password";
         }
     
         if (count($error) == 0) {
@@ -90,6 +91,74 @@ class AuthController extends BaseController
         }
     }
 
+    public function registerUser(Request $request) {
+        if (Session::has('user_id')) {
+            return response()->json(['redirect' => 'home'], 200);
+        }
+    
+        // Logga i dati ricevuti per il debug
+        Log::info('Dati ricevuti:', $request->all());
+    
+        // Ottieni e hash la password
+        $password = password_hash($request->input('password'), PASSWORD_BCRYPT);
+    
+        // Crea un nuovo utente
+        $user = new User;
+        $user->username = $request->input('username');
+        $user->password = $password;
+        $user->name = $request->input('name');
+        $user->surname = $request->input('surname');
+        $user->email = $request->input('email');
+    
+        // Prova a salvare il nuovo utente
+        try {
+            $user->save();
+        } catch (\Exception $e) {
+            Log::error('Errore durante il salvataggio dell\'utente:', ['exception' => $e]);
+            return response()->json(['error' => 'Errore durante il salvataggio dell\'utente.'], 500);
+        }
+    
+        // Salva l'ID dell'utente nella sessione
+        Session::put('user_id', $user->id);
+    
+        // Reindirizza l'utente alla home
+        return response()->json(['redirect' => 'home'], 200);
+    }
+
+
+    public function loginUser(Request $request)
+    {
+        $user = User::where('email', $request->input('email'))->first();
+    
+        if (!$user) {
+            return redirect('login');
+        }
+    
+        if (!password_verify($request->input('password'), $user->password)) {
+            return redirect('login');
+        }
+    
+        // Test per verificare se la sessione viene impostata
+        Session::put('test_key', 'test_value');
+    
+        if (Session::get('test_key') !== 'test_value') {
+            return redirect('login');
+        }
+    
+        Session::put('user_id', $user->id);
+    
+        return redirect('home');
+    }
+    
+    
+    
+
+
+
+
+    
+    
+    
 
 
     /**

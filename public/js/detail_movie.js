@@ -245,6 +245,9 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
     // Funzione per gestire il salvataggio del film
     function saveMovie() {
       // Prepara i dati da inviare al server
+
+      const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
       const formData = new FormData();
       formData.append('movieId', movieId);
       formData.append('title', title);
@@ -262,6 +265,9 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
       // Invia la richiesta al server
       fetch(url, {
         method: 'POST',
+        headers: {
+          'X-CSRF-TOKEN': token,
+        },
         body: formData
       })
       .then(response => response.json())
@@ -286,14 +292,21 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
     // Funzione per inizializzare lo stato del bottone
     function checkIfMovieIsFavorited() {
       // Prepara i dati da inviare al server
+      var userIdElement = document.getElementById('userId');
+      var userId = userIdElement ? userIdElement.getAttribute('data-user-id') : null;
+      const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
       const formData = new FormData();
       formData.append('movieId', movieId);
+      formData.append('userId', userId);
+
     
       fetch("check_movie", {
         method: 'POST',
+        headers: {
+          'X-CSRF-TOKEN': token,
+        },
         body: formData
       })
-      .then(response => response.json())
       .then(data => {
         if (data.isFavorited) {
           addToFavoritesButton.textContent = "Aggiunto!";

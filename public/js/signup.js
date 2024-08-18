@@ -46,56 +46,84 @@ function fetchResponse(response) {
     return response.json();
 }
 
-function checkUsername(event) {
+function checkUsername() {
     const input = document.querySelector('.username input');
     const username = input.value;
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    // Verifica il formato del nome utente e invia richiesta al server
-    if (!/^[a-zA-Z0-9_]{1,15}$/.test(input.value)) {
-        input.parentNode.querySelector('span').textContent = "Sono ammesse lettere, numeri e underscore. Max. 15";
-        input.parentNode.classList.add('errorj');
-        formStatus.username = false;
-    } else {
-        fetch("/signup/check/username", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': token 
-            },
-            body: JSON.stringify({ username : username })
-        })
-        .then(fetchResponse)
-        .catch(error => console.error('Error:', error));
-    }    
+    return new Promise((resolve, reject) => {
+        if (!/^[a-zA-Z0-9_]{1,15}$/.test(input.value)) {
+            input.parentNode.querySelector('span').textContent = "Sono ammesse lettere, numeri e underscore. Max. 15";
+            input.parentNode.classList.add('errorj');
+            resolve(false);  // Nome utente non valido
+        } else {
+            fetch("/signup/check/username", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': token 
+                },
+                body: JSON.stringify({ username: username })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.exists) {
+                    input.parentNode.querySelector('span').textContent = "Nome utente già in uso";
+                    input.parentNode.classList.add('errorj');
+                    resolve(false);  // Nome utente esistente
+                } else {
+                    input.parentNode.querySelector('span').textContent = "";
+                    input.parentNode.classList.remove('errorj');
+                    resolve(true);  // Nome utente valido
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                reject(error);  // Errore nella richiesta
+            });
+        }
+    });
 }
 
-
-
-function checkEmail(event) {
+function checkEmail() {
     const emailInput = document.querySelector('.email input');
     const email = emailInput.value;
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    // Verifica la validità dell'email e invia richiesta al server
-    if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(String(emailInput.value).toLowerCase())) {
-        document.querySelector('.email span').textContent = "Email non valida";
-        document.querySelector('.email').classList.add('errorj');
-        formStatus.email = false;
-    } else {
-        fetch("/signup/check/email", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': token
-            },
-            body: JSON.stringify({ email: email })
-        })
-        .then(fetchResponse)
-        .catch(error => console.error('Error:', error));
-        
-    }
+    return new Promise((resolve, reject) => {
+        if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
+            document.querySelector('.email span').textContent = "Email non valida";
+            document.querySelector('.email').classList.add('errorj');
+            resolve(false);  // Email non valida
+        } else {
+            fetch("/signup/check/email", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': token
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.exists) {
+                    document.querySelector('.email span').textContent = "Email già in uso";
+                    document.querySelector('.email').classList.add('errorj');
+                    resolve(false);  // Email esistente
+                } else {
+                    document.querySelector('.email span').textContent = "";
+                    document.querySelector('.email').classList.remove('errorj');
+                    resolve(true);  // Email valida
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                reject(error);  // Errore nella richiesta
+            });
+        }
+    });
 }
+
 
 function checkPassword(event) {
     const passwordInput = document.querySelector('.password input');
@@ -157,6 +185,66 @@ function checkSignup(event) {
         event.preventDefault();
     }
 }
+
+// Seleziona il form
+const form = document.forms['signup'];
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault(); // Previene l'invio tradizionale del form
+
+    // Esegui entrambe le verifiche contemporaneamente
+    Promise.all([checkUsername(), checkEmail()])
+        .then(results => {
+            const [isUsernameValid, isEmailValid] = results;
+
+            if (isUsernameValid && isEmailValid ) {
+                // Se entrambe le verifiche sono valide, procedi con la registrazione
+                registerUser();
+            } else {
+                // Se una delle verifiche non è valida, mostra un messaggio di errore
+                alert('Correggi i campi evidenziati prima di procedere con la registrazione.');
+            }
+        })
+        .catch(error => {
+            console.error('Errore durante la verifica di email o username:', error);
+            alert('Si è verificato un errore durante la verifica. Riprova.');
+        });
+});
+
+function registerUser() {
+    const form = document.querySelector('form'); // Assicurati che questo selettore corrisponda al tuo form
+    const formData = new FormData(form);
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    fetch('form/register', {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': token,
+            // 'Content-Type': 'application/json' // Non è necessario per FormData
+        },
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json(); // Assicurati che il controller restituisca JSON
+    })
+    .then(data => {
+        console.log('Registrazione avvenuta con successo:', data);
+        alert('Registrazione completata con successo!');
+        // Puoi reindirizzare l'utente o fare altre azioni
+        window.location.href = 'home'; // Reindirizza manualmente se necessario
+    })
+    .catch(error => {
+        console.error('Errore durante la registrazione:', error);
+        alert('Si è verificato un errore durante la registrazione. Riprova.');
+    });
+}
+
+
+
+
 
 const formStatus = { 'upload': true };
 

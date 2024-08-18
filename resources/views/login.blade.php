@@ -29,7 +29,7 @@
         <div class="header-content">
             <div class="login-body">
                 <h2 class="title">Accedi</h2>
-                <form name="login" method="post" enctype="multipart/form-data" action="#" class="login-form" autocomplete="off">
+                <form name="login" method="post" enctype="multipart/form-data" action="{{ url('form/login') }}" class="login-form" autocomplete="off">
                 @csrf
                     <!-- Seleziono il valore di ogni campo sulla base dei valori inviati al server via POST -->
                     <div class="form-control">
@@ -40,7 +40,7 @@
                         <input type="password" name="password" value='{{ old("password") }}' required />
                         <label for="password">Password</label>
                     </div>
-                    <button type="submit" >Accedi</button>
+                    <button id="loginBtn" type="submit">Accedi</button>
                     <div class="form-help">
                         <div class="remember-me">
                             <input type="checkbox" id="remember-me" />

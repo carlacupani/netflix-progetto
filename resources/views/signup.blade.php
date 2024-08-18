@@ -30,7 +30,7 @@
         <div class="header-content">
             <div class="login-body">
                 <h2 class="title">Registrati</h2>
-                <form name="login" method="post" enctype="multipart/form-data" action="#" class="login-form" autocomplete="off">
+                <form name="signup" method="post" enctype="multipart/form-data" action="#" class="login-form" autocomplete="off">
                     @csrf
                     <div class="form-control">
                         <div class="name">
@@ -91,7 +91,7 @@
                         <a href="#">Hai dimenticato la password?</a>
                     </div>
 
-                    <button type="submit">Registrati</button>
+                    <button id="register" type="submit">Registrati</button>
                 </form>
                 <p class="sign-up">Hai già un account Netflix? <a href="{{ URL::to('login') }}" >Accedi</a></p>
                 <p class="short-desc">
