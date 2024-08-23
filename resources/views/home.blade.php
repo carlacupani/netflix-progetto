@@ -23,14 +23,14 @@
 
 <body>
   <!--HEADER-->
-  <header class="header" id="home" >
+  <header class="header" id="home">
     <div class="navbar-left">
       <a href="{{ URL::to("home") }}" class="logo">
         <img src='{{ URL::to("images/logo.png") }}' width="140" height="32">
       </a>
       <ul class="navbar-links">
         <li><a href="{{ URL::to("home") }}">Film</a></li>
-        <!--<li><a href="{{ URL::to("serietv") }}">Serie Tv</a></li> -->
+        <li><a href="{{ URL::to("serietv") }}">Serie Tv</a></li>
         <li><a href="{{ URL::to("profile") }}">La mia lista</a></li>
       </ul>
     </div>
@@ -55,7 +55,7 @@
       <!-- ACCOUNT -->
       <div class="userInfo">
         <a href="{{ URL::to("profile") }}">
-          <div class="avatar" >
+          <div class="avatar">
           </div>
         </a>
       </div>
@@ -63,41 +63,41 @@
   </header>
 
   <main>
-    <!--FILM--> 
+    <!--FILM-->
     <article class="container" page-content></article>
   </main>
 
   <!--FOOTER-->
   <footer>
-        <h2>Domande? Chiama 800-130-364</h2>
-        <div class="row">
-            <div class="col">
-                <a href="#">Autodescrizione</a>
-                <a href="#">Rapporti con gli investitori</a>
-                <a href="#">Note legali</a>
-                <a href="#">Preferenze per la pubblicità</a>
-            </div>
-            <div class="col">
-                <a href="#">Centro assistenza</a>
-                <a href="#">Opportunità di lavoro</a>
-                <a href="#">Preferenze per i cookie</a>
-                <a href="#"> </a>
-            </div>
-            <div class="col">
-                <a href="#">Carte regalo</a>
-                <a href="#">Condizioni di utilizzo</a>
-                <a href="#">Informazioni sull'azienda</a>
-                <a href="#"> </a>
-            </div>
-            <div class="col">
-                <a href="#">Media Center</a>
-                <a href="#">Privacy</a>
-                <a href="#">Contattaci</a>
-                <a href="#"> </a>
-            </div>
-        </div>
-        <p class="copyright-txt">Netflix Italia</p>
-    </footer>
+    <h2>Domande? Chiama 800-130-364</h2>
+    <div class="row">
+      <div class="col">
+        <a href="#">Autodescrizione</a>
+        <a href="#">Rapporti con gli investitori</a>
+        <a href="#">Note legali</a>
+        <a href="#">Preferenze per la pubblicità</a>
+      </div>
+      <div class="col">
+        <a href="#">Centro assistenza</a>
+        <a href="#">Opportunità di lavoro</a>
+        <a href="#">Preferenze per i cookie</a>
+        <a href="#"> </a>
+      </div>
+      <div class="col">
+        <a href="#">Carte regalo</a>
+        <a href="#">Condizioni di utilizzo</a>
+        <a href="#">Informazioni sull'azienda</a>
+        <a href="#"> </a>
+      </div>
+      <div class="col">
+        <a href="#">Media Center</a>
+        <a href="#">Privacy</a>
+        <a href="#">Contattaci</a>
+        <a href="#"> </a>
+      </div>
+    </div>
+    <p class="copyright-txt">Netflix Italia</p>
+  </footer>
 </body>
 
 </html>
