@@ -307,6 +307,7 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
         },
         body: formData
       })
+      .then(response => response.json())
       .then(data => {
         if (data.isFavorited) {
           addToFavoritesButton.textContent = "Aggiunto!";

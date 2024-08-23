@@ -84,11 +84,11 @@ class HomeController extends BaseController
     public function checkMovie(Request $request){
 
         $movieId = $request->input('movieId');
-        $userid = $request->input('movieId');
-
+        $userId = $request->input('userId'); // Corretto qui
+    
         // Query per verificare se il film è presente nei preferiti dell'utente
         $result = DB::table('films')
-                    ->where('user', $userid)
+                    ->where('user', $userId)
                     ->whereRaw("JSON_EXTRACT(content, '$.movieId') = ?", [$movieId])
                     ->exists();
     
@@ -100,8 +100,8 @@ class HomeController extends BaseController
             // Il film non è stato aggiunto ai preferiti
             return response()->json(['isFavorited' => false]);
         }
-        
     }
+    
 
     public function saveMovie(Request $request)
     {
@@ -189,8 +189,10 @@ class HomeController extends BaseController
         // Recupera l'ID dell'utente dalla sessione
         $user_id = Session::get('user_id');
 
-        // Esegui la query per trovare i film preferiti dell'utente
-        $films = Movie::where('user_id', $user_id)->get();
+        // Esegui la query per trovare i film preferiti dell'utente utilizzando il QueryBuilder
+        $films = DB::table('films')
+                    ->where('user', $user_id)
+                    ->get();
 
         // Restituisci i film in formato JSON
         return response()->json(['ok' => true, 'films' => $films]);

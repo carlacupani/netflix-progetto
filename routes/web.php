@@ -65,7 +65,7 @@ Route::get('search/serietv', [ApiController::class, 'getSearchSerietv'])->name('
 Route::get('profile', [HomeController::class, 'showProfile'])->name('profile');
 Route::get('edit_profile', [HomeController::class, 'showEditProfile'])->name('edit_profile');
 Route::post('edit_profile', [HomeController::class, 'editProfile'])->name('edit_profile');
-Route::get('favorite_movie', [HomeController::class, 'getFavoriteMovie'])->name('favorite_movie');
+Route::get('film/favorite_movie', [HomeController::class, 'getFavoriteMovie']);
 
 
 // Logout routes

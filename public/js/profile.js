@@ -1,7 +1,6 @@
 "use strict";
 
-import { createMovieCard } from "./favorite-movie-card.js";
-import { fetchDataFromServer } from "./api.js";
+//import { fetchDataFromServer } from "./api.js";
 
 const pageContent = document.querySelector("[page-content]");
 
@@ -53,7 +52,16 @@ const createFavoriteMovieList = function (movies) {
 };
 
 // Fetch dei film preferiti dal server
-fetchDataFromServer("favorite_movie", createFavoriteMovieList);
+//fetchDataFromServer("favorite_movie", createFavoriteMovieList);
+
+fetch("film/favorite_movie")
+  .then((response) => response.json())
+  .then((data) => {
+    // Popolazione della lista dei generi con i dati ricevuti dal server
+    console.log(data.films);
+    createFavoriteMovieList(data.films);
+})
+  .catch((error) => console.error("Error:", error));
 
 // fetchDataFromServer("favorite_movie", createFavoriteSerieList); 
 
