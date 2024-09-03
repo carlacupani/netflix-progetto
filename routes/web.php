@@ -63,8 +63,8 @@ Route::get('search/serietv', [ApiController::class, 'getSearchSerietv'])->name('
 
 // Profile routes
 Route::get('profile', [HomeController::class, 'showProfile'])->name('profile');
-Route::get('edit_profile', [HomeController::class, 'showEditProfile'])->name('edit_profile');
-Route::post('edit_profile', [HomeController::class, 'editProfile'])->name('edit_profile');
+Route::get('edit_profile/{id}', [HomeController::class, 'showEditProfile'])->name('edit_profile');
+Route::put('edit_profile/{id}', [HomeController::class, 'editProfile'])->name('edit_profile');
 
 // Mia lista routes
 Route::get('mialista', [HomeController::class, 'showMiaLista'])->name('mialista');

@@ -94,7 +94,7 @@
                 </table>
             </div>
             <div class="profile-buttons">
-                <a href="{{ URL::to("edit_profile") }}">
+                <a href="{{ URL::to("edit_profile/$user->id") }}">
                     <button class="edit-account-btn" id="edit-account-btn">Modifica</button>
                 </a>
                 <a href="{{ URL::to("logout") }}">

@@ -49,10 +49,50 @@ class HomeController extends BaseController
     
     public function showEditProfile()
     {
-        return view('edit_profile');
+        if (!Session::has('user_id')) {
+            return redirect('login');
+        }
+        
+        $user = User::find(Session::get('user_id'));
+        
+        if (!$user) {
+            return redirect('login');
+        }
+
+        return view('edit_profile')
+            ->with('user', $user);;
     }
-    public function editProfile()
+    public function editProfile(Request $request)
     {
+
+        if (!Session::has('user_id')) {
+            return redirect('login');
+        }
+        
+        $user = User::find(Session::get('user_id'));
+        
+        if (!$user) {
+            return redirect('login');
+        }
+        // Aggiorna i campi dal form
+        $user->name = $request->input('name');
+        $user->surname = $request->input('surname');
+        $user->username = $request->input('username');
+        $user->email = $request->input('email');
+
+        // Gestione della password
+        if ($request->filled('new_password')) {
+            if ($request->input('new_password') === $request->input('confirm_new_password')) {
+                $user->password = bcrypt($request->input('new_password'));
+            } else {
+                return redirect('edit_profile/'. $user->id)->with('error', 'Le password non coincidono');
+            }
+        }
+
+        // Salva l'utente aggiornato nel database
+        $user->save();
+
+        return redirect('profile')->with('success', 'user updated successfully');
 
     }
 
