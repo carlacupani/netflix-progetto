@@ -49,8 +49,6 @@ Route::get('movie/top_rated', [ApiController::class,'getTopratedMovie'])->name('
 Route::get('trending/movie/week', [ApiController::class,'getTrendingMovie'])->name('trending_movie');
 Route::get('movie/upcoming', [ApiController::class,'getUpcomingMovie'])->name('upcoming_movie');
 
-
-
 // Api serietv routes
 Route::get('serietv/details', [ApiController::class,'getDetailsSerietv'])->name('serietv_details');
 Route::get('serietv/recommendations', [ApiController::class,'getRecommendationsSerietv'])->name('recommendations_serietv');
@@ -65,7 +63,14 @@ Route::get('search/serietv', [ApiController::class, 'getSearchSerietv'])->name('
 Route::get('profile', [HomeController::class, 'showProfile'])->name('profile');
 Route::get('edit_profile', [HomeController::class, 'showEditProfile'])->name('edit_profile');
 Route::post('edit_profile', [HomeController::class, 'editProfile'])->name('edit_profile');
-Route::get('film/favorite_movie', [HomeController::class, 'getFavoriteMovie']);
+
+// Mia lista routes
+Route::get('mialista', [HomeController::class, 'showMiaLista'])->name('mialista');
+Route::get('favorite_movie', [HomeController::class, 'getFavoriteMovie']);
+
+// Api random quotes from anime
+Route::get('random_quote', [ApiController::class, 'getRandomQuote']);
+
 
 
 // Logout routes

@@ -33,20 +33,39 @@ class HomeController extends BaseController
 
     public function showProfile()
     {
-        // Verifica se l'utente è autenticato
         if (!Session::has('user_id')) {
             return redirect('login');
         }
         
-        // Trova l'utente tramite l'ID salvato nella sessione
         $user = User::find(Session::get('user_id'));
         
-        // Verifica se l'utente è stato trovato
         if (!$user) {
-            return redirect('login'); // Oppure un'altra azione appropriata
+            return redirect('login');
         }
         
-        // Recupera i film associati all'utente, se presenti
+        return view('profile')
+            ->with('user', $user);
+    }
+    
+    public function showEditProfile()
+    {
+        return view('edit_profile');
+    }
+    public function editProfile()
+    {
+
+    }
+
+    public function showMiaLista(){
+        if (!Session::has('user_id')) {
+            return redirect('login');
+        }
+
+        $user = User::find(Session::get('user_id'));
+        if (!$user) {
+            return redirect('login');
+        }
+
         $movies = $user->movies ?? collect();
     
         // Verifica se ci sono film e decodifica il contenuto JSON
@@ -57,21 +76,11 @@ class HomeController extends BaseController
         }
         
         // Ritorna la vista del profilo con i dati dell'utente e i film
-        return view('profile')
+        return view('mialista')
             ->with('user', $user)
             ->with('movies', $movies);
-    }
-    
-
-    public function showEditProfile()
-    {
-        return view('edit_profile');
-    }
-    public function editProfile()
-    {
 
     }
-
     public function showDetailsMovie()
     {
         return view('details_movie');

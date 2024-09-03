@@ -63,46 +63,12 @@
         </div>
     </header>
 
-    <!--PROFILE-->
-    <section class="profile-section">
-        <div class="profile">
-            <div class="profile-pic">
+    <!--FAVORITE FILMS-->
+    <main>
+        <article class="container" page-content>
 
-            </div>
-
-            <span class="profile-name">
-                Name: {{ $user->name }}
-            </span>
-            <span class="profile-name">
-                Surname: {{ $user->surname }}
-            </span>
-            <span class="profile-name">
-                Username: {{ $user->username }}
-            </span>
-            <span class="profile-name">
-                Email: {{ $user->email }}
-            </span>
-
-        </div>
-        <div class="profile-buttons">
-            <a href="{{ URL::to("edit_profile") }}">
-                <button class="edit-account-btn" id="edit-account-btn">Modifica</button>
-            </a>
-            <a href="{{ URL::to("logout") }}">
-                <button class="logout-btn" id="logout-btn">Logout</button>
-            </a>
-        </div>
-    </section>
-
-    <!--RANDOM QUOTE-->
-    <section class="quote-wrapper">
-        <div id="quote-box" class="quote-box">
-            <blockquote class="blockquote" id="quote">frase iconica
-                <footer id="autore">Autore</footer>
-            </blockquote>
-            <button id="newquote" class="quote-btn" type="button">Nuova citazione</button>
-        </div>
-    </section>
+        </article>
+    </main>
 
     <!--FOOTER-->
     <footer>
