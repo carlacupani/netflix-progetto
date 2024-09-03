@@ -36,7 +36,9 @@ Route::post('delete_movie', [HomeController::class, 'deleteMovie'])->name('delet
 Route::get('details_movie', [HomeController::class, 'showDetailsMovie']);
 Route::get('details_serietv', [HomeController::class, 'showDetailsSerietv']);
 Route::post('check_movie', [HomeController::class,'checkMovie']);
+Route::post('check_serie', [HomeController::class,'checkSerie']);
 Route::post('save_movie', [HomeController::class, 'saveMovie']);
+Route::post('save_serie', [HomeController::class, 'saveSerie']);
 
 
 // Api film routes

@@ -60,6 +60,7 @@
   <main>
     <div class="overlay" overlay menu-toggler></div>
     <article class="container" page-content></article>
+    <div hidden id="userId" data-user-id="{{ Session::get('user_id') }}"></div>
   </main>
 
   <!--FOOTER-->
