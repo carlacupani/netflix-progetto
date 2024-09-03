@@ -36,7 +36,9 @@ Route::post('delete_movie', [HomeController::class, 'deleteMovie'])->name('delet
 Route::get('details_movie', [HomeController::class, 'showDetailsMovie']);
 Route::get('details_serietv', [HomeController::class, 'showDetailsSerietv']);
 Route::post('check_movie', [HomeController::class,'checkMovie']);
+Route::post('check_serie', [HomeController::class,'checkSerie']);
 Route::post('save_movie', [HomeController::class, 'saveMovie']);
+Route::post('save_serie', [HomeController::class, 'saveSerie']);
 
 
 // Api film routes
@@ -48,8 +50,6 @@ Route::get('movie/popular', [ApiController::class,'getPopularMovieList'])->name(
 Route::get('movie/top_rated', [ApiController::class,'getTopratedMovie'])->name('toprated_movie');
 Route::get('trending/movie/week', [ApiController::class,'getTrendingMovie'])->name('trending_movie');
 Route::get('movie/upcoming', [ApiController::class,'getUpcomingMovie'])->name('upcoming_movie');
-
-
 
 // Api serietv routes
 Route::get('serietv/details', [ApiController::class,'getDetailsSerietv'])->name('serietv_details');
@@ -63,9 +63,16 @@ Route::get('search/serietv', [ApiController::class, 'getSearchSerietv'])->name('
 
 // Profile routes
 Route::get('profile', [HomeController::class, 'showProfile'])->name('profile');
-Route::get('edit_profile', [HomeController::class, 'showEditProfile'])->name('edit_profile');
-Route::post('edit_profile', [HomeController::class, 'editProfile'])->name('edit_profile');
-Route::get('favorite_movie', [HomeController::class, 'getFavoriteMovie'])->name('favorite_movie');
+Route::get('edit_profile/{id}', [HomeController::class, 'showEditProfile'])->name('edit_profile');
+Route::put('edit_profile/{id}', [HomeController::class, 'editProfile'])->name('edit_profile');
+
+// Mia lista routes
+Route::get('mialista', [HomeController::class, 'showMiaLista'])->name('mialista');
+Route::get('favorite_movie', [HomeController::class, 'getFavoriteMovie']);
+
+// Api random quotes from anime
+Route::get('random_quote', [ApiController::class, 'getRandomQuote']);
+
 
 
 // Logout routes

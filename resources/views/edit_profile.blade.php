@@ -7,6 +7,8 @@
     <meta name="title" content="Netflix">
     <!-- FAVICON -->
     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+    <!-- TOKEN -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- GOOGLE FONT LINK -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,29 +31,31 @@
         <div class="header-content">
             <div class="edit-account-body">
                 <h2 class="title">Modifica Profilo</h2>
-                <form name="edit" method="post" enctype="multipart/form-data" action="#" class="edit-account-form" autocomplete="off">
+                <form name="edit" enctype="multipart/form-data" method="POST" action="/edit_profile/{{ $user->id }}" class="edit-account-form" autocomplete="off">
+                    @csrf
+                    @method('PUT')
                     <input type="hidden" name="current_avatar" />
                     <div class="form-control">
                         <div class="name">
-                            <input type="text" name="name"  required />
+                            <input type="text" name="name" value="{{ $user->name }}"  required />
                             <label for="name">Nome</label>
                         </div>
                     </div>
                     <div class="form-control">
                         <div class="surname">
-                            <input type="text" name="surname"  required />
+                            <input type="text" name="surname" value="{{ $user->surname }}"  required />
                             <label for="surname">Cognome</label>
                         </div>
                     </div>
                     <div class="form-control">
                         <div class="username">
-                            <input type="text" name="username"  required />
+                            <input type="text" name="username" value="{{ $user->username }}"  required />
                             <label for="username">Username</label>
                         </div>
                     </div>
                     <div class="form-control">
                         <div class="email">
-                            <input type="text" name="email"  required />
+                            <input type="text" name="email" value="{{ $user->email }}"  required />
                             <label for="email">Indirizzo Email</label>
                         </div>
                     </div>

@@ -530,4 +530,31 @@ class ApiController extends BaseController
         }
     }
 
+    // Recupera frase random di un anime e il suo personaggio
+    public function getRandomQuote(){
+        // URL dell'API
+        $url = 'https://animechan.io/api/v1/quotes/random';
+
+        // Inizializza una sessione cURL
+        $ch = curl_init();
+
+        // Imposta le opzioni cURL
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // Esegui la richiesta e ottieni la risposta
+        $response = curl_exec($ch);
+
+        // Controlla se ci sono stati errori
+        if(curl_errno($ch)) {
+            echo 'cURL error: ' . curl_error($ch);
+        } else {
+            // Decodifica la risposta JSON in un array associativo
+            $quote = json_decode($response, true);
+        }
+
+        // Chiudi la sessione cURL
+        curl_close($ch);
+    }
+
 }

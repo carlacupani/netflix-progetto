@@ -184,6 +184,8 @@ fetchDataFromServer(`serietv/details?q=${encodeURIComponent(serieId)}`, function
       // Variabile per tracciare se il film è nei preferiti
       let isAddedToFavorites = false;
       
+      const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
       // Funzione per gestire il salvataggio del film
       function saveMovie() {
         // Prepara i dati da inviare al server
@@ -200,12 +202,15 @@ fetchDataFromServer(`serietv/details?q=${encodeURIComponent(serieId)}`, function
         formData.append('backdrop_path', backdrop_path);
         formData.append('poster_path', poster_path);
       
-        const url = isAddedToFavorites ? "delete_movie" : "save_movie";
+        const url = isAddedToFavorites ? "delete_movie" : "save_serie";
         // Controlla lo stato per determinare l'URL
       
         // Invia la richiesta al server
         fetch(url, {
           method: 'POST',
+          headers: {
+            'X-CSRF-TOKEN': token,
+          },
           body: formData
         })
         .then(response => response.json())
@@ -230,11 +235,18 @@ fetchDataFromServer(`serietv/details?q=${encodeURIComponent(serieId)}`, function
       // Funzione per inizializzare lo stato del bottone
       function checkIfSerieIsFavorited() {
         // Prepara i dati da inviare al server
+        var userIdElement = document.getElementById('userId');
+        var userId = userIdElement ? userIdElement.getAttribute('data-user-id') : null;
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         const formData = new FormData();
-        formData.append('serieId',serieId);
+        formData.append('serieId', serieId);
+        formData.append('userId', userId);
       
-        fetch("check_movie", {
+        fetch("check_serie", {
           method: 'POST',
+          headers: {
+            'X-CSRF-TOKEN': token,
+          },
           body: formData
         })
         .then(response => response.json())

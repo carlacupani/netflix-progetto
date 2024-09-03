@@ -18,12 +18,12 @@
     /*---FONT-FAMILY---*/
     --ff-dm-sans: 'DM Sans', sans-serif;
     /*---FONT-SIZE---*/
-    --fs-heading: 64px;
-    --fs-title-lg: 41.6px;
-    --fs-title: 32px;
-    --fs-body: 28.8px;
-    --fs-button: 24px;
-    --fs-label: 22.4px;
+    --fs-heading: 40px;
+    --fs-title-lg: 25px;
+    --fs-title: 25px;
+    --fs-body: 23px;
+    --fs-button: 30px;
+    --fs-label: 15px;
     /*---FONT-WEIGHT---*/
     --weight-bold: 700;
     --weight-light: 400;
@@ -484,39 +484,87 @@ nav{
     opacity: 0;
 }
 
-/*---PROFILE---*/
-.profile-section{
+/*---RANDOM-QUOTES---*/
+.quote-wrapper {
     padding: 18px;
     background-color: var(--background);
     display: flex;
     flex: 1;
     justify-content: space-around;
     align-items: center;
-}
-
-.profile {
+ }
+ 
+ .quote-box {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: white;
+    border: 2px solid #000;
+    border-radius: 20px;
+    background-color: white;
+    }
+
+.blockquote {
+    border: 0;
+    margin: 10px;
+    font-style: normal;
+    font-family: "Segoe Print", "Times New Roman", Verdana;
+    padding-left: 48px;
+    background: url('http://www.xul.fr/css/images/blockquote.png');
+    background-repeat: no-repeat;
+    min-height: 30px;
 }
 
-.profile-pic {
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png');
-    background-color: var(--white);
-    background-size: cover;
-    background-position: center;
+.quote-btn {
+    cursor:pointer;
+    margin-left: 10px;
+    margin-right: 30px;
+    border: 2px solid #000;
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    color: #fff;
+    background-color: #000;
+    display: inline-block;
+    font-size: 20px;
+    height: 50px;
+    line-height: 48px;
+    text-align: center;
+    transition: all 0.4s ease-in-out 0s;
+    width: 50px;
+}
+
+/*---PROFILE---*/
+.profile-section{
+    margin-top: 2%;
+    margin-left: 20%;
+    font-size: var(--fs-heading);
+    padding: 0 10px;
+    width: 50%;
+}
+
+.profile-section h2 {
+    font-size: var(--fs-title);
     margin-bottom: 10px;
 }
 
-.profile-name {
-    font-size: 18px;
+.profile-section .profile-card {
+    background-color: var(--banner-background);
+    border-radius: var(--radius-8);
+    height: auto;
+    margin-bottom: 10px;
+    padding: 20px 0 20px 50px;
+}
+
+.profile-section .profile-card table {
+    border: none;
+    font-size: var(--fs-label);
+    height: 270px;
+    width: 100%;
 }
 
 .profile-buttons{
+    margin-top: 20px;
+    margin-bottom: 20px;
     display: flex;
     gap: 10px;
 }
@@ -532,7 +580,7 @@ nav{
     font-weight: var(--weight-bold);
     letter-spacing: 1px;
     cursor: pointer;
-    margin-left: 20px;
+    margin-left: 10px;
     padding: 0 30px;
 }
 
@@ -557,6 +605,7 @@ nav{
 .logout-btn:hover {
     background-color: var(--primary)
 }
+
 
 /*---MAIN---*/
 main{
@@ -700,8 +749,6 @@ h1 {
     flex-wrap: wrap;
     padding: 72px 0;
 }
-
-
 
 /*---FOOTER---*/
 footer{

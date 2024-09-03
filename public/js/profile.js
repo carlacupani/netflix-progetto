@@ -1,7 +1,8 @@
 "use strict";
 
-import { createMovieCard } from "./favorite-movie-card.js";
 import { fetchDataFromServer } from "./api.js";
+import {createMovieCard} from "./movie-card.js"
+import {createSerieCard} from "./serie-card.js"
 
 const pageContent = document.querySelector("[page-content]");
 
@@ -41,19 +42,35 @@ const createFavoriteMovieList = function (movies) {
   // Creazione delle card dei film per la sezione dei film preferiti
   for (const movie of movies) {
     // Verifica e aggiungi i campi mancanti con valori di default
-    const movieData = movie.content;
-    movieData.vote_average = movieData.vote_average !== undefined ? parseFloat(movieData.vote_average) : 0;
-    movieData.release_date = movieData.release_date || "N/A";
 
-    const movieCard = createMovieCard(movieData);
-    sliderInner.appendChild(movieCard);
+    
+    movie.vote_average = movie.vote_average !== undefined ? parseFloat(movie.vote_average) : 0;
+    movie.release_date = movie.release_date || "N/A";
+    
+    if(movie.isSerie == 1){
+
+      const serieCard = createSerieCard(movie);
+      sliderInner.appendChild(serieCard);
+
+    }else{
+
+      const movieCard = createMovieCard(movie);
+      sliderInner.appendChild(movieCard);
+      
+    }
+
   }
 
   pageContent.appendChild(movieListElem);
 };
 
 // Fetch dei film preferiti dal server
-fetchDataFromServer("favorite_movie", createFavoriteMovieList);
-
-// fetchDataFromServer("favorite_movie", createFavoriteSerieList); 
+fetch("favorite_movie")
+  .then((response) => response.json())
+  .then((data) => {
+    // Popolazione della lista dei generi con i dati ricevuti dal server
+    console.log(data.films);
+    createFavoriteMovieList(data.films);
+})
+  .catch((error) => console.error("Error:", error)); 
 

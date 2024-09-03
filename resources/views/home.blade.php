@@ -30,7 +30,7 @@
       </a>
       <ul class="navbar-links">
         <li><a href="{{ URL::to("home") }}">Film</a></li>
-        <li><a href="{{ URL::to("serietv") }}">Serie Tv</a></li>
+        <!--<li><a href="{{ URL::to("serietv") }}">Serie Tv</a></li> -->
         <li><a href="{{ URL::to("profile") }}">La mia lista</a></li>
       </ul>
     </div>
@@ -69,35 +69,35 @@
 
   <!--FOOTER-->
   <footer>
-    <h2>Domande? Chiama 800-130-364</h2>
-    <div class="row">
-      <div class="col">
-        <a href="#">Autodescrizione</a>
-        <a href="#">Rapporti con gli investitori</a>
-        <a href="#">Note legali</a>
-        <a href="#">Preferenze per la pubblicità</a>
-      </div>
-      <div class="col">
-        <a href="#">Centro assistenza</a>
-        <a href="#">Opportunità di lavoro</a>
-        <a href="#">Preferenze per i cookie</a>
-        <a href="#"> </a>
-      </div>
-      <div class="col">
-        <a href="#">Carte regalo</a>
-        <a href="#">Condizioni di utilizzo</a>
-        <a href="#">Informazioni sull'azienda</a>
-        <a href="#"> </a>
-      </div>
-      <div class="col">
-        <a href="#">Media Center</a>
-        <a href="#">Privacy</a>
-        <a href="#">Contattaci</a>
-        <a href="#"> </a>
-      </div>
-    </div>
-    <p class="copyright-txt">Netflix Italia</p>
-  </footer>
+        <h2>Domande? Chiama 800-130-364</h2>
+        <div class="row">
+            <div class="col">
+                <a href="#">Autodescrizione</a>
+                <a href="#">Rapporti con gli investitori</a>
+                <a href="#">Note legali</a>
+                <a href="#">Preferenze per la pubblicità</a>
+            </div>
+            <div class="col">
+                <a href="#">Centro assistenza</a>
+                <a href="#">Opportunità di lavoro</a>
+                <a href="#">Preferenze per i cookie</a>
+                <a href="#"> </a>
+            </div>
+            <div class="col">
+                <a href="#">Carte regalo</a>
+                <a href="#">Condizioni di utilizzo</a>
+                <a href="#">Informazioni sull'azienda</a>
+                <a href="#"> </a>
+            </div>
+            <div class="col">
+                <a href="#">Media Center</a>
+                <a href="#">Privacy</a>
+                <a href="#">Contattaci</a>
+                <a href="#"> </a>
+            </div>
+        </div>
+        <p class="copyright-txt">Netflix Italia</p>
+    </footer>
 </body>
 
 </html>

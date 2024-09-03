@@ -18,12 +18,12 @@
     /*---FONT-FAMILY---*/
     --ff-dm-sans: 'DM Sans', sans-serif;
     /*---FONT-SIZE---*/
-    --fs-heading: 64px;
-    --fs-title-lg: 41.6px;
-    --fs-title: 32px;
-    --fs-body: 28.8px;
-    --fs-button: 24px;
-    --fs-label: 22.4px;
+    --fs-heading: 40px;
+    --fs-title-lg: 25px;
+    --fs-title: 25px;
+    --fs-body: 23px;
+    --fs-button: 30px;
+    --fs-label: 15px;
     /*---FONT-WEIGHT---*/
     --weight-bold: 700;
     --weight-light: 400;

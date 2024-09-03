@@ -63,56 +63,12 @@
         </div>
     </header>
 
-    <!--PROFILE-->
-    <section class="profile-section">
-        <h2>I miei dati:</h2>
-        <div class="profile-card">
-            <div class="profile-card-body">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>Nome</td>
-                            <td>:</td>
-                            <td>{{ $user->name }}</td>
-                        </tr>
-                        <tr>
-                            <td>Cognome</td>
-                            <td>:</td>
-                            <td>{{ $user->surname }}</td>
-                        </tr>
-                        <tr>
-                            <td>Username</td>
-                            <td>:</td>
-                            <td>{{ $user->username }}</td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td>:</td>
-                            <td>{{ $user->email }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="profile-buttons">
-                <a href="{{ URL::to("edit_profile/$user->id") }}">
-                    <button class="edit-account-btn" id="edit-account-btn">Modifica</button>
-                </a>
-                <a href="{{ URL::to("logout") }}">
-                    <button class="logout-btn" id="logout-btn">Logout</button>
-                </a>
-            </div>
-        </div>
-    </section>
+    <!--FAVORITE FILMS-->
+    <main>
+        <article class="container" page-content>
 
-    <!--RANDOM QUOTE-->
-    <section class="quote-wrapper">
-        <div id="quote-box" class="quote-box">
-            <blockquote class="blockquote" id="quote">frase iconica
-                <footer id="autore">Autore</footer>
-            </blockquote>
-            <button id="newquote" class="quote-btn" type="button">Nuova citazione</button>
-        </div>
-    </section>
+        </article>
+    </main>
 
     <!--FOOTER-->
     <footer>

@@ -26,7 +26,7 @@
       <ul class="navbar-links">
         <li><a href="{{ URL::to("home") }}">Film</a></li>
         <li><a href="{{ URL::to("serietv") }}">Serie Tv</a></li>
-        <li><a href="{{ URL::to("profile") }}">La mia lista</a></li>
+        <li><a href="{{ URL::to("mialista") }}">La mia lista</a></li>
       </ul>
     </div>
 
@@ -60,37 +60,38 @@
   <main>
     <div class="overlay" overlay menu-toggler></div>
     <article class="container" page-content></article>
+    <div hidden id="userId" data-user-id="{{ Session::get('user_id') }}"></div>
   </main>
 
   <!--FOOTER-->
   <footer>
     <h2>Domande? Chiama 800-130-364</h2>
     <div class="row">
-      <div class="col">
-        <a href="#">Autodescrizione</a>
-        <a href="#">Rapporti con gli investitori</a>
-        <a href="#">Note legali</a>
-        <a href="#">Preferenze per la pubblicità</a>
-      </div>
-      <div class="col">
-        <a href="#">Centro assistenza</a>
-        <a href="#">Opportunità di lavoro</a>
-        <a href="#">Preferenze per i cookie</a>
-        <a href="#"> </a>
-      </div>
-      <div class="col">
-        <a href="#">Carte regalo</a>
-        <a href="#">Condizioni di utilizzo</a>
-        <a href="#">Informazioni sull'azienda</a>
-        <a href="#"> </a>
-      </div>
-      <div class="col">
-        <a href="#">Media Center</a>
-        <a href="#">Privacy</a>
-        <a href="#">Contattaci</a>
-        <a href="#"> </a>
-      </div>
-    </div>
+            <div class="col">
+                <a href="#">Autodescrizione</a>
+                <a href="https://ir.netflix.net/ir-overview/profile/default.aspx">Rapporti con gli investitori</a>
+                <a href="https://help.netflix.com/legal/notices">Note legali</a>
+                <a href="https://help.netflix.com/it/node/100637">Preferenze per la pubblicità</a>
+            </div>
+            <div class="col">
+                <a href="https://help.netflix.com/it">Centro assistenza</a>
+                <a href="https://jobs.netflix.com/">Opportunità di lavoro</a>
+                <a href="#">Preferenze per i cookie</a>
+                <a href="#"> </a>
+            </div>
+            <div class="col">
+                <a href="https://www.netflix.com/it/redeem">Carte regalo</a>
+                <a href="https://help.netflix.com/legal/termsofuse">Condizioni di utilizzo</a>
+                <a href="https://help.netflix.com/it/node/134094">Informazioni sull'azienda</a>
+                <a href="#"> </a>
+            </div>
+            <div class="col">
+                <a href="https://media.netflix.com/it/">Media Center</a>
+                <a href="https://help.netflix.com/legal/privacy">Privacy</a>
+                <a href="https://help.netflix.com/it/contactus">Contattaci</a>
+                <a href="#"> </a>
+            </div>
+        </div>
     <p class="copyright-txt">Netflix Italia</p>
   </footer>
 </body>

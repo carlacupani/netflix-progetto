@@ -173,28 +173,28 @@
         <h2>Domande? Chiama 800-130-364</h2>
         <div class="row">
             <div class="col">
-                <a href="#">Domande frequenti</a>
-                <a href="#">Centro assistenza</a>
-                <a href="#">Account</a>
-                <a href="#">Media Center</a>
+                <a href="https://help.netflix.com/it/node/412">Domande frequenti</a>
+                <a href="https://help.netflix.com/it">Centro assistenza</a>
+                <a href="{{ URL::to('login') }}">Account</a>
+                <a href="https://media.netflix.com/it/">Media Center</a>
             </div>
             <div class="col">
-                <a href="#">Rapporti con gli investitori</a>
-                <a href="#">Opportunità di lavoro</a>
-                <a href="#">Riscatta carte regalo</a>
-                <a href="#">Acquista carte regalo</a>
+                <a href="https://ir.netflix.net/ir-overview/profile/default.aspx">Rapporti con gli investitori</a>
+                <a href="https://jobs.netflix.com/">Opportunità di lavoro</a>
+                <a href="https://www.netflix.com/it/redeem">Riscatta carte regalo</a>
+                <a href="https://www.netflix.com/gift-cards">Acquista carte regalo</a>
             </div>
             <div class="col">
-                <a href="#">Come guardare Netflix</a>
-                <a href="#">Condizioni di utilizzo</a>
-                <a href="#">Privacy</a>
+                <a href="https://help.netflix.com/it/node/14361">Come guardare Netflix</a>
+                <a href="https://help.netflix.com/legal/termsofuse">Condizioni di utilizzo</a>
+                <a href="https://help.netflix.com/legal/privacy">Privacy</a>
                 <a href="#">Preferenze per i cookie</a>
             </div>
             <div class="col">
-                <a href="#">Informazioni sull'azienda</a>
-                <a href="#">Contattaci</a>
-                <a href="#">Test di velocità</a>
-                <a href="#">Garanzia legale</a>
+                <a href="https://help.netflix.com/it/node/134094">Informazioni sull'azienda</a>
+                <a href="https://help.netflix.com/it/contactus">Contattaci</a>
+                <a href="https://fast.com/it/">Test di velocità</a>
+                <a href="https://help.netflix.com/it/node/125888">Garanzia legale</a>
             </div>
         </div>
         <div class="footer-language-select">
