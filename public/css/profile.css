@@ -537,9 +537,9 @@ nav{
 .profile-section{
     margin-top: 2%;
     margin-left: 20%;
-    font-size: 28px;
+    font-size: var(--fs-heading);
     padding: 0 10px;
-    width: 58%;
+    width: 50%;
 }
 
 .profile-section h2 {
@@ -549,9 +549,9 @@ nav{
 
 .profile-section .profile-card {
     background-color: var(--banner-background);
-    border-radius: 18px;
+    border-radius: var(--radius-8);
     height: auto;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding: 20px 0 20px 50px;
 }
 
@@ -560,17 +560,6 @@ nav{
     font-size: var(--fs-label);
     height: 270px;
     width: 100%;
-}
-
-.profile-pic {
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png');
-    background-color: var(--white);
-    background-size: cover;
-    background-position: center;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    margin-bottom: 10px;
 }
 
 .profile-buttons{
@@ -591,7 +580,7 @@ nav{
     font-weight: var(--weight-bold);
     letter-spacing: 1px;
     cursor: pointer;
-    margin-left: 20px;
+    margin-left: 10px;
     padding: 0 30px;
 }
 
