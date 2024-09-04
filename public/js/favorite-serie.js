@@ -65,9 +65,10 @@ export function createSerieCard(serie) {
   anchor.href = "details_serietv";
   anchor.classList.add("card-btn");
   anchor.title = name;
-  anchor.setAttribute("onclick", `getSerietvDetail(${id})`);
+  anchor.setAttribute("onclick", "getSerietvDetail(" + id + ")");
   
   card.appendChild(anchor);
+  
 
   return card;
 }

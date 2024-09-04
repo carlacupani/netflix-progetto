@@ -58,14 +58,15 @@ export function createMovieCard(movie) {
 
   card.appendChild(metaList);
 
-  // Crea il link per i dettagli
+  //Crea il link per i dettagli
   const anchor = document.createElement("a");
   anchor.href = "details_movie";
   anchor.classList.add("card-btn");
   anchor.title = title;
-  anchor.setAttribute("onclick", `getMovieDetail(${movieId})`);
+  anchor.setAttribute("onclick", "getMovieDetail(" + id + ")");
 
   card.appendChild(anchor);
+  
 
   return card;
 }

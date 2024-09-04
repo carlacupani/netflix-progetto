@@ -486,7 +486,6 @@ nav{
 
 /*---RANDOM-QUOTES---*/
 .quote-wrapper {
-    width: 50%;
     padding: 18px;
     background-color: var(--background);
     display:flex;
@@ -514,6 +513,11 @@ nav{
     padding-left: 48px;
     background: url('http://www.xul.fr/css/images/blockquote.png');
     background-repeat: no-repeat;
+    min-height: 30px;
+}
+.blockquote footer{
+    color: var(--text-color);
+    font-style: normal;
     min-height: 30px;
 }
 

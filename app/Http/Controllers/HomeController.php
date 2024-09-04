@@ -63,23 +63,18 @@ class HomeController extends BaseController
             ->with('user', $user);;
     }
     public function editProfile(Request $request){
-        // Controlla se l'utente è autenticato
         if (!Session::has('user_id')) {
             return redirect('login');
         }
     
-        // Trova l'utente autenticato
         $user = User::find(Session::get('user_id'));
         
-        // Se l'utente non esiste, reindirizza al login
         if (!$user) {
             return redirect('login');
         }
-    
-        // Inizializza un array per gli errori
+  
         $errors = [];
-    
-        // Validazione manuale dei campi
+
         if (empty($request->input('name')) || !is_string($request->input('name')) || strlen($request->input('name')) > 255) {
             $errors[] = 'Il nome è obbligatorio e deve essere una stringa di massimo 255 caratteri.';
         }
@@ -108,31 +103,26 @@ class HomeController extends BaseController
                 $errors[] = 'Le password non coincidono.';
             }
         }
-    
-        // Se ci sono errori, reindirizza con i messaggi di errore
+
         if (!empty($errors)) {
-            return redirect('edit_profile/'. $user->id)->withErrors($errors);
+            return redirect('edit_profile/'. $user->id)
+            ->withErrors($errors);
         }
     
         try {
-            // Aggiorna i campi del profilo
             $user->name = $request->input('name');
             $user->surname = $request->input('surname');
             $user->username = $request->input('username');
             $user->email = $request->input('email');
     
-            // Gestione della modifica della password
             if ($request->filled('new_password')) {
                 $user->password = bcrypt($request->input('new_password'));
             }
-    
-            // Salva le modifiche
+   
             $user->save();
-    
-            // Reindirizza con un messaggio di successo
+  
             return redirect('profile')->with('success', 'I tuoi dati sono stati aggiornati correttamente!');
         } catch (\Exception $e) {
-            // Gestione degli errori generali
             return redirect('edit_profile/'. $user->id)->with('error', 'Si è verificato un errore durante l\'aggiornamento del profilo: ' . $e->getMessage());
         }
     }
@@ -148,16 +138,14 @@ class HomeController extends BaseController
             return redirect('login');
         }
 
-        $movies = $user->movies ?? collect();
+        $movies = $user->movies ?? collect(); //dubbio
     
-        // Verifica se ci sono film e decodifica il contenuto JSON
         if ($movies->isNotEmpty()) {
             foreach ($movies as $movie) {
                 $movie->content = json_decode($movie->content);
             }
         }
         
-        // Ritorna la vista del profilo con i dati dell'utente e i film
         return view('mialista')
             ->with('user', $user)
             ->with('movies', $movies);
@@ -179,18 +167,14 @@ class HomeController extends BaseController
         $movieId = $request->input('movieId');
         $userId = $request->input('userId'); // Corretto qui
     
-        // Query per verificare se il film è presente nei preferiti dell'utente
         $result = DB::table('films')
                     ->where('user', $userId)
                     ->whereRaw("JSON_EXTRACT(content, '$.movieId') = ?", [$movieId])
                     ->exists();
     
-        // Controlla se ci sono risultati
         if ($result) {
-            // Il film è stato aggiunto ai preferiti
             return response()->json(['isFavorited' => true]);
         } else {
-            // Il film non è stato aggiunto ai preferiti
             return response()->json(['isFavorited' => false]);
         }
     }
@@ -200,18 +184,14 @@ class HomeController extends BaseController
         $serieId = $request->input('serieId');
         $userId = $request->input('userId'); // Corretto qui
     
-        // Query per verificare se il film è presente nei preferiti dell'utente
         $result = DB::table('films')
                     ->where('user', $userId)
                     ->whereRaw("JSON_EXTRACT(content, '$.serieId') = ?", [$serieId])
                     ->exists();
     
-        // Controlla se ci sono risultati
         if ($result) {
-            // Il film è stato aggiunto ai preferiti
             return response()->json(['isFavorited' => true]);
         } else {
-            // Il film non è stato aggiunto ai preferiti
             return response()->json(['isFavorited' => false]);
         }
     }
@@ -223,7 +203,6 @@ class HomeController extends BaseController
             return ['ok' => false];
         }
         
-        // Verifica se il film esiste già per l'utente
         $filmEsistente = Movie::where('content->movieId', $request->post('movieId'))
                               ->where('user', Session::get('user_id'))
                               ->first();
@@ -232,7 +211,6 @@ class HomeController extends BaseController
             return ['ok' => true];
         }
         
-        // Raccogli i dati dal request
         $movieId = $request->post('movieId');
         $title = $request->post('title');
         $release_date = $request->post('release_date');
@@ -246,7 +224,6 @@ class HomeController extends BaseController
         
         $user_id = Session::get('user_id');
         
-        // Crea un nuovo record per il film
         $film = new Movie;
         $film->user = $user_id; // Imposta l'ID dell'utente
         $film->content = json_encode([
@@ -274,7 +251,6 @@ class HomeController extends BaseController
             return ['ok' => false];
         }
         
-        // Verifica se il film esiste già per l'utente
         $filmEsistente = Movie::where('content->serieId', $request->post('serieId'))
                               ->where('user', Session::get('user_id'))
                               ->first();
@@ -283,7 +259,6 @@ class HomeController extends BaseController
             return ['ok' => true];
         }
         
-        // Raccogli i dati dal request
         $serieId = $request->post('serieId');
         $name = $request->post('name');
         $first_air_date = $request->post('first_air_date');
@@ -298,7 +273,6 @@ class HomeController extends BaseController
         
         $user_id = Session::get('user_id');
         
-        // Crea un nuovo record per il film
         $film = new Movie;
         $film->user = $user_id; // Imposta l'ID dell'utente
         $film->content = json_encode([
@@ -327,19 +301,15 @@ class HomeController extends BaseController
             return ['ok' => false];
         }
 
-        // Recupera l'ID dell'utente dalla sessione
         $user_id = Session::get('user_id');
 
-        // Recupera l'ID del film dalla richiesta
         $movieId = $request->post('movieId');
 
-        // Verifica se il film esiste per l'utente
         $filmEsistente = Movie::where('content->movieId', $movieId)
             ->where('user', $user_id)
             ->first();
 
         if ($filmEsistente) {
-            // Elimina il film se esiste
             $filmEsistente->delete();
             return ['ok' => true];
         }
@@ -349,15 +319,13 @@ class HomeController extends BaseController
 
     public function getFavoriteMovie(Request $request)
     {
-        // Verifica se l'ID utente è presente nella sessione
+
         if (!Session::has('user_id')) {
             return response()->json(['ok' => false, 'error' => 'Unauthorized'], 401);
         }
 
-        // Recupera l'ID dell'utente dalla sessione
         $user_id = Session::get('user_id');
 
-        // Esegui la query per trovare i film preferiti dell'utente utilizzando il QueryBuilder
         $films = DB::table('films')
                     ->select('content')
                     ->where('user', $user_id)
@@ -409,8 +377,6 @@ class HomeController extends BaseController
 
         }
 
-
-        // Restituisci i film in formato JSON
         return response()->json(['ok' => true, 'films' => $responseData]);
     }
 

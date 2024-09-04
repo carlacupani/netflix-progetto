@@ -1,7 +1,6 @@
 function checkName(event) {
     const input = event.currentTarget;
-    
-    // Verifica se il campo nome non è vuoto e aggiorna lo stato del modulo
+
     if (formStatus[input.name] = input.value.length > 0) {
         input.parentNode.classList.remove('errorj');
     } else {
@@ -12,7 +11,6 @@ function checkName(event) {
 function checkSurname(event) {
     const input = event.currentTarget;
     
-    // Verifica se il campo cognome non è vuoto e aggiorna lo stato del modulo
     if (formStatus[input.surname] = input.value.length > 0) {
         input.parentNode.classList.remove('errorj');
     } else {
@@ -21,7 +19,7 @@ function checkSurname(event) {
 }
 
 function jsonCheckUsername(json) {
-    // Controlla se il nome utente è disponibile
+    
     if (formStatus.username = !json.exists) {
         document.querySelector('.username').classList.remove('errorj');
     } else {
@@ -31,7 +29,7 @@ function jsonCheckUsername(json) {
 }
 
 function jsonCheckEmail(json) {
-    // Controlla se l'email è disponibile
+    
     if (formStatus.email = !json.exists) {
         document.querySelector('.email').classList.remove('errorj');
     } else {
@@ -41,7 +39,6 @@ function jsonCheckEmail(json) {
 }
 
 function fetchResponse(response) {
-    // Verifica la risposta del server e ritorna il JSON se ok
     if (!response.ok) return null;
     return response.json();
 }
@@ -212,7 +209,7 @@ form.addEventListener('submit', function(event) {
 });
 
 function registerUser() {
-    const form = document.querySelector('form'); // Assicurati che questo selettore corrisponda al tuo form
+    const form = document.querySelector('form');
     const formData = new FormData(form);
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 

@@ -2,7 +2,8 @@
 
 // Funzione per aggiungere un evento a una lista di elementi
 const addEventOnElements = function (elements, eventType, callback) {
-  for (const elem of elements) elem.addEventListener(eventType, callback);
+  for (const elem of elements) 
+    elem.addEventListener(eventType, callback);
 };
 
 // Seleziona la casella di ricerca

@@ -76,8 +76,14 @@ fetch("favorite_movie")
 
 // Funzione per ottenere e visualizzare una nuova citazione
 function fetchQuote() {
-  fetch('http://localhost:8080/https://animechan.io/api/v1/quotes/random')
-      .then(response => response.json())
+  fetch('https://api.gameofthronesquotes.xyz/v1/random')
+      .then(response => {
+          // Verifica se la risposta è OK
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+          return response.json();
+      })
       .then(quote => {
           // Seleziona il contenitore principale dove vuoi inserire la struttura HTML
           const container = document.querySelector('.quote-wrapper');
@@ -94,12 +100,12 @@ function fetchQuote() {
           const blockquote = document.createElement('blockquote');
           blockquote.className = 'blockquote';
           blockquote.id = 'quote';
-          blockquote.textContent = quote.data.content;
+          blockquote.textContent = quote.sentence; // Accesso diretto a sentence
 
           // Crea il footer con id "autore"
           const footer = document.createElement('footer');
           footer.id = 'autore';
-          footer.textContent = "- " + quote.data.character.name + ", " + quote.data.anime.name;
+          footer.textContent = "- " + quote.character.name + ", " + quote.character.house.name;
 
           // Aggiungi il footer al blockquote
           blockquote.appendChild(footer);
@@ -110,9 +116,13 @@ function fetchQuote() {
           // Aggiungi il div "quote-box" al contenitore principale
           container.appendChild(quoteBox);
       })
-      .catch(error => console.error('Errore durante il fetch:', error));
+      .catch(error => {
+          console.error('Errore durante il fetch:', error);
+          // Potresti voler mostrare un messaggio di errore all'utente
+          const container = document.querySelector('.quote-wrapper');
+          container.innerHTML = '<p>Errore nel recuperare la citazione. Riprova più tardi.</p>';
+      });
 }
 
 // Carica una citazione iniziale quando la pagina viene caricata
 window.onload = fetchQuote;
-
