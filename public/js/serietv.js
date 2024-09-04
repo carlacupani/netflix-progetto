@@ -1,23 +1,18 @@
 "use strict";
 
-/* Importazione delle componenti e delle funzioni necessarie dai moduli */
 import { imageBaseURL, fetchDataFromServer } from "./api.js";
 import { createSerieCard } from "./serie-card.js";
 import { searchSerie } from "./search-serie.js";
 
-// Seleziona l'elemento del contenuto della pagina
 const pageContent = document.querySelector("[page-content]");
 
 /* 
   Creazione di un oggetto `genreList` per gestire i generi delle serie TV.
-  Il metodo `asString` converte una lista di ID di generi in una stringa di nomi di generi.
 */
 const genreList = {
-  // Converte una lista di ID di generi in una stringa di nomi di generi separati da virgola
   asString(genreIdList) {
     let newGenreList = [];
 
-    // Aggiunge il nome del genere alla lista se l'ID è presente in `genreList`
     for (const genreId of genreIdList) {
       this[genreId] && newGenreList.push(this[genreId]);
     }
@@ -26,15 +21,13 @@ const genreList = {
   },
 };
 
-// Fetch della lista dei generi dal server
 fetch("/genre/serietv/list")
   .then((response) => response.json())
   .then((data) => {
-    // Popola `genreList` con i dati ricevuti dal server
     for (const { id, name } of data.genres) {
       genreList[id] = name;
     }
-    // Recupera le serie TV popolari e crea l'hero banner
+    
     fetchDataFromServer("/serietv/popular", heroBanner);
   })
   .catch((error) => console.error("Error:", error));

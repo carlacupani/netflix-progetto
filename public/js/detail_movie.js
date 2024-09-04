@@ -260,9 +260,7 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
       formData.append('poster_path', poster_path);
     
       const url = isAddedToFavorites ? "delete_movie" : "save_movie";
-      // Controlla lo stato per determinare l'URL
-    
-      // Invia la richiesta al server
+
       fetch(url, {
         method: 'POST',
         headers: {
@@ -289,7 +287,6 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
       });
     }
     
-    // Funzione per inizializzare lo stato del bottone
     function checkIfMovieIsFavorited() {
       // Prepara i dati da inviare al server
       var userIdElement = document.getElementById('userId');
@@ -322,16 +319,13 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
       });
     }
     
-    // Aggiungi l'evento click al bottone
     addToFavoritesButton.addEventListener("click", function() {
       console.log("Button clicked!"); // Log per verificare il click
       saveMovie();
     });
     
-    // Chiamata per verificare lo stato iniziale del film
     checkIfMovieIsFavorited();
     
-    // Crea e aggiunge i trailer e i teaser del film
     for (const { key, name } of filterVideos(videos)) {
       const videoCard = document.createElement("div");
       videoCard.classList.add("video-card");
@@ -350,11 +344,9 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
       sliderInner.appendChild(videoCard);
     }
     
-    // Aggiunge i dettagli del film al contenuto della pagina
     pageContent.appendChild(movieDetail);
 
     // Recupera e aggiunge i film suggeriti dall'API di TMDB
-    
     fetchDataFromServer("movie/recommendations?mid="+encodeURIComponent(movieId), addSuggestedMovies);
 
   }

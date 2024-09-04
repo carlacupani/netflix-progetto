@@ -177,7 +177,6 @@ function checkSignup(event) {
     const checkbox = document.querySelector('.allow input');
     formStatus[checkbox.name] = checkbox.checked;
 
-    // Verifica se tutti i campi sono validi prima di inviare il modulo
     if (Object.keys(formStatus).length !== 8 || Object.values(formStatus).includes(false)) {
         event.preventDefault();
     }
@@ -189,17 +188,14 @@ const form = document.forms['signup'];
 form.addEventListener('submit', function(event) {
     event.preventDefault(); // Previene l'invio tradizionale del form
 
-    // Esegui entrambe le verifiche contemporaneamente
     Promise.all([checkUsername(), checkEmail()])
         .then(results => {
             const [isUsernameValid, isEmailValid] = results;
 
             if (isUsernameValid && isEmailValid ) {
-                // Se entrambe le verifiche sono valide, procedi con la registrazione
                 registerUser();
             } else {
-                // Se una delle verifiche non è valida, mostra un messaggio di errore
-                alert('Correggi i campi evidenziati prima di procedere con la registrazione.');
+                alert('Correggi i campi prima di procedere con la registrazione.');
             }
         })
         .catch(error => {
@@ -225,13 +221,12 @@ function registerUser() {
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
-        return response.json(); // Assicurati che il controller restituisca JSON
+        return response.json();
     })
     .then(data => {
         console.log('Registrazione avvenuta con successo:', data);
-        alert('Registrazione completata con successo!');
-        // Puoi reindirizzare l'utente o fare altre azioni
-        window.location.href = 'home'; // Reindirizza manualmente se necessario
+        alert('Registrazione completata con successo!')
+        window.location.href = 'home';
     })
     .catch(error => {
         console.error('Errore durante la registrazione:', error);

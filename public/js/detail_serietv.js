@@ -270,14 +270,11 @@ fetchDataFromServer(`serietv/details?q=${encodeURIComponent(serieId)}`, function
         saveMovie();
       });
       
-      // Chiamata per verificare lo stato iniziale del film
       checkIfSerieIsFavorited();
 
-  // Aggiunge i dettagli della serie al contenuto della pagina
   pageContent.appendChild(serieDetail);
 
-  // Recupera e aggiunge le serie suggerite dall'API
-  fetchDataFromServer(`serietv/recommendations?sid=${encodeURIComponent(serieId)}`, addSuggestedSeries);
+  fetchDataFromServer("serietv/recommendations?sid="+encodeURIComponent(serieId), addSuggestedSeries);
 });
 
 // Funzione per aggiungere le serie suggerite alla pagina
