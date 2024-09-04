@@ -15,7 +15,7 @@ export function createSerieCard(serie) {
   figure.classList.add("poster-box", "card-banner");
   
   const img = document.createElement("img");
-  img.src = `${imageBaseURL}w342${poster_path}`;
+  img.src = imageBaseURL + "w342" + poster_path;
   img.alt = name;
   img.classList.add("img-cover");
   img.loading = "lazy";
@@ -65,7 +65,7 @@ export function createSerieCard(serie) {
   anchor.href = "details_serietv";
   anchor.classList.add("card-btn");
   anchor.title = name;
-  anchor.setAttribute("onclick", `getSerietvDetail(${id})`);
+  anchor.setAttribute("onclick", "getSerietvDetail(" + id + ")");
   
   card.appendChild(anchor);
 

@@ -18,7 +18,7 @@ export function createMovieCard(movie) {
   figure.classList.add("poster-box", "card-banner");
 
   const img = document.createElement("img");
-  img.src = `${imageBaseURL}w342${poster_path}`;
+  img.src = imageBaseURL + "w342" + poster_path;
   img.alt = title;
   img.classList.add("img-cover");
   img.loading = "lazy";
@@ -68,7 +68,7 @@ export function createMovieCard(movie) {
   anchor.href = "details_movie";
   anchor.classList.add("card-btn");
   anchor.title = title;
-  anchor.setAttribute("onclick", `getMovieDetail(${id})`);
+  anchor.setAttribute("onclick", "getMovieDetail(" + id + ")");
 
   card.appendChild(anchor);
 

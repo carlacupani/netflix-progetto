@@ -673,6 +673,37 @@ h1 {
     inset: 0;
 }
 
+/*---movie-list---*/
+.serie-list {
+    padding-block-start: 32px;
+}
+
+.serie-card {
+    position: relative;
+    width: 200px;
+}
+
+.serie-card .card-banner {
+    width: 200px;
+}
+
+.serie-card .name {
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-block: 8px 4px;
+}
+
+.serie-card .meta-list {
+    justify-content: space-between;
+}
+
+.serie-card .card-btn {
+    position: absolute;
+    inset: 0;
+}
+
 /* DETAIL PAGE */
 .backdrop-image {
     position: absolute;
