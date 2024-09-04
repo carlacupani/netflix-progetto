@@ -121,6 +121,8 @@ class HomeController extends BaseController
             ->with('movies', $movies);
 
     }
+
+    
     public function showDetailsMovie()
     {
         return view('details_movie');

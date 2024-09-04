@@ -11,17 +11,12 @@ use Illuminate\Support\Facades\Log;
 
 class AuthController extends BaseController
 {
-    /**
-     * Show the login form.
-     */
+    // Mostra la pagina di login
     public function showLoginForm()
     {
         return view('login');
     }
 
-    /**
-     * Handle user login.
-     */
     public function login(Request $request)
     {
         if (Session::has('user_id')) {
@@ -52,17 +47,13 @@ class AuthController extends BaseController
         }
     }
 
-    /**
-     * Show the signup form.
-     */
+    // Mostra la pagina di registrazione
     public function showSignupForm()
     {
         return view('signup');
     }
 
-    /**
-     * Check if the username or email is already taken.
-     */
+    // Controlla se email e username sono già presi
     public function checkEmail(Request $request)
     {
         $email = $request->input('email');
@@ -124,7 +115,6 @@ class AuthController extends BaseController
         // Reindirizza l'utente alla home
         return response()->json(['redirect' => 'home'], 200);
     }
-
 
     public function loginUser(Request $request)
     {
