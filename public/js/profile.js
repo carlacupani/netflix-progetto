@@ -72,3 +72,47 @@ fetch("favorite_movie")
 })
   .catch((error) => console.error("Error:", error)); 
 
+
+
+// Funzione per ottenere e visualizzare una nuova citazione
+function fetchQuote() {
+  fetch('http://localhost:8080/https://animechan.io/api/v1/quotes/random')
+      .then(response => response.json())
+      .then(quote => {
+          // Seleziona il contenitore principale dove vuoi inserire la struttura HTML
+          const container = document.querySelector('.quote-wrapper');
+
+          // Rimuovi eventuali citazioni precedenti
+          container.innerHTML = '';
+
+          // Crea il div con id "quote-box" e classe "quote-box"
+          const quoteBox = document.createElement('div');
+          quoteBox.id = 'quote-box';
+          quoteBox.className = 'quote-box';
+
+          // Crea il blockquote con classe "blockquote" e id "quote"
+          const blockquote = document.createElement('blockquote');
+          blockquote.className = 'blockquote';
+          blockquote.id = 'quote';
+          blockquote.textContent = quote.data.content;
+
+          // Crea il footer con id "autore"
+          const footer = document.createElement('footer');
+          footer.id = 'autore';
+          footer.textContent = "- " + quote.data.character.name + ", " + quote.data.anime.name;
+
+          // Aggiungi il footer al blockquote
+          blockquote.appendChild(footer);
+
+          // Aggiungi il blockquote e il bottone al div "quote-box"
+          quoteBox.appendChild(blockquote);
+
+          // Aggiungi il div "quote-box" al contenitore principale
+          container.appendChild(quoteBox);
+      })
+      .catch(error => console.error('Errore durante il fetch:', error));
+}
+
+// Carica una citazione iniziale quando la pagina viene caricata
+window.onload = fetchQuote;
+

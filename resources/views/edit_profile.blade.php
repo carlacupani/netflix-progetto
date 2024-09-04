@@ -28,6 +28,12 @@
             </a>
         </nav>
         <!-- EDIT ACCOUNT FORM -->
+        @foreach($errors->all() as $error)
+            <div class="alert alert-error">
+                {{ $error }}
+                <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+            </div>
+        @endforeach 
         <div class="header-content">
             <div class="edit-account-body">
                 <h2 class="title">Modifica Profilo</h2>

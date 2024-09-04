@@ -66,6 +66,12 @@
 
     <!--PROFILE-->
     <section class="profile-section">
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+            <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+        </div>
+        @endif
         <h2>I miei dati:</h2>
         <div class="profile-card">
             <div class="profile-card-body">
@@ -107,12 +113,7 @@
 
     <!--RANDOM QUOTE-->
     <section class="quote-wrapper">
-        <div id="quote-box" class="quote-box">
-            <blockquote class="blockquote" id="quote">frase iconica
-                <footer id="autore">Autore</footer>
-            </blockquote>
-            <button id="newquote" class="quote-btn" type="button">Nuova citazione</button>
-        </div>
+
     </section>
 
     <!--FOOTER-->

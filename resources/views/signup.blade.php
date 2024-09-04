@@ -28,6 +28,12 @@
         </nav>
         <!--LOGIN FORM-->
         <div class="header-content">
+            @foreach($errors->all() as $error)
+            <div class="alert alert-error">
+                {{ $error }}
+                <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+            </div>
+            @endforeach
             <div class="login-body">
                 <h2 class="title">Registrati</h2>
                 <form name="signup" method="post" enctype="multipart/form-data" action="#" class="login-form" autocomplete="off">

@@ -89,6 +89,47 @@ class AuthController extends BaseController
     
         // Logga i dati ricevuti per il debug
         Log::info('Dati ricevuti:', $request->all());
+
+        $errors = [];
+
+        if (!empty($request->input("username")) && !empty($request->input("password")) && !empty($request->input("email")) && !empty($request->input("name")) && 
+            !empty($request->input("surname")) && !empty($request->input("confirm_password")))
+        {
+            # USERNAME
+            if (!preg_match('/^[a-zA-Z0-9_]{1,15}$/', $request->input('username'))) {
+                $errors[] = 'Lo username è obbligatorio e deve essere una stringa di massimo 255 caratteri.';
+            } else {
+                if (User::where('username', $request->input('username'))->first()) {
+                    $errors[] = 'Questo username è già stato preso.';
+                }
+            }
+    
+            # PASSWORD
+            if (strlen($request->input("password")) < 8) {
+                $errors[] = 'Questa password non è valida.';
+            } 
+    
+            # CONFERMA PASSWORD
+            if ($request->input('password') != $request->input('confirm_password')) {
+                $errors[] = 'Le password non coincidono.';
+            }
+    
+            # EMAIL
+            if (!filter_var($request->input('email'), FILTER_VALIDATE_EMAIL)) {
+                $errors[] = 'L\'email è obbligatoria e deve essere un\'email valida';
+            } else {
+                if (User::where('email', $request->input('email'))->first()) {
+                    $errors[] = 'Questa email è già stata presa.';
+                }
+            }
+        }
+    
+        // Se ci sono errori, reindirizza alla pagina di registrazione con gli errori e i dati inseriti
+        if (!empty($error)) {
+            return redirect('signup')
+                ->withInput()  // Ritorna i dati inseriti
+                ->withErrors($error);  // Ritorna gli errori
+        }
     
         // Ottieni e hash la password
         $password = password_hash($request->input('password'), PASSWORD_BCRYPT);
@@ -138,80 +179,6 @@ class AuthController extends BaseController
         Session::put('user_id', $user->id);
     
         return redirect('home');
-    }
-    
-    
-    
-
-
-
-
-    
-    
-    
-
-
-    /**
-     * Handle user signup.
-     */
-    public function signup(Request $request)
-    {
-        if (Session::has('user_id')) {
-            return redirect('home');
-        }
-    
-        $error = array();
-    
-        // Verifica l'esistenza di dati POST
-        if (!empty($request->input("username")) && !empty($request->input("password")) && !empty($request->input('email')) && !empty($request->input('name')) && 
-            !empty($request->input('surname')) && !empty($request->input('confirm_password')) && !empty($request->input('allow')))
-        {
-            # USERNAME
-            // Controlla che l'username rispetti il pattern specificato
-            if (!preg_match('/^[a-zA-Z0-9_]{1,15}$/', $request->input('username'))) {
-                $error['username'] = "Username non valido";
-            } else {
-                if (User::where('username', $request->input('username'))->first()) {
-                    $error['username'] = "Username già utilizzato";
-                }
-            }
-            # PASSWORD
-            if (strlen($request->input("password")) < 8) {
-                $error['password'] = "Caratteri password insufficienti";
-            } 
-            # CONFERMA PASSWORD
-            if ($request->input('password') != $request->input('confirm_password')) {
-                $error['password'] = "Le password non coincidono";
-            }
-            # EMAIL
-            if (!filter_var($request->input('email'), FILTER_VALIDATE_EMAIL)) {
-                $error['email'] = "Email non valida";
-            } else {
-                if (User::where('email', $request->input('email'))->first()) {
-                    $error['email'] = "Email già utilizzata";
-                }
-            }
-    
-            # REGISTRAZIONE NEL DATABASE
-            if (count($error) == 0) {
-                $password = password_hash($request->input('password'), PASSWORD_BCRYPT);
-    
-                $user = new User;
-                $user->username = $request->input('username');
-                $user->password = $password;
-                $user->name = $request->input('name');
-                $user->surname = $request->input('surname');
-                $user->email = $request->input('email');
-                $user->save();
-    
-                Session::put('user_id', $user->id);
-                return redirect('home');
-            }
-        } else {
-            $error[] = "Compila tutti i campi";
-        }
-    
-        return redirect('signup')->withInput()->withErrors($error);
     }
 
 

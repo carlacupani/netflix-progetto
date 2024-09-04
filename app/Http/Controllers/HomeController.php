@@ -62,39 +62,81 @@ class HomeController extends BaseController
         return view('edit_profile')
             ->with('user', $user);;
     }
-    public function editProfile(Request $request)
-    {
-
+    public function editProfile(Request $request){
+        // Controlla se l'utente è autenticato
         if (!Session::has('user_id')) {
             return redirect('login');
         }
-        
+    
+        // Trova l'utente autenticato
         $user = User::find(Session::get('user_id'));
         
+        // Se l'utente non esiste, reindirizza al login
         if (!$user) {
             return redirect('login');
         }
-        // Aggiorna i campi dal form
-        $user->name = $request->input('name');
-        $user->surname = $request->input('surname');
-        $user->username = $request->input('username');
-        $user->email = $request->input('email');
-
-        // Gestione della password
+    
+        // Inizializza un array per gli errori
+        $errors = [];
+    
+        // Validazione manuale dei campi
+        if (empty($request->input('name')) || !is_string($request->input('name')) || strlen($request->input('name')) > 255) {
+            $errors[] = 'Il nome è obbligatorio e deve essere una stringa di massimo 255 caratteri.';
+        }
+    
+        if (empty($request->input('surname')) || !is_string($request->input('surname')) || strlen($request->input('surname')) > 255) {
+            $errors[] = 'Il cognome è obbligatorio e deve essere una stringa di massimo 255 caratteri.';
+        }
+    
+        if (empty($request->input('username')) || !is_string($request->input('username')) || strlen($request->input('username')) > 255) {
+            $errors[] = 'Lo username è obbligatorio e deve essere una stringa di massimo 255 caratteri.';
+        } elseif (User::where('username', $request->input('username'))->where('id', '!=', $user->id)->exists()) {
+            $errors[] = 'Questo username è già stato preso.';
+        }
+    
+        if (empty($request->input('email')) || !filter_var($request->input('email'), FILTER_VALIDATE_EMAIL) || strlen($request->input('email')) > 255) {
+            $errors[] = 'L\'email è obbligatoria e deve essere un\'email valida';
+        } elseif (User::where('email', $request->input('email'))->where('id', '!=', $user->id)->exists()) {
+            $errors[] = 'Questa email è già stata presa.';
+        }
+    
         if ($request->filled('new_password')) {
-            if ($request->input('new_password') === $request->input('confirm_new_password')) {
-                $user->password = bcrypt($request->input('new_password'));
-            } else {
-                return redirect('edit_profile/'. $user->id)->with('error', 'Le password non coincidono');
+            if (strlen($request->input('new_password')) < 8) {
+                $errors[] = 'La nuova password deve essere di almeno 8 caratteri.';
+            }
+            if ($request->input('new_password') !== $request->input('confirm_new_password')) {
+                $errors[] = 'Le password non coincidono.';
             }
         }
-
-        // Salva l'utente aggiornato nel database
-        $user->save();
-
-        return redirect('profile')->with('success', 'user updated successfully');
-
+    
+        // Se ci sono errori, reindirizza con i messaggi di errore
+        if (!empty($errors)) {
+            return redirect('edit_profile/'. $user->id)->withErrors($errors);
+        }
+    
+        try {
+            // Aggiorna i campi del profilo
+            $user->name = $request->input('name');
+            $user->surname = $request->input('surname');
+            $user->username = $request->input('username');
+            $user->email = $request->input('email');
+    
+            // Gestione della modifica della password
+            if ($request->filled('new_password')) {
+                $user->password = bcrypt($request->input('new_password'));
+            }
+    
+            // Salva le modifiche
+            $user->save();
+    
+            // Reindirizza con un messaggio di successo
+            return redirect('profile')->with('success', 'I tuoi dati sono stati aggiornati correttamente!');
+        } catch (\Exception $e) {
+            // Gestione degli errori generali
+            return redirect('edit_profile/'. $user->id)->with('error', 'Si è verificato un errore durante l\'aggiornamento del profilo: ' . $e->getMessage());
+        }
     }
+    
 
     public function showMiaLista(){
         if (!Session::has('user_id')) {
@@ -122,7 +164,7 @@ class HomeController extends BaseController
 
     }
 
-    
+
     public function showDetailsMovie()
     {
         return view('details_movie');
@@ -278,8 +320,6 @@ class HomeController extends BaseController
         return ['ok' => true];
         
     }
-
-
 
     public function deleteMovie(Request $request)
     {
