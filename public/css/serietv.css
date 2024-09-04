@@ -823,6 +823,15 @@ footer .language-btn{
 
 @media (min-width: 575px) {
 
+    .logo img {
+        width: 93px;
+    }
+    
+    .menu-btn,
+    .overlay {
+        display: none;
+    }
+
     /*---homepage---*/
 
     .banner-content {
@@ -860,6 +869,10 @@ footer .language-btn{
     }
 
     /*---home-page---*/
+
+    .logo img {
+        width: 120px;
+    }
 
     .container {
         padding-inline: 24px;

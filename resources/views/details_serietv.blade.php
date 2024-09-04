@@ -43,10 +43,6 @@
       <button class="search-btn" search-toggler menu-close>
         <img src="./images/search.png" width="24" height="24" alt="open search box">
       </button>
-      <button class="menu-btn" menu-btn menu-toggler>
-        <img src="./images/menu.png" width="24" height="24" alt="open menu" class="menu">
-        <img src="./images/menu-close.png" width="24" height="24" alt="close menu" class="close">
-      </button>
       <!-- ACCOUNT -->
       <div class="userInfo">
         <a href="{{ URL::to("profile") }}">

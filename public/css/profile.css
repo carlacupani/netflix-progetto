@@ -826,6 +826,10 @@ footer .language-btn{
 
     /*---homepage---*/
 
+    .logo img {
+        width: 93px;
+    }
+
     .banner-content {
         right: auto;
         max-width: 500px;
@@ -833,6 +837,22 @@ footer .language-btn{
 
     .slider-control {
         left: calc(100% - 400px);
+    }
+
+    .profile-section{
+        margin-top: 2%;
+        margin-left: 20%;
+        font-size: var(--fs-heading);
+        padding: 0 10px;
+        width: 60%;
+    }
+
+    .profile-section .profile-card {
+        padding: 10px 0 10px 20px;
+    }
+
+    .edit-account-btn, .logout-btn {
+        margin: 2px;
     }
 
     /*---detail-page---
@@ -848,19 +868,16 @@ footer .language-btn{
 
 @media (min-width: 768px) {
 
-    /*---custom-property---*/
+    /*---home-page---*/
 
-    :root {
-
-        /* gradient color */
-        --banner-overlay: 90deg, hsl(220, 17%, 7%) 0%, hsla(220, 17%, 7%, 0) 100%;
-
-        /* font size */
-        --fs-heading: 5.4rem;
-
+    .logo img {
+        width: 120px;
     }
 
-    /*---home-page---*/
+    .menu-btn,
+    .overlay {
+        display: none;
+    }
 
     .container {
         padding-inline: 24px;
@@ -915,6 +932,10 @@ footer .language-btn{
 
     .movie-detail .slider-inner::before {
         display: none;
+    }
+
+    .profile-section .profile-card {
+        padding: 20px 0 20px 50px;
     }
 
 }

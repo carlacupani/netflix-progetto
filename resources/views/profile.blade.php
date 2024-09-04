@@ -35,7 +35,7 @@
             </ul>
         </div>
 
-        <!-- <div class="navbar-right">
+        <div class="navbar-right">
             <div class="search-box" search-box>
                 <div class="search-wrapper" search-wrapper>
                     <input type="text" name="search" aria-label="search movies" placeholder="Search any movies..." class="search-field" autocomplete="off" search-field>
@@ -48,6 +48,7 @@
             <button class="search-btn" search-toggler menu-close>
                 <img src="./images/search.png" width="24" height="24" alt="open search box">
             </button>
+            <!-- 
             <button class="menu-btn" menu-btn menu-toggler>
                 <img src="./images/menu.png" width="24" height="24" alt="open menu" class="menu">
                 <img src="./images/menu-close.png" width="24" height="24" alt="close menu" class="close">

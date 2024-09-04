@@ -183,6 +183,10 @@ nav{
     display: block;
 }
 
+.logo img {
+    width: 93px;
+}
+
   .navbar-links {
     display: flex;
     align-items: center;
@@ -825,6 +829,15 @@ footer .language-btn{
 
     /*---homepage---*/
 
+    .logo img {
+        width: 93px;
+    }
+
+    .menu-btn,
+    .overlay {
+        display: none;
+    }
+
     .banner-content {
         right: auto;
         max-width: 500px;
@@ -860,6 +873,10 @@ footer .language-btn{
     }
 
     /*---home-page---*/
+
+    .logo img {
+        width: 120px;
+    }
 
     .container {
         padding-inline: 24px;
