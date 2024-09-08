@@ -6,9 +6,7 @@ import { searchSerie } from "./search-serie.js";
 
 const pageContent = document.querySelector("[page-content]");
 
-/* 
-  Creazione di un oggetto `genreList` per gestire i generi delle serie TV.
-*/
+/* Creazione di un oggetto `genreList` per gestire i generi delle serie TV. */
 const genreList = {
   asString(genreIdList) {
     let newGenreList = [];
@@ -140,7 +138,6 @@ const heroBanner = function ({ results: serieList }) {
     sliderItem.appendChild(bannerContent);
     bannerSlider.appendChild(sliderItem);
 
-    // Crea il controllo dello slider per la navigazione tra le slide
     const controlItem = document.createElement("button");
     controlItem.classList.add("poster-box", "slider-item");
     controlItem.setAttribute("slider-control", `${controlItemIndex}`);
@@ -157,7 +154,6 @@ const heroBanner = function ({ results: serieList }) {
     controlInner.appendChild(controlItem);
   }
 
-  // Aggiunge il banner alla pagina e inizializza lo slider
   pageContent.appendChild(banner);
   addHeroSlide();
 
@@ -169,7 +165,6 @@ const heroBanner = function ({ results: serieList }) {
   fetchDataFromServer("/serietv/popular", createSerieList, "Più popolari tra i giovani");
 };
 
-// Funzione per aggiungere la funzionalità di slide all'hero banner
 const addHeroSlide = function () {
   const sliderItems = document.querySelectorAll("[slider-item]");
   const sliderControls = document.querySelectorAll("[slider-control]");
@@ -180,7 +175,6 @@ const addHeroSlide = function () {
   lastSliderItem.classList.add("active");
   lastSliderControl.classList.add("active");
 
-  // Funzione per gestire il cambiamento di slide
   const sliderStart = function () {
     lastSliderItem.classList.remove("active");
     lastSliderControl.classList.remove("active");
@@ -192,8 +186,9 @@ const addHeroSlide = function () {
     lastSliderControl = this;
   };
 
-  // Aggiunge l'evento click ai controlli dello slider
-  addEventOnElements(sliderControls, "click", sliderStart);
+  sliderControls.forEach(function (control) {
+    control.addEventListener("click", sliderStart);
+  });
 };
 
 // Funzione per creare e aggiungere le card delle serie TV nelle sezioni della homepage

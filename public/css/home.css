@@ -396,11 +396,13 @@ nav{
     margin-inline-end: auto;
 }
 
+
 .search-btn,
 .menu-btn {
     padding: 12px;
 }
 
+/*---SEARCH---*/
 .search-btn {
     background-color: var(--banner-background);
     border-radius: var(--radius-8);
@@ -487,15 +489,6 @@ nav{
 .sidebar::-webkit-scrollbar-button {
     height: 16px;
 
-}
-
-.copyright {
-    color: var(--on-surface-variant);
-    margin-block-end: 20px;
-}
-
-.copyright a {
-    display: inline-block;
 }
 
 .overlay {

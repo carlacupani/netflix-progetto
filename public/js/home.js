@@ -188,7 +188,9 @@ const addHeroSlide = function () {
     lastSliderControl = this;
   };
 
-  addEventOnElements(sliderControls, "click", sliderStart); // Aggiunta dell'evento click per il controllo dello slide
+  sliderControls.forEach(function (control) {
+    control.addEventListener("click", sliderStart);
+  });
 };
 
 // Funzione per creare la lista dei film nelle sezioni della homepage

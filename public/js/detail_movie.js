@@ -1,18 +1,13 @@
 "use strict";
 
-// Importa le costanti e funzioni necessarie da altri moduli
 import { imageBaseURL, fetchDataFromServer } from "./api.js";
 import { createMovieCard } from "./movie-card.js";
 import { searchMovie } from "./search-movie.js";
 
-
-// Recupera l'ID del film dal local storage
 const movieId = window.localStorage.getItem("movieId");
 
-// Seleziona l'elemento del contenuto della pagina
 const pageContent = document.querySelector("[page-content]");
 
-// Estrae e formatta i generi del film come stringa separata da virgole
 const getGenres = function (genreList) {
   const newGenreList = [];
 
@@ -21,7 +16,6 @@ const getGenres = function (genreList) {
   return newGenreList.join(", ");
 };
 
-// Estrae e formatta i primi 10 membri del cast come stringa separata da virgole
 const getCasts = function (castList) {
   const newCastList = [];
 
@@ -33,7 +27,6 @@ const getCasts = function (castList) {
   return newCastList.join(", ");
 };
 
-// Estrae e formatta i registi come stringa separata da virgole
 const getDirectors = function (crewList) {
   const directors = crewList.filter(({ job }) => job === "Director");
 
@@ -43,7 +36,6 @@ const getDirectors = function (crewList) {
   return directorList.join(", ");
 };
 
-// Filtra i video per includere solo trailer e teaser di YouTube
 const filterVideos = function (videoList) {
   return videoList.filter(
     ({ type, site }) =>
@@ -51,7 +43,8 @@ const filterVideos = function (videoList) {
   );
 };
 
-// Recupera i dettagli del film dall'API di TMDB
+
+
 fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(movie) {
     const {
       backdrop_path,
@@ -69,21 +62,17 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
       videos: { results: videos },
     } = movie;
 
-    // Imposta il titolo della pagina
-    document.title = `${title} - Netflix`;
+    document.title = ' " ' + title + ' - Netflix"';
 
-    // Crea l'elemento principale dei dettagli del film
     const movieDetail = document.createElement("div");
     movieDetail.classList.add("movie-detail");
 
-    // Crea e imposta l'immagine di sfondo
     const backdropImage = document.createElement("div");
     backdropImage.classList.add("backdrop-image");
     backdropImage.style.backgroundImage = `url('${imageBaseURL}${
       "w1280" || "original"
     }${backdrop_path || poster_path}')`;
 
-    // Crea e imposta il poster del film
     const figure = document.createElement("figure");
     figure.classList.add("poster-box", "movie-poster");
 
@@ -93,20 +82,16 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
     img.classList.add("img-cover");
     figure.appendChild(img);
 
-    // Crea il contenitore dei dettagli del film
     const detailBox = document.createElement("div");
     detailBox.classList.add("detail-box");
 
-    // Crea il contenuto dei dettagli del film
     const detailContent = document.createElement("div");
     detailContent.classList.add("detail-content");
 
-    // Imposta il titolo del film
     const heading = document.createElement("h1");
     heading.classList.add("heading");
     heading.textContent = title;
 
-    // Crea e imposta i meta dati del film (valutazione, durata, data di rilascio, certificazione)
     const metaList = document.createElement("div");
     metaList.classList.add("meta-list");
 
@@ -151,17 +136,14 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
     metaList.appendChild(metaItemReleaseDate);
     metaList.appendChild(cardBadge);
 
-    // Aggiunge il genere del film
     const genreP = document.createElement("p");
     genreP.classList.add("genre");
     genreP.textContent = getGenres(genres);
 
-    // Aggiunge la descrizione del film
     const overviewP = document.createElement("p");
     overviewP.classList.add("overview");
     overviewP.textContent = overview;
 
-    // Crea la lista dei dettagli (cast e registi)
     const detailList = document.createElement("ul");
     detailList.classList.add("detail-list");
 
@@ -333,8 +315,8 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
       const iframe = document.createElement("iframe");
       iframe.width = "500";
       iframe.height = "294";
-      iframe.src = `https://www.youtube.com/embed/${key}?&theme=dark&color=white&rel=0`;
-      iframe.frameBorder = "0";
+      iframe.src = "https://www.youtube.com/embed/" + key + "?&theme=dark&color=white&rel=0";
+      iframe.style.border = "none";
       iframe.allowFullscreen = true;
       iframe.title = name;
       iframe.classList.add("img-cover");

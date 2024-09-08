@@ -1,17 +1,16 @@
 "use strict";
 
-// Funzione per aggiungere un evento a una lista di elementi
-const addEventOnElements = function (elements, eventType, callback) {
-  for (const elem of elements) 
-    elem.addEventListener(eventType, callback);
-};
+// Funzione per aggiungere un evento a una lista di lementi
 
-const searchBox = document.querySelector("[search-box]");
 
-const searchTogglers = document.querySelectorAll("[search-toggler]");
+const searchBox = document.querySelector(".search-box");
 
-addEventOnElements(searchTogglers, "click", function () {
-  searchBox.classList.toggle("active");
+const searchTogglers = document.querySelectorAll(".search-toggler");
+
+searchTogglers.forEach(function (toggler) {
+  toggler.addEventListener("click", function () {
+    searchBox.classList.toggle("active");
+  });
 });
 
 const getMovieDetail = function (movieId) {

@@ -1,17 +1,13 @@
 "use strict";
 
-// Importa le costanti e le funzioni necessarie da altri moduli
 import { imageBaseURL, fetchDataFromServer } from "./api.js";
 import { createSerieCard } from "./serie-card.js";
 import { searchSerie } from "./search-serie.js";
 
-// Recupera l'ID della serie dal local storage
 const serieId = window.localStorage.getItem("serieId");
 
-// Seleziona l'elemento del contenuto della pagina
 const pageContent = document.querySelector("[page-content]");
 
-// Funzione per estrarre e formattare i generi della serie come stringa separata da virgole
 const getGenres = function (genreList) {
   const newGenreList = [];
 
@@ -20,7 +16,6 @@ const getGenres = function (genreList) {
   return newGenreList.join(", ");
 };
 
-// Funzione per estrarre e formattare i creatori della serie come stringa separata da virgole
 const getCreators = function (creatorsList) {
   const newCreatorsList = [];
 
@@ -29,7 +24,6 @@ const getCreators = function (creatorsList) {
   return newCreatorsList.join(", ");
 };
 
-// Recupera i dettagli della serie dall'API
 fetchDataFromServer(`serietv/details?q=${encodeURIComponent(serieId)}`, function (serie) {
   const {
     backdrop_path,
@@ -96,13 +90,11 @@ fetchDataFromServer(`serietv/details?q=${encodeURIComponent(serieId)}`, function
 
   const ratingSpan = document.createElement("span");
   ratingSpan.classList.add("span");
-  // Verifica se `vote_average` è definito e numerico prima di chiamare `toFixed`
   ratingSpan.textContent = vote_average.toFixed(1);
 
   metaItemRating.appendChild(ratingImg);
   metaItemRating.appendChild(ratingSpan);
 
-  // Separatori tra i meta dati
   const separator1 = document.createElement("div");
   separator1.classList.add("separator");
 
@@ -128,17 +120,14 @@ fetchDataFromServer(`serietv/details?q=${encodeURIComponent(serieId)}`, function
   metaList.appendChild(metaItemFirstAirDate);
   metaList.appendChild(metaItemLastAirDate);
 
-  // Aggiunge il genere della serie
   const genreP = document.createElement("p");
   genreP.classList.add("genre");
   genreP.textContent = getGenres(genres);
 
-  // Aggiunge la descrizione della serie
   const overviewP = document.createElement("p");
   overviewP.classList.add("overview");
   overviewP.textContent = overview;
 
-  // Aggiunge i dettagli della serie (creatori)
   const detailList = document.createElement("ul");
   detailList.classList.add("detail-list");
 
