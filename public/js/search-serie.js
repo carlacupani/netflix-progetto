@@ -4,8 +4,8 @@ import { fetchDataFromServer } from "./api.js";
 import { createSerieCard } from "./serie-card.js";
 
 export function searchSerie() {
-  const searchWrapper = document.querySelector(".search-wrapper");
-  const searchField = document.querySelector(".search-field");
+  const searchWrapper = document.querySelector("[search-wrapper]");
+  const searchField = document.querySelector("[search-field]");
 
   const searchResultModal = document.createElement("div");
   searchResultModal.classList.add("search-modal");

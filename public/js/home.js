@@ -30,8 +30,13 @@ fetch("/genre/movie/list")
     for (const { id, name } of data.genres) {
       genreList[id] = name;
     }
-    fetchDataFromServer("/movie/popular", heroBanner);
-})
+    fetch("/movie/popular")
+      .then((response) => response.json())
+      .then(data => {
+        heroBanner(data);  // Chiami la funzione heroBanner con i dati ricevuti
+      })
+      .catch((error) => console.error("Error:", error));
+  })
   .catch((error) => console.error("Error:", error));
 
 // Funzione per creare l'hero banner con i film popolari
@@ -116,7 +121,7 @@ const heroBanner = function ({ results: movieList }) {
     const btn = document.createElement("a");
     btn.href = "details_movie"; // Link ai dettagli del film
     btn.classList.add("btn");
-    btn.setAttribute("onclick", `getMovieDetail(${id})`); // Funzione per ottenere i dettagli del film
+    btn.setAttribute("onclick", `getMovieDetail(${id})`); //getMovieDetail(id)
 
     const playCircleImg = document.createElement("img");
     playCircleImg.src = "./images/play_circle.png";
@@ -144,7 +149,7 @@ const heroBanner = function ({ results: movieList }) {
     const controlItemImg = document.createElement("img");
     controlItemImg.src = `${imageBaseURL}w154${poster_path}`;
     controlItemImg.alt = `Slide to ${title}`;
-    controlItemImg.loading = "lazy"; // Caricamento lazy delle immagini di controllo
+    controlItemImg.loading = "lazy";
     controlItemImg.draggable = false;
     controlItemImg.classList.add("img-cover");
     controlItem.appendChild(controlItemImg);
@@ -153,7 +158,7 @@ const heroBanner = function ({ results: movieList }) {
   }
 
   pageContent.appendChild(banner);
-  addHeroSlide(); // Aggiunta della funzionalità di slide all'hero banner
+  addHeroSlide();
   
   /* Sezioni della homepage (Top rated, Upcoming, Trending movies) */
   // Fetch delle sezioni della homepage (In uscita, In tendenza questa settimana, Più votati)
@@ -179,9 +184,7 @@ const addHeroSlide = function () {
     lastSliderItem.classList.remove("active");
     lastSliderControl.classList.remove("active");
 
-    sliderItems[Number(this.getAttribute("slider-control"))].classList.add(
-      "active"
-    );
+    sliderItems[Number(this.getAttribute("slider-control"))].classList.add("active");
     this.classList.add("active");
 
     lastSliderItem = sliderItems[Number(this.getAttribute("slider-control"))];
@@ -197,7 +200,7 @@ const addHeroSlide = function () {
 const createMovieList = function ({ results: movieList }, title) {
   const movieListElem = document.createElement("section");
   movieListElem.classList.add("movie-list");
-  movieListElem.ariaLabel = `${title}`;
+  movieListElem.ariaLabel = title;
 
   const titleWrapper = document.createElement("div");
   titleWrapper.classList.add("title-wrapper");

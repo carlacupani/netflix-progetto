@@ -69,9 +69,7 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
 
     const backdropImage = document.createElement("div");
     backdropImage.classList.add("backdrop-image");
-    backdropImage.style.backgroundImage = `url('${imageBaseURL}${
-      "w1280" || "original"
-    }${backdrop_path || poster_path}')`;
+    backdropImage.style.backgroundImage = "url(" + imageBaseURL + (backdrop_path || poster_path ? "w1280" : "original") + (backdrop_path || poster_path) + ")";
 
     const figure = document.createElement("figure");
     figure.classList.add("poster-box", "movie-poster");

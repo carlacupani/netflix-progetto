@@ -10,21 +10,17 @@ const pageContent = document.querySelector("[page-content]");
 
 const getGenres = function (genreList) {
   const newGenreList = [];
-
   for (const { name } of genreList) newGenreList.push(name);
-
   return newGenreList.join(", ");
 };
 
 const getCreators = function (creatorsList) {
   const newCreatorsList = [];
-
   for (const { name } of creatorsList) newCreatorsList.push(name);
-
   return newCreatorsList.join(", ");
 };
 
-fetchDataFromServer(`serietv/details?q=${encodeURIComponent(serieId)}`, function (serie) {
+fetchDataFromServer("serietv/details?q=" + encodeURIComponent(serieId), function (serie) {
   const {
     backdrop_path,
     poster_path,
@@ -40,19 +36,15 @@ fetchDataFromServer(`serietv/details?q=${encodeURIComponent(serieId)}`, function
     created_by,
   } = serie;
 
-  // Imposta il titolo della pagina con il nome della serie
-  document.title = `${name} - Netflix`;
+  document.title = name + " - Netflix";
 
-  // Crea l'elemento principale per i dettagli della serie
   const serieDetail = document.createElement("div");
   serieDetail.classList.add("serie-detail");
 
-  // Crea e imposta l'immagine di sfondo
   const backdropImage = document.createElement("div");
   backdropImage.classList.add("backdrop-image");
-  backdropImage.style.backgroundImage = `url('${imageBaseURL}${backdrop_path ? "w1280" : "original"}${backdrop_path || poster_path}')`;
+  backdropImage.style.backgroundImage = "url('" + imageBaseURL + (backdrop_path ? "w1280" : "original") + (backdrop_path || poster_path) + "')";
 
-  // Crea e imposta il poster della serie
   const figure = document.createElement("figure");
   figure.classList.add("poster-box", "serie-poster");
 
@@ -62,20 +54,16 @@ fetchDataFromServer(`serietv/details?q=${encodeURIComponent(serieId)}`, function
   img.classList.add("img-cover");
   figure.appendChild(img);
 
-  // Crea il contenitore dei dettagli della serie
   const detailBox = document.createElement("div");
   detailBox.classList.add("detail-box");
 
-  // Crea il contenuto dei dettagli della serie
   const detailContent = document.createElement("div");
   detailContent.classList.add("detail-content");
 
-  // Imposta il titolo della serie
   const heading = document.createElement("h1");
   heading.classList.add("heading");
   heading.textContent = name;
 
-  // Crea e imposta i meta dati della serie (valutazione, durata, data di rilascio)
   const metaList = document.createElement("div");
   metaList.classList.add("meta-list");
 
@@ -158,115 +146,104 @@ fetchDataFromServer(`serietv/details?q=${encodeURIComponent(serieId)}`, function
   serieDetail.appendChild(figure);
   serieDetail.appendChild(detailBox);
 
-      // Crea e aggiunge il bottone per aggiungere ai preferiti
-      const addToFavoritesButton = document.createElement("button");
-      addToFavoritesButton.classList.add("add-to-favorites");
-      addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
-      
-      // Verifica l'esistenza di detailBox e detailContent
-      if (detailBox && detailContent) {
-        detailBox.insertBefore(addToFavoritesButton, detailContent);
-      } else {
-        console.error("detailBox o detailContent non trovati");
-      }
-      
-      // Variabile per tracciare se il film è nei preferiti
-      let isAddedToFavorites = false;
-      
-      const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  const addToFavoritesButton = document.createElement("button");
+  addToFavoritesButton.classList.add("add-to-favorites");
+  addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
 
-      // Funzione per gestire il salvataggio del film
-      function saveMovie() {
-        // Prepara i dati da inviare al server
-        const formData = new FormData();
-        formData.append('serieId', serieId);
-        formData.append('name', name);
-        formData.append('first_air_date', first_air_date);
-        formData.append('last_air_date', last_air_date);
-        formData.append('episode_run_time', episode_run_time);
-        formData.append('vote_average', vote_average);
-        formData.append('genres', getGenres(genres));
-        formData.append('created_by', getCreators(created_by)); // Usando la funzione per ottenere la stringa dei generi
-        formData.append('overview', overview);
-        formData.append('backdrop_path', backdrop_path);
-        formData.append('poster_path', poster_path);
-      
-        const url = isAddedToFavorites ? "delete_movie" : "save_serie";
-        // Controlla lo stato per determinare l'URL
-      
-        // Invia la richiesta al server
-        fetch(url, {
-          method: 'POST',
-          headers: {
-            'X-CSRF-TOKEN': token,
-          },
-          body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.ok) {
-            if (isAddedToFavorites) {
-              addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
-            } else {
-              addToFavoritesButton.textContent = "Aggiunto!";
-            }
-            isAddedToFavorites = !isAddedToFavorites; // Alterna lo stato
-          } else {
-            addToFavoritesButton.textContent = "Errore";
-          }
-        })
-        .catch(error => {
-          console.error('Errore:', error);
-          addToFavoritesButton.textContent = "Errore";
-        });
-      }
-      
-      // Funzione per inizializzare lo stato del bottone
-      function checkIfSerieIsFavorited() {
-        // Prepara i dati da inviare al server
-        var userIdElement = document.getElementById('userId');
-        var userId = userIdElement ? userIdElement.getAttribute('data-user-id') : null;
-        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        const formData = new FormData();
-        formData.append('serieId', serieId);
-        formData.append('userId', userId);
-      
-        fetch("check_serie", {
-          method: 'POST',
-          headers: {
-            'X-CSRF-TOKEN': token,
-          },
-          body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.isFavorited) {
-            addToFavoritesButton.textContent = "Aggiunto!";
-            isAddedToFavorites = true;
-          } else {
+  if (detailBox && detailContent) {
+    detailBox.insertBefore(addToFavoritesButton, detailContent);
+  } else {
+    console.error("detailBox o detailContent non trovati");
+  }
+
+  let isAddedToFavorites = false;
+
+  const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+  function saveMovie() {
+    const formData = new FormData();
+    formData.append('serieId', serieId);
+    formData.append('name', name);
+    formData.append('first_air_date', first_air_date);
+    formData.append('last_air_date', last_air_date);
+    formData.append('episode_run_time', episode_run_time);
+    formData.append('vote_average', vote_average);
+    formData.append('genres', getGenres(genres));
+    formData.append('created_by', getCreators(created_by)); // Usando la funzione per ottenere la stringa dei generi
+    formData.append('overview', overview);
+    formData.append('backdrop_path', backdrop_path);
+    formData.append('poster_path', poster_path);
+
+    const url = isAddedToFavorites ? "delete_movie" : "save_serie";
+  
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'X-CSRF-TOKEN': token,
+      },
+      body: formData
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.ok) {
+          if (isAddedToFavorites) {
             addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
-            isAddedToFavorites = false;
+          } else {
+            addToFavoritesButton.textContent = "Aggiunto!";
           }
-        })
-        .catch(error => {
-          console.error('Errore:', error);
-        });
-      }
-      
-      // Aggiungi l'evento click al bottone
-      addToFavoritesButton.addEventListener("click", function() {
-        console.log("Button clicked!"); // Log per verificare il click
-        saveMovie();
+          isAddedToFavorites = !isAddedToFavorites; // Alterna lo stato
+        } else {
+          addToFavoritesButton.textContent = "Errore";
+        }
+      })
+      .catch(error => {
+        console.error('Errore:', error);
+        addToFavoritesButton.textContent = "Errore";
       });
-      
-      checkIfSerieIsFavorited();
+  }
+
+  function checkIfSerieIsFavorited() {
+    var userIdElement = document.getElementById('userId');
+    var userId = userIdElement ? userIdElement.getAttribute('data-user-id') : null;
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const formData = new FormData();
+    formData.append('serieId', serieId);
+    formData.append('userId', userId);
+
+    fetch("check_serie", {
+      method: 'POST',
+      headers: {
+        'X-CSRF-TOKEN': token,
+      },
+      body: formData
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.isFavorited) {
+          addToFavoritesButton.textContent = "Aggiunto!";
+          isAddedToFavorites = true;
+        } else {
+          addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
+          isAddedToFavorites = false;
+        }
+      })
+      .catch(error => {
+        console.error('Errore:', error);
+      });
+  }
+
+  addToFavoritesButton.addEventListener("click", function () {
+    console.log("Button clicked!");
+    saveMovie();
+  });
+
+  checkIfSerieIsFavorited();
 
   pageContent.appendChild(serieDetail);
 
-  fetchDataFromServer("serietv/recommendations?sid="+encodeURIComponent(serieId), addSuggestedSeries);
+  fetchDataFromServer("serietv/recommendations?sid=" + encodeURIComponent(serieId), addSuggestedSeries);
 });
 
-// Funzione per aggiungere le serie suggerite alla pagina
 const addSuggestedSeries = function ({ results: serieList }) {
   const serieListElem = document.createElement("section");
   serieListElem.classList.add("serie-list");
@@ -292,15 +269,12 @@ const addSuggestedSeries = function ({ results: serieList }) {
   serieListElem.appendChild(titleWrapper);
   serieListElem.appendChild(sliderList);
 
-  // Crea e aggiunge una scheda per ogni serie suggerita
   for (const serie of serieList) {
     const serieCard = createSerieCard(serie);
     sliderInner.appendChild(serieCard);
   }
 
-  // Aggiunge la sezione delle serie suggerite al contenuto della pagina
   pageContent.appendChild(serieListElem);
 };
 
-// Richiama la funzione di ricerca per gestire la ricerca delle serie
 searchSerie();
