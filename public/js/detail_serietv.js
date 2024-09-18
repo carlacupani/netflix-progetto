@@ -49,8 +49,8 @@ fetchDataFromServer("serietv/details?q=" + encodeURIComponent(serieId), function
   figure.classList.add("poster-box", "serie-poster");
 
   const img = document.createElement("img");
-  img.src = `${imageBaseURL}w342${poster_path}`;
-  img.alt = `${name} poster`;
+  img.src = imageBaseURL + "w342" + poster_path;
+  img.alt = name + "poster";
   img.classList.add("img-cover");
   figure.appendChild(img);
 
@@ -88,7 +88,7 @@ fetchDataFromServer("serietv/details?q=" + encodeURIComponent(serieId), function
 
   const metaItemRuntime = document.createElement("div");
   metaItemRuntime.classList.add("meta-item");
-  metaItemRuntime.textContent = `${episode_run_time && episode_run_time.length > 0 ? episode_run_time[0] : "N/A"} min`;
+  metaItemRuntime.textContent = (episode_run_time && episode_run_time.length > 0 ? episode_run_time[0] : "N/A") + " min";
 
   const separator2 = document.createElement("div");
   separator2.classList.add("separator");
@@ -241,6 +241,7 @@ fetchDataFromServer("serietv/details?q=" + encodeURIComponent(serieId), function
 
   pageContent.appendChild(serieDetail);
 
+  
   fetchDataFromServer("serietv/recommendations?sid=" + encodeURIComponent(serieId), addSuggestedSeries);
 });
 

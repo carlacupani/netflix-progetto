@@ -30,12 +30,7 @@ fetch("/genre/movie/list")
     for (const { id, name } of data.genres) {
       genreList[id] = name;
     }
-    fetch("/movie/popular")
-      .then((response) => response.json())
-      .then(data => {
-        heroBanner(data);  // Chiami la funzione heroBanner con i dati ricevuti
-      })
-      .catch((error) => console.error("Error:", error));
+    fetchDataFromServer("/movie/popular", heroBanner);
   })
   .catch((error) => console.error("Error:", error));
 
@@ -97,8 +92,7 @@ const heroBanner = function ({ results: movieList }) {
 
     const metaItemReleaseDate = document.createElement("div");
     metaItemReleaseDate.classList.add("meta-item");
-    metaItemReleaseDate.textContent =
-      release_date?.split("-")[0] ?? "Not Released"; // Mostra solo l'anno di uscita
+    metaItemReleaseDate.textContent = release_date?.split("-")[0] ?? "Not Released"; // Mostra solo l'anno di uscita
     metaList.appendChild(metaItemReleaseDate);
 
     const metaItemRating = document.createElement("div");

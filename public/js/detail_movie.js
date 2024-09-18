@@ -62,7 +62,7 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
       videos: { results: videos },
     } = movie;
 
-    document.title = ' " ' + title + ' - Netflix"';
+    document.title = title + " - Netflix";
 
     const movieDetail = document.createElement("div");
     movieDetail.classList.add("movie-detail");
@@ -75,8 +75,8 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
     figure.classList.add("poster-box", "movie-poster");
 
     const img = document.createElement("img");
-    img.src = `${imageBaseURL}w342${poster_path}`;
-    img.alt = `${title} poster`;
+    img.src = imageBaseURL + "w342" + poster_path;
+    img.alt = title + " poster";
     img.classList.add("img-cover");
     figure.appendChild(img);
 

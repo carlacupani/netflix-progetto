@@ -12,7 +12,7 @@ export function createMovieCard(movie) {
   figure.classList.add("poster-box", "card-banner");
 
   const img = document.createElement("img");
-  img.src = `${imageBaseURL}w342${poster_path}`;
+  img.src = imageBaseURL + "w342" + poster_path;
   img.alt = title;
   img.classList.add("img-cover");
   img.loading = "lazy";

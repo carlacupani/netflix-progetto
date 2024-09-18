@@ -12,7 +12,7 @@ export function createSerieCard(serie) {
   figure.classList.add("poster-box", "card-banner");
   
   const img = document.createElement("img");
-  img.src = `${imageBaseURL}w342${poster_path}`;
+  img.src = imageBaseURL + "w342" + poster_path;
   img.alt = name;
   img.classList.add("img-cover");
   img.loading = "lazy";
