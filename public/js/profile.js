@@ -56,7 +56,6 @@ const createFavoriteMovieList = function (movies) {
       sliderInner.appendChild(movieCard);
       
     }
-
   }
 
   pageContent.appendChild(movieListElem);
@@ -79,14 +78,14 @@ function fetchQuote() {
       .then(response => {
           // Verifica se la risposta è OK
           if (!response.ok) {
-              throw new Error('Network response was not ok');
+              console.log("response no ok");
           }
           return response.json();
       })
       .then(quote => {
           const container = document.querySelector('.quote-wrapper');
 
-          // svuota
+          // nodi precedenti
           container.innerHTML = '';
 
           const quoteBox = document.createElement('div');

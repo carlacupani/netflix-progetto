@@ -213,11 +213,9 @@ class ApiController extends BaseController
     }
 
     // Recupera la lista dei film in tendenza
-    public function getTrendingMovie()
-    {
+    public function getTrendingMovie() {
         $curl = curl_init();
-
-    curl_setopt_array($curl, [
+        curl_setopt_array($curl, [
         CURLOPT_URL => env('API_BASE_URL') . "/trending/movie/week?language=it-IT&page=1",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
@@ -231,16 +229,16 @@ class ApiController extends BaseController
         ],
     ]);
 
-    $response = curl_exec($curl);
-    $err = curl_error($curl);
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
 
-    curl_close($curl);
+        curl_close($curl);
 
-    if ($err) {
-        echo "cURL Error #:" . $err;
-    } else {
-        echo $response;
-    }
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            echo $response;
+        }
     }
 
     // Recupera la lista dei film in uscita

@@ -4,7 +4,9 @@ import { imageBaseURL, fetchDataFromServer } from "./api.js";
 import { createMovieCard } from "./movie-card.js";
 import { searchMovie } from "./search-movie.js";
 
+
 const movieId = window.localStorage.getItem("movieId");
+
 
 const pageContent = document.querySelector("[page-content]");
 
@@ -182,7 +184,6 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
 
     detailBox.appendChild(detailContent);
 
-    // Crea l'intestazione per i trailer e le clip
     const titleWrapper = document.createElement("div");
     titleWrapper.classList.add("title-wrapper");
 
@@ -207,25 +208,20 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
     movieDetail.appendChild(figure);
     movieDetail.appendChild(detailBox);
     
-    // Crea e aggiunge il bottone per aggiungere ai preferiti
     const addToFavoritesButton = document.createElement("button");
     addToFavoritesButton.classList.add("add-to-favorites");
     addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
     
-    // Verifica l'esistenza di detailBox e detailContent
     if (detailBox && detailContent) {
       detailBox.insertBefore(addToFavoritesButton, detailContent);
     } else {
       console.error("detailBox o detailContent non trovati");
     }
     
-    // Variabile per tracciare se il film è nei preferiti
     let isAddedToFavorites = false;
     
-    // Funzione per gestire il salvataggio del film
     function saveMovie() {
-      // Prepara i dati da inviare al server
-
+      
       const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
       const formData = new FormData();

@@ -12,11 +12,11 @@
     --surface: rgba(26, 24, 32, 1);
     --text-color: rgba(149, 148, 153, 1);
     --white: rgba(255, 255, 255, 1);
+
     /* gradient colors */
     --banner-overlay: 0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 60%;
     --bottom-overlay: 180deg, rgba(26, 24, 32, 0), rgba(26, 24, 32, 1);
-    /* font family */
-    --ff-dm-sans: 'DM Sans', sans-serif;
+
     /* font size */
     --fs-heading: 64px;
     --fs-title-lg: 41.6px;
@@ -31,27 +31,22 @@
     /* SHADOW */
     --shadow-1: 0 1px 4px rgba(0, 0, 0, 0.75);
     --shadow-2: 0 2px 4px rgba(219, 0, 37, 0.3);
-    /* BORDER RADIUS */
-    --radius-4: 4px;
-    --radius-8: 8px;
-    --radius-16: 16px;
-    --radius-24: 24px;
-    --radius-36: 36px;
-    /* TRANSITION */
-    --transition-short: 250ms ease;
-    --transition-long: 500ms ease;
+
 }
 
 *{
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
 }
-body{
-    background: var(--background);
+
+body {
+    margin: 0;
+    font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+    background-color: rgba(0,0,0,255);
     color: var(--white);
 }
+
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -59,7 +54,7 @@ body{
 
 ::-webkit-scrollbar-thumb {
     background-color: var(--banner-background);
-    border-radius: var(--radius-8);
+    border-radius: 8px;
 }
 /*---header---*/
 header{
@@ -71,6 +66,8 @@ header{
     padding: 10px 8%;
     position: relative;
 }
+
+
 nav{
     display: flex;
     align-items: center;
@@ -112,7 +109,7 @@ option{
     padding: 10px 20px;
     font-size: 14px;
     font-weight: var(--weight-bold);
-    border-radius: var(--radius-4);
+    border-radius: 4px;
     letter-spacing: normal;
     margin-left: 20px;
 }
@@ -157,7 +154,7 @@ option{
     background-color: var(--banner-background);
     border: none;
     outline: none;
-    border-radius: var(--radius-4);
+    border-radius: 4px;
     color: var(--white);
     font-size: var(--fs-label);
     padding: 15px 20px;
@@ -188,7 +185,7 @@ option{
     height: 60px;
     background: var(--primary);
     border: 0;
-    border-radius: var(--radius-4);
+    border-radius: 4px;
     outline: 0;
     color: var(--white);
     font-size: 16px;
@@ -200,42 +197,57 @@ option{
 }
 
 /*---features---*/
-section{
-    border-top: 6px solid #333;
-    padding: 50px 12%;
-    font-size: 22px;
+.features {
+    padding: 0 9.25rem;
+    margin-top: 2rem;
 }
-.row{
-    display: flex;
-    width: 100%;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 72px 0;
+
+.features .section-title {
+    margin: 16px;
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: 500 bold;
 }
-.text-col{
-    flex-basis: 50%;
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    padding: 0 20px;
+}
+
+.feature-card {
+    background: linear-gradient(to bottom right, rgba(25,33,68,255), rgba(33,13,23,255)); 
+    position: relative;
+    height: 250px;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: left;
+}
+
+.feature-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.feature-description {
+    font-size: 1rem;
     margin-bottom: 20px;
+    color: rgb(139,140,152);
 }
-.img-col{
-    flex-basis: 50%;
-    margin-bottom: 20px;
+
+.feature-icon {
+    position: absolute;
+    bottom: 16px; /* Posiziona l'icona verso il basso */
+    right: 16px; /* Posiziona l'icona verso destra */
+    width: 60px; /* Riduce la dimensione dell'icona */
+    height: auto; /* Mantiene le proporzioni */
+    object-fit: contain;
 }
-.img-col img{
-    display: block;
-    width: 90%;
-    height: auto;
-    margin: auto;
-}
-section h2{
-    font-size: 50px;
-    font-weight: 900;
-    margin-bottom: 20px;
-}
-section p {
-    font-size: 20px;
-    font-weight: var(--weight-light);
-    line-height: 1.5;
-}
+
 /*---faq---*/
 .faq{
     padding: 10px 12%;
@@ -312,8 +324,6 @@ input[type="radio"]{
 /*---footer---*/
 footer{
     padding: 50px 15% 10px;
-    border-top: 6px solid #333;
-    color: var(--text-color);
 }
 footer h2{
     font-size: 18px;

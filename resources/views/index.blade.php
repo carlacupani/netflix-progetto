@@ -37,7 +37,7 @@
         <!-- BANNER -->
         <div class="header-content">
             <h1>Film, serie TV e tanto altro, senza limiti</h1>
-            <h3>Guarda ciò che vuoi ovunque. Disdici quando vuoi.</h3>
+            <h3>A partire da 6,99 €. Disdici quando vuoi.</h3>
             <p>Vuoi guardare Netflix? Inserisci l'indirizzo email per abbonarti o riattivare il tuo abbonamento.</p>
             <div class="email-signup" >
                 <div class="form-control">
@@ -50,52 +50,95 @@
             </div>
         </div>
     </header>
-    <!-- SECTION 1 -->
+    <!-- ANNUNCIO -->
     <section>
-        <div class="row">
-            <div class="text-col">
-                <h2>Goditi Netflix sulla tua TV</h2>
-                <p>Guarda Netflix su smart TV, Playstation, Xbox, Chromecast, Apple TV, lettori Blu-ray e molti altri
-                    dispositivi.</p>
+    <div class="announcement-bar">
+        <img src="{{ URL::to('images/crown.png') }}" alt="">
+        <span>Tutto ciò che ami di Netflix a soli 6,99 €. Approfitta del nostro piano con pubblicità: è il più conveniente.</span>
+        <button>Scopri di più</button>
+    </div>
+    <div class="titles-section">
+        <h2>I titoli del momento</h2>
+        <div class="filters">
+            <select>
+                <option>Italia</option>
+            </select>
+            <select>
+                <option>Film</option>
+            </select>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <img src="{{ URL::to('images/film-1.png') }}" alt="">
+                <div class="rank">1</div>
+                <span>Aggiunto di recente</span>
             </div>
-            <div class="img-col">
-                <img src="{{ URL::to('images/feature-1.png') }}">
+            <div class="card">
+                <img src="{{ URL::to('images/film-2.png') }}" alt="">
+                <div class="rank">2</div>
+                <span>Aggiunto di recente</span>
+            </div>
+            <div class="card">
+                <img src="{{ URL::to('images/film-3.png') }}" alt="">
+                <div class="rank">3</div>
+                <span>Aggiunto di recente</span>
+            </div>
+            <div class="card">
+                <img src="{{ URL::to('images/film-4.png') }}" alt="">
+                <div class="rank">4</div>
+                <span>Aggiunto di recente</span>
+            </div>
+            <div class="card">
+                <img src="{{ URL::to('images/film-5.png') }}" alt="">
+                <div class="rank">5</div>
+                <span>Aggiunto di recente</span>
+            </div>
+            <div class="card">
+                <img src="{{ URL::to('images/film-6.png') }}" alt="">
+                <div class="rank">6</div>
+                <span>Aggiunto di recente</span>
+            </div>
+            <div class="card">
+                <img src="{{ URL::to('images/film-7.png') }}" alt="">
+                <div class="rank">7</div>
+                <span>Aggiunto di recente</span>
+            </div>
+            <div class="card">
+                <img src="{{ URL::to('images/film-8.png') }}" alt="">
+                <div class="rank">8</div>
+                <span>Aggiunto di recente</span>
+            </div>
+            <div class="card">
+                <img src="{{ URL::to('images/film-9.png') }}" alt="">
+                <div class="rank">9</div>
+                <span>Aggiunto di recente</span>
             </div>
         </div>
+    </div>
     </section>
-    <!-- SECTION 2 -->
-    <section>
-        <div class="row">
-            <div class="img-col">
-                <img src="{{ URL::to('images/feature-3.png') }}">
+    <!-- FEATURES -->
+    <section class="features">
+        <h2 class="section-title">Motivi in più per abbonarsi</h2>
+            <div class="features-grid">
+            <div class="feature-card">
+                <h3 class="feature-title">Goditi Netflix sulla tua TV</h3>
+                <p class="feature-description">Guarda Netflix su smart TV, Playstation, Xbox, Chromecast, Apple TV, lettori Blu-ray e molti altri dispositivi.</p>
+                <img src="{{ URL::to('images/feature-1.png') }}" alt="Netflix su TV" class="feature-icon">
             </div>
-            <div class="text-col">
-                <h2>Guarda Netflix ovunque</h2>
-                <p>Cellulare, tablet, laptop e TV: scegli tu cosa usare per guardare in streaming film e serie TV senza limiti.</p>
+            <div class="feature-card">
+                <h3 class="feature-title">Scarica le tue serie da guardare offline</h3>
+                <p class="feature-description">Salva facilmente i tuoi preferiti così avrai sempre qualcosa da guardare.</p>
+                <img src="{{ URL::to('images/feature-2.png') }}" alt="Download offline" class="feature-icon">
             </div>
-        </div>
-    </section>
-    <!-- SECTION 3 -->
-    <section>
-        <div class="row">
-            <div class="text-col">
-                <h2>Crea profili per i bambini</h2>
-                <p>I bambini scoprono nuove avventure in compagnia dei loro personaggi preferiti in uno spazio tutto loro già incluso nel tuo abbonamento.</p>
+            <div class="feature-card">
+                <h3 class="feature-title">Guarda Netflix ovunque</h3>
+                <p class="feature-description">Cellulare, tablet, laptop e TV: scegli tu cosa usare per guardare in streaming film e serie TV senza limiti.</p>
+                <img src="{{ URL::to('images/feature-3.png') }}" alt="Netflix ovunque" class="feature-icon">
             </div>
-            <div class="img-col">
-                <img src="{{ URL::to('images/feature-4.png') }}">
-            </div>
-        </div>
-    </section>
-    <!-- SECTION 4 -->
-    <section>
-        <div class="row">
-            <div class="img-col">
-                <img src="{{ URL::to('images/feature-2.png') }}">
-            </div>
-            <div class="text-col">
-                <h2>Scarica le tue serie da guardare offline</h2>
-                <p>Guarda in aereo, sul treno, in astronave...</p>
+            <div class="feature-card">
+                <h3 class="feature-title">Crea profili per i bambini</h3>
+                <p class="feature-description">I bambini scoprono nuove avventure in compagnia dei loro personaggi preferiti in uno spazio tutto loro già incluso nel tuo abbonamento.</p>
+                <img src="{{ URL::to('images/feature-4.png') }}" alt="Profili per bambini" class="feature-icon">
             </div>
         </div>
     </section>

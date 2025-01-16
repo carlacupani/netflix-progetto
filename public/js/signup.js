@@ -181,13 +181,12 @@ function registerUser() {
         method: 'POST',
         headers: {
             'X-CSRF-TOKEN': token,
-            // 'Content-Type': 'application/json' // Non è necessario per FormData
         },
         body: formData
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
+            console.error('response not ok');
         }
         return response.json();
     })

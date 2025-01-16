@@ -31,8 +31,7 @@ class HomeController extends BaseController
         return view('serietv');
     }
 
-    public function showProfile()
-    {
+    public function showProfile(){
         if (!Session::has('user_id')) {
             return redirect('login');
         }
@@ -157,6 +156,16 @@ class HomeController extends BaseController
     {
         return view('details_movie');
     }
+
+    /**
+    * public function showDetailsMovie($movieId)
+    * {
+    * $movie = Movie::find($movieId);
+    *  return view('detail_movie', ['movie' => $movie]);
+    * }
+    */
+
+    
     public function showDetailsSerietv()
     {
         return view('details_serietv');

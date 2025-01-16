@@ -68,15 +68,13 @@ const heroBanner = function ({ results: serieList }) {
     sliderItem.classList.add("slider-item");
     sliderItem.setAttribute("slider-item", "");
 
-    // Crea e imposta l'immagine di sfondo per l'elemento slider
     const img = document.createElement("img");
     img.src = `${imageBaseURL}w1280${backdrop_path}`;
     img.alt = name;
     img.classList.add("img-cover");
-    img.loading = index === 0 ? "eager" : "lazy"; // Il primo elemento viene caricato subito, gli altri lazy
+    img.loading = index === 0 ? "eager" : "lazy";
     sliderItem.appendChild(img);
 
-    // Crea e imposta il contenuto del banner
     const bannerContent = document.createElement("div");
     bannerContent.classList.add("banner-content");
 
@@ -91,34 +89,30 @@ const heroBanner = function ({ results: serieList }) {
 
     const metaItemReleaseDate = document.createElement("div");
     metaItemReleaseDate.classList.add("meta-item");
-    metaItemReleaseDate.textContent =
-      first_air_date?.split("-")[0] ?? "Non rilasciato"; // Mostra l'anno di prima messa in onda
+    metaItemReleaseDate.textContent = first_air_date?.split("-")[0] ?? "Non rilasciato";
     metaList.appendChild(metaItemReleaseDate);
 
     const metaItemRating = document.createElement("div");
     metaItemRating.classList.add("meta-item", "card-badge");
-    metaItemRating.textContent = vote_average.toFixed(1); // Arrotonda il voto medio a una cifra decimale
+    metaItemRating.textContent = vote_average.toFixed(1);
     metaList.appendChild(metaItemRating);
 
     bannerContent.appendChild(metaList);
 
-    // Aggiunge il genere della serie TV
     const genreP = document.createElement("p");
     genreP.classList.add("genre");
-    genreP.textContent = genreList.asString(genre_ids); // Converte gli ID dei generi in una stringa
+    genreP.textContent = genreList.asString(genre_ids);
     bannerContent.appendChild(genreP);
 
-    // Aggiunge la descrizione della serie TV
     const bannerText = document.createElement("p");
     bannerText.classList.add("banner-text");
     bannerText.textContent = overview;
     bannerContent.appendChild(bannerText);
 
-    // Crea e imposta il pulsante per accedere ai dettagli della serie TV
     const btn = document.createElement("a");
-    btn.href = "details_serietv"; // Link ai dettagli della serie TV
+    btn.href = "details_serietv";
     btn.classList.add("btn");
-    btn.setAttribute("onclick", `getSerietvDetail(${id})`); // Funzione per ottenere i dettagli della serie TV
+    btn.setAttribute("onclick", `getSerietvDetail(${id})`);
 
     const playCircleImg = document.createElement("img");
     playCircleImg.src = "./images/play_circle.png";
@@ -146,7 +140,7 @@ const heroBanner = function ({ results: serieList }) {
     const controlItemImg = document.createElement("img");
     controlItemImg.src = `${imageBaseURL}w154${poster_path}`;
     controlItemImg.alt = `Slide to ${name}`;
-    controlItemImg.loading = "lazy"; // Caricamento lazy delle immagini di controllo
+    controlItemImg.loading = "lazy";
     controlItemImg.draggable = false;
     controlItemImg.classList.add("img-cover");
     controlItem.appendChild(controlItemImg);

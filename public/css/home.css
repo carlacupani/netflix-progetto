@@ -6,7 +6,7 @@
     --on-background: rgba(229, 238, 255, 1);
     --on-surface: rgba(234, 229, 255, 1);
     --on-surface-variant: rgba(111, 111, 113, 1);
-    --primary: rgba(219, 0, 40, 1);
+    --primary: rgb(229, 9, 20);
     --primary-variant: rgba(216, 44, 75, 1);
     --rating-color: rgba(250, 183, 0, 1);
     --surface: rgba(26, 24, 32, 1);
@@ -103,7 +103,7 @@ body {
 }
 
 :focus-visible {
-    outline-color: var(--primary-variant);
+    outline-color: var(--primary);
 }
 
 ::-webkit-scrollbar {
@@ -141,7 +141,7 @@ body {
 }
 
 .load-more {
-    background-color: var(--primary-variant);
+    background-color: var(--primary);
     margin-inline: auto;
     margin-block: 36px 60px;
 }

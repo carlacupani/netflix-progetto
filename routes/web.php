@@ -34,6 +34,7 @@ Route::get('movie_all', [HomeController::class, 'showMovieall'])->name('movie_al
 // Details page routes
 Route::post('delete_movie', [HomeController::class, 'deleteMovie'])->name('delete_movie');
 Route::get('details_movie', [HomeController::class, 'showDetailsMovie']);
+//Route::get('details_movie/{movieId}', [HomeController::class, 'showDetailsMovie']);
 Route::get('details_serietv', [HomeController::class, 'showDetailsSerietv']);
 Route::post('check_movie', [HomeController::class,'checkMovie']);
 Route::post('check_serie', [HomeController::class,'checkSerie']);
