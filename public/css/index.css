@@ -1,37 +1,14 @@
 :root {
-    /* COLORS*/
+    /*---COLORS---*/
     --background: rgba(15, 17, 21, 1);
     --banner-background: rgba(49, 48, 54, 1);
     --white-alpha-20: rgba(255, 255, 255, 0.2);
     --on-background: rgba(229, 238, 255, 1);
     --on-surface: rgba(234, 229, 255, 1);
     --on-surface-variant: rgba(111, 111, 113, 1);
-    --primary: rgba(219, 0, 40, 1);
-    --primary-variant: rgba(216, 44, 75, 1);
-    --rating-color: rgba(250, 183, 0, 1);
     --surface: rgba(26, 24, 32, 1);
     --text-color: rgba(149, 148, 153, 1);
     --white: rgba(255, 255, 255, 1);
-
-    /* gradient colors */
-    --banner-overlay: 0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 60%;
-    --bottom-overlay: 180deg, rgba(26, 24, 32, 0), rgba(26, 24, 32, 1);
-
-    /* font size */
-    --fs-heading: 64px;
-    --fs-title-lg: 41.6px;
-    --fs-title: 32px;
-    --fs-body: 28.8px;
-    --fs-button: 24px;
-    --fs-label: 22.4px;
-    /* font weight */
-    --weight-bold: 700;
-    --weight-light: 400;
-
-    /* SHADOW */
-    --shadow-1: 0 1px 4px rgba(0, 0, 0, 0.75);
-    --shadow-2: 0 2px 4px rgba(219, 0, 37, 0.3);
-
 }
 
 *{
@@ -60,7 +37,7 @@ body {
 header{
     width: 100%;
     height: 1000px;
-    background-image: linear-gradient(var(--banner-overlay)), url("../images/header-image.png");
+    background-image: linear-gradient(90deg, hsl(220, 17%, 7%) 0%, rgba(15, 17, 21, 0.5) 100% ), url("../images/header-image.png");
     background-size: cover;
     background-position: center;
     padding: 10px 8%;
@@ -79,16 +56,14 @@ nav{
     align-items: center;
     gap: 10px;
 }
-button{
-    cursor: pointer;
-}
+
 .logo1{
     width: 167px;
     height: 45px;
     margin-right: auto;
 }
 .language-select{
-    background-color: var(--background);
+    background-color: rgba(0,0,0,255);
     border: 1px solid var(--white-alpha-20);
     color: var(--on-background);
     height: 40px;
@@ -104,11 +79,11 @@ option{
     border: 0;
     outline: 0;
     height: 40px;
-    background-color: var(--primary);
-    color: var(--white);
+    background-color: rgb(226,14,21);
+    color: #fff;
     padding: 10px 20px;
     font-size: 14px;
-    font-weight: var(--weight-bold);
+    font-weight: 700;
     border-radius: 4px;
     letter-spacing: normal;
     margin-left: 20px;
@@ -132,7 +107,7 @@ option{
 }
 .header-content h3{
     font-size: 24px;
-    font-weight: var(--weight-light);
+    font-weight: 500;
     margin-bottom: 16px;
 }
 /*---email---*/
@@ -156,7 +131,7 @@ option{
     outline: none;
     border-radius: 4px;
     color: var(--white);
-    font-size: var(--fs-label);
+    font-size: 15px;
     padding: 15px 20px;
 }
 
@@ -181,15 +156,15 @@ option{
     transform: translateY(-130%);
     margin-top: 2px 0 20px;
 }
-.email-signup button{
+.header-content .email-signup button{
     height: 60px;
-    background: var(--primary);
+    background:rgb(226,14,21);
     border: 0;
     border-radius: 4px;
     outline: 0;
-    color: var(--white);
-    font-size: 16px;
-    font-weight: var(--weight-bold);
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
     letter-spacing: 1px;
     cursor: pointer;
     margin-left: 8px;
@@ -263,7 +238,7 @@ option{
 .announcement .section-title h2 {
     margin: 16px;
     text-align: left;
-    font-size: 1.5rem;
+    font-size: 24px;
     font-weight: 500 bold;
 }
 
@@ -299,7 +274,7 @@ option{
     position: absolute;
     bottom: 10px;
     left: -25px;
-    font-size: 6.25rem;
+    font-size: 100px;
     font-weight: 700;
     text-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.5);
     color: #000;
@@ -312,9 +287,9 @@ option{
     bottom: 0;
     left: 0;
     width: 100%;
-    background: #e50914;
+    background: rgb(226,14,21);
     color: #fff;
-    font-size: 1em;
+    font-size: 16px;
     font-weight: bold;
     text-align: center;
     padding: 8px 0;
@@ -326,14 +301,14 @@ option{
 
 /*---features---*/
 .features {
-    padding: 0 9.25rem;
-    margin-top: 2rem;
+    padding: 0 148px;
+    margin-top: 32px;
 }
 
 .features .section-title {
     margin: 16px;
     text-align: left;
-    font-size: 1.5rem;
+    font-size: 24px;
     font-weight: 500 bold;
 }
 
@@ -356,13 +331,13 @@ option{
 }
 
 .feature-title {
-    font-size: 1.5rem;
+    font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
 .feature-description {
-    font-size: 1rem;
+    font-size: 16px;
     margin-bottom: 20px;
     color: rgb(139,140,152);
 }
@@ -385,7 +360,7 @@ option{
 .faq .section-title h2{
     margin: 16px;
     text-align: left;
-    font-size: 1.5rem;
+    font-size: 24px;
     font-weight: 500 bold;
 }
 /*---accordion---*/
@@ -400,7 +375,7 @@ option{
     padding: 5px;
 }
 .accordion li button{
-    color: var(--white);
+    color: #fff;
     width: 100%;
     display: flex;
     align-items: center;
@@ -408,7 +383,7 @@ option{
     padding: 20px;
     font-stretch: 100%;
     font-size: 24px;
-    font-weight: var(--weight-light);
+    font-weight: 500;
     background: #303030;
     margin-bottom: 5px;
     cursor: pointer;
@@ -420,7 +395,7 @@ option{
     transition: transform 0.3s ease;
     float: right;
     width: 50px;
-    color: var(--white);
+    color: #fff;
     background-color: transparent;
 }
 
@@ -438,16 +413,34 @@ input[type="radio"]{
     display: none;
 }
 
-/*---faq---*/
-.faq .email-signup{
-    max-width: 600px;
-    margin: 20px auto 60px;
-}
-.faq small{
-    font-size: 20px;
+/*---faq email---*/
+.faq .email-form-title{
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
     font-weight: 400;
     line-height: 1.5;
 }
+
+.faq .email-signup{
+    align-items: center;
+    -webkit-box-align: center;
+    padding-top: 16px;
+    max-width: none;
+}
+.faq .email-signup input{
+    font-size: 1rem;
+    line-height: 1.5;
+    width: 100%;
+    padding: 24px 16px 8px;
+}
+
+.faq .email-signup .button{
+
+    font-size: 24px;
+    cursor: pointer;
+}
+
 /*---footer---*/
 footer{
     padding: 50px 15% 10px;
@@ -474,7 +467,7 @@ footer .row{
     padding: 10px 0;
 }
 footer .language-btn{
-    color: var(--white);
+    color: #fff;
     padding: 10px 20px;
     border-radius: 3px;
 }
@@ -485,50 +478,5 @@ footer .language-btn{
 }
 /*---media-query-small-screen---*/
 @media only screen and (max-width: 600px){
-    .logo{
-        width: 100px;
-    }
-    nav button{
-        padding: 5px 10px;
-    }
-    nav .language-btn{
-        padding: 4px 8px;
-    }
-    .header-content{
-        position: unset;
-        transform: none;
-        padding-top: 150px;
-    }
-    .header-content h1{
-        font-size: 30px;
-    }
-    .email-signup button{
-        font-size: 12px;
-        padding: 10px 15px;
-    }
-    .text-col, .img-col{
-        flex-basis: 100%;
-    }
-    .features h2{
-        font-size: 30px;
-    }
-    .features p{
-        font-size: 15px;
-    }
-    .row:nth-child(2), .row:nth-child(4){
-        flex-direction: column-reverse;
-    }
-    .features .row{
-        padding: 10px 0;
-    }
-    .faq h2{
-        font-size: 20px;
-    }
-    .accordion .content{
-        font-size: 14px;
-    }
-    .accordion li label{
-        padding: 10px;
-        font-size: 14px;
-    }
+    
 }

@@ -45,7 +45,7 @@
                     <label for="email_phone">Indirizzo Email</label>
                 </div>
                 <a >
-                    <button disabled type="submit" id="signup-btn-1">Inizia</button>
+                    <button disabled type="submit" id="signup-btn-1">Inizia ></button>
                 </a>
             </div>
         </div>
@@ -198,7 +198,7 @@
                 </div>
             </li>
         </ul>
-        <small>Vuoi guardare Netflix? Inserisci l'indirizzo email per abbonarti o riattivare il tuo abbonamento.</small>
+        <h3 class="email-form-title">Vuoi guardare Netflix? Inserisci l'indirizzo email per abbonarti o riattivare il tuo abbonamento.</h3>
         <div class="email-signup">
             <div class="form-control">
                 <input type="email" id="signup-email-2" name="email" required>
