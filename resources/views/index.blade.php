@@ -52,11 +52,17 @@
     </header>
     <!-- announcement -->
     <section class="announcement">
-    <div class="announcement-bar">
-        <img src="{{ URL::to('images/crown.png') }}" alt="">
-        <span>Tutto ciò che ami di Netflix a soli 6,99 €. Approfitta del nostro piano con pubblicità: è il più conveniente.</span>
-        <button onclick="redirectToAdsPlan()">Scopri di più</button>
-    </div>
+        <div class="section1">
+            <img src="{{ URL::to('images/crown.png') }}" alt="">
+            <div class="announcement-bar">
+                <span>
+                    <b>Tutto ciò che ami di Netflix a soli 6,99 €.</b>
+                    <br> 
+                    Approfitta del nostro piano con pubblicità: è il più conveniente.
+                </span>
+                <button onclick="redirectToAdsPlan()">Scopri di più</button>
+            </div>
+        </div>
     <div class="section-title">
         <h2>I titoli del momento</h2>
         <div class="grid">
