@@ -58,7 +58,8 @@ function hideLogo2() {
     logo.style.display = "inline-block";
 }
 
-// Aggiunge eventi di passaggio del mouse al primo logo
-var logo = document.getElementById("logo1");
-logo.addEventListener("mouseover", showLogo2);
-logo.addEventListener("mouseout", hideLogo2);
+
+// Cliccando il pulsante mostra la pagina ads plan
+function redirectToAdsPlan() {
+    window.location.href = "https://www.netflix.com/it/ads-plan";
+}

@@ -195,6 +195,100 @@ option{
     margin-left: 8px;
     padding: 0 30px;
 }
+/*---annuncio---*/
+.announcement{
+    text-align: center;
+    font-size: 18px;
+    padding: 0 9.25rem;
+    margin-top: 2rem;
+}
+.announcement-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: linear-gradient(to bottom right, rgba(33,13,23,255), rgba(25,33,68,255));;
+    color: #fff;
+}
+.announcement-bar img {
+    width: 50px;
+    height: auto;
+    margin-right: 15px;
+}
+
+.announcement-bar button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.announcement .section-title h2 {
+    margin: 16px;
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: 500 bold;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 50px;
+    padding: 8px ;
+}
+
+.card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #141414;
+    background-size: cover;
+    transition: transform 0.3s ease;
+    overflow: visible;
+    cursor: pointer;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card .rank {
+    position: absolute;
+    bottom: 10px;
+    left: -25px;
+    font-size: 6.25rem;
+    font-weight: 700;
+    text-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.5);
+    color: #000;
+    -webkit-text-stroke: 1px #fff;
+    z-index: 1;
+}
+
+.card span {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #e50914;
+    color: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    padding: 8px 0;
+    border-radius: 0 0 8px 8px;
+    box-sizing: border-box;
+    letter-spacing: 0.5px;
+}
+
 
 /*---features---*/
 .features {
@@ -241,25 +335,24 @@ option{
 
 .feature-icon {
     position: absolute;
-    bottom: 16px; /* Posiziona l'icona verso il basso */
-    right: 16px; /* Posiziona l'icona verso destra */
-    width: 60px; /* Riduce la dimensione dell'icona */
-    height: auto; /* Mantiene le proporzioni */
+    bottom: 16px; 
+    right: 16px;
+    width: 60px;
+    height: auto;
     object-fit: contain;
 }
 
 /*---faq---*/
 .faq{
     padding: 10px 12%;
-    text-align: center;
+    text-align: left;
     font-size: 18px;
 }
-.faq h2{
-    text-align: center;
-    color: var(--on-background);
-    font-weight: 900;
-    font-size: 48px;
-    margin-bottom: 30px;
+.faq .section-title h2{
+    margin: 16px;
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: 500 bold;
 }
 /*---accordion---*/
 .accordion{

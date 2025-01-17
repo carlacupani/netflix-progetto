@@ -50,66 +50,58 @@
             </div>
         </div>
     </header>
-    <!-- ANNUNCIO -->
-    <section>
+    <!-- announcement -->
+    <section class="announcement">
     <div class="announcement-bar">
         <img src="{{ URL::to('images/crown.png') }}" alt="">
         <span>Tutto ciò che ami di Netflix a soli 6,99 €. Approfitta del nostro piano con pubblicità: è il più conveniente.</span>
-        <button>Scopri di più</button>
+        <button onclick="redirectToAdsPlan()">Scopri di più</button>
     </div>
-    <div class="titles-section">
+    <div class="section-title">
         <h2>I titoli del momento</h2>
-        <div class="filters">
-            <select>
-                <option>Italia</option>
-            </select>
-            <select>
-                <option>Film</option>
-            </select>
-        </div>
         <div class="grid">
             <div class="card">
-                <img src="{{ URL::to('images/film-1.png') }}" alt="">
+                <img src="{{ URL::to('images/film-1.jpg') }}" alt="">
                 <div class="rank">1</div>
                 <span>Aggiunto di recente</span>
             </div>
             <div class="card">
-                <img src="{{ URL::to('images/film-2.png') }}" alt="">
+                <img src="{{ URL::to('images/film-2.jpg') }}" alt="">
                 <div class="rank">2</div>
                 <span>Aggiunto di recente</span>
             </div>
             <div class="card">
-                <img src="{{ URL::to('images/film-3.png') }}" alt="">
+                <img src="{{ URL::to('images/film-3.jpg') }}" alt="">
                 <div class="rank">3</div>
                 <span>Aggiunto di recente</span>
             </div>
             <div class="card">
-                <img src="{{ URL::to('images/film-4.png') }}" alt="">
+                <img src="{{ URL::to('images/film-4.jpg') }}" alt="">
                 <div class="rank">4</div>
                 <span>Aggiunto di recente</span>
             </div>
             <div class="card">
-                <img src="{{ URL::to('images/film-5.png') }}" alt="">
+                <img src="{{ URL::to('images/film-5.jpg') }}" alt="">
                 <div class="rank">5</div>
                 <span>Aggiunto di recente</span>
             </div>
             <div class="card">
-                <img src="{{ URL::to('images/film-6.png') }}" alt="">
+                <img src="{{ URL::to('images/film-6.jpg') }}" alt="">
                 <div class="rank">6</div>
                 <span>Aggiunto di recente</span>
             </div>
             <div class="card">
-                <img src="{{ URL::to('images/film-7.png') }}" alt="">
+                <img src="{{ URL::to('images/film-7.jpg') }}" alt="">
                 <div class="rank">7</div>
                 <span>Aggiunto di recente</span>
             </div>
             <div class="card">
-                <img src="{{ URL::to('images/film-8.png') }}" alt="">
+                <img src="{{ URL::to('images/film-8.jpg') }}" alt="">
                 <div class="rank">8</div>
                 <span>Aggiunto di recente</span>
             </div>
             <div class="card">
-                <img src="{{ URL::to('images/film-9.png') }}" alt="">
+                <img src="{{ URL::to('images/film-9.jpg') }}" alt="">
                 <div class="rank">9</div>
                 <span>Aggiunto di recente</span>
             </div>
@@ -143,8 +135,8 @@
         </div>
     </section>
     <!-- FAQ -->
-    <div class="faq">
-        <h2>Domande frequenti</h2>
+    <section class="faq">
+        <h2 class="section-title">Domande frequenti</h2>
         <ul class="accordion">
             <li>
                 <button id="qst1">Cos'è Netflix?
@@ -210,7 +202,7 @@
                 <button disabled type="submit" id="signup-btn-2">Inizia</button>
             </a>
         </div>
-    </div>
+    </section>
     <!-- FOOTER -->
     <footer>
         <h2>Domande? Chiama 800-130-364</h2>
