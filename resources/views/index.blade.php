@@ -38,13 +38,13 @@
         <div class="header-content">
             <h1>Film, serie TV e tanto altro, senza limiti</h1>
             <h3>A partire da 6,99 €. Disdici quando vuoi.</h3>
-            <p>Vuoi guardare Netflix? Inserisci l'indirizzo email per abbonarti o riattivare il tuo abbonamento.</p>
-            <div class="email-signup" >
+            <p class="email-form-title">Vuoi guardare Netflix? Inserisci l'indirizzo email per abbonarti o riattivare il tuo abbonamento.</p>
+            <div class="email-signup">
                 <div class="form-control">
                     <input type="email" id="signup-email-1" name="email" required>
                     <label for="email_phone">Indirizzo Email</label>
                 </div>
-                <a >
+                <a>
                     <button disabled type="submit" id="signup-btn-1">Inizia ></button>
                 </a>
             </div>
@@ -198,14 +198,14 @@
                 </div>
             </li>
         </ul>
-        <h3 class="email-form-title">Vuoi guardare Netflix? Inserisci l'indirizzo email per abbonarti o riattivare il tuo abbonamento.</h3>
+        <p class="email-form-title">Vuoi guardare Netflix? Inserisci l'indirizzo email per abbonarti o riattivare il tuo abbonamento.</p>
         <div class="email-signup">
             <div class="form-control">
                 <input type="email" id="signup-email-2" name="email" required>
                 <label for="email_phone">Indirizzo Email</label>
             </div>
-            <a >
-                <button disabled type="submit" id="signup-btn-2">Inizia</button>
+            <a>
+                <button disabled type="submit" id="signup-btn-2">Inizia ></button>
             </a>
         </div>
     </section>

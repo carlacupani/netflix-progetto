@@ -115,29 +115,34 @@ option{
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 30px 0 50px;
+    margin: 16px 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
 }
 
 .email-signup .form-control {
     position: relative;
-    margin: 15px 0;
-    flex-grow: 1;
+    margin: 0;
 }
 
-.form-control input {
+.email-signup .form-control input {
     width: 100%;
     background-color: var(--banner-background);
     border: none;
     outline: none;
     border-radius: 4px;
     color: var(--white);
-    font-size: 15px;
-    padding: 15px 20px;
+    font-size: 16px;
+    text-align: left;
+    line-height: 1.5;
+    padding: 24px 160px 8px;
+    box-sizing: border-box;
 }
 
 .form-control input:is(:focus, :valid) {
     background-color: #444;
-    padding: 20px 20px 10px;
+    padding: 24px 16px 8px;
 }
 
 .form-control label {
@@ -156,7 +161,9 @@ option{
     transform: translateY(-130%);
     margin-top: 2px 0 20px;
 }
-.header-content .email-signup button{
+
+.email-signup button{
+    flex-shrink: 0;
     height: 60px;
     background:rgb(226,14,21);
     border: 0;
@@ -357,7 +364,7 @@ option{
     text-align: left;
     font-size: 18px;
 }
-.faq .section-title h2{
+.faq .section-title p{
     margin: 16px;
     text-align: left;
     font-size: 24px;
@@ -420,25 +427,6 @@ input[type="radio"]{
     font-size: 16px;
     font-weight: 400;
     line-height: 1.5;
-}
-
-.faq .email-signup{
-    align-items: center;
-    -webkit-box-align: center;
-    padding-top: 16px;
-    max-width: none;
-}
-.faq .email-signup input{
-    font-size: 1rem;
-    line-height: 1.5;
-    width: 100%;
-    padding: 24px 16px 8px;
-}
-
-.faq .email-signup .button{
-
-    font-size: 24px;
-    cursor: pointer;
 }
 
 /*---footer---*/
