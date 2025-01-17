@@ -58,7 +58,6 @@ function hideLogo2() {
     logo.style.display = "inline-block";
 }
 
-
 // Cliccando il pulsante mostra la pagina ads plan
 function redirectToAdsPlan() {
     window.location.href = "https://www.netflix.com/it/ads-plan";
