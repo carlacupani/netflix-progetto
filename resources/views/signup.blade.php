@@ -102,7 +102,7 @@
                 <p class="sign-up">Hai già un account Netflix? <a href="{{ URL::to('login') }}" >Accedi</a></p>
                 <p class="short-desc">
                     Questa pagina è protetta da Google reCAPTCHA per garantire che tu non sia un bot.
-                    <a href="#">Scopri di più.</a>
+                    <a href="https://policies.google.com/terms">Scopri di più.</a>
                 </p>
             </div>
         </div>
@@ -112,16 +112,28 @@
         <h2>Domande? Chiama 800-130-364</h2>
         <div class="row">
             <div class="col">
-                <a href="#">Domande frequenti</a>
-                <a href="#">Condizioni di utilizzo</a>
-                <a href="#">Preferenze per i cookie</a>
-                <a href="#">Preferenze per la pubblicità</a>
+                <a href="https://help.netflix.com/it/node/412">Domande frequenti</a>
+                <a href="https://ir.netflix.net/ir-overview/profile/default.aspx">Rapporti con gli investitori</a>
+                <a href="https://help.netflix.com/it/node/14361">Come guardare Netflix</a>
+                <a href="https://help.netflix.com/it/node/134094">Informazioni sull'azienda</a>
             </div>
             <div class="col">
-                <a href="#">Centro assistenza</a>
-                <a href="#">Informazioni sull'azienda</a>
-                <a href="#">Privacy</a>
-                <a href="#"> </a>
+                <a href="https://help.netflix.com/it">Centro assistenza</a>
+                <a href="https://jobs.netflix.com/">Opportunità di lavoro</a>
+                <a href="https://help.netflix.com/legal/termsofuse">Condizioni di utilizzo</a>
+                <a href="https://help.netflix.com/it/contactus">Contattaci</a>
+            </div>
+            <div class="col">
+                <a href="{{ URL::to('login') }}">Account</a>
+                <a href="https://www.netflix.com/it/redeem">Riscatta carte regalo</a>
+                <a href="https://help.netflix.com/legal/privacy">Privacy</a>
+                <a href="https://fast.com/it/">Test di velocità</a>
+            </div>
+            <div class="col">
+                <a href="https://media.netflix.com/it/">Media Center</a>
+                <a href="https://www.netflix.com/gift-cards">Acquista carte regalo</a>
+                <a href="#">Preferenze per i cookie</a>
+                <a href="https://help.netflix.com/it/node/125888">Garanzia legale</a>
             </div>
         </div>
         <p class="copyright-txt">Netflix Italia</p>

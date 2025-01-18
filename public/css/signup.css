@@ -42,25 +42,29 @@
     --transition-long: 500ms ease;
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
-    font-family: var(--ff-dm-sans);
     box-sizing: border-box;
 }
-body{
-    background: var(--background);
-    color: var(--white);
+
+body {
+    margin: 0;
+    font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+    background-color: rgba(0, 0, 0, 255);
+    color: #fff;
 }
+
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--banner-background);
-    border-radius: var(--radius-8);
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
 }
+
 /*---ALLERT---*/
 .alert {
     padding: 16px;
@@ -321,52 +325,70 @@ form span {
     transition: opacity 0.3s ease;
 }
 
-
-
 /*---footer---*/
-.row{
-    display: flex;
-    width: 100%;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 72px 0;
+footer {
+    padding: 50px 160px 10px;
+    background-color: rgba(0, 0, 0, 255);
+    color: #fff;
 }
-footer{
-    padding: 50px 15% 10px;
-    border-top: var(--radius-8) solid #333;
-    color: var(--text-color);
-}
-footer h2{
-    font-size: 18px;
-    font-weight: 400;
-    margin-bottom: 12px;
-}
-footer .col{
-    flex-basis: 25%;
-    flex-grow: 1;
+
+footer h2 {
+    font-size: 16px;
+    font-weight: 500;
     margin-bottom: 20px;
 }
-footer .col a{
+
+footer .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+footer .col {
+    flex: 0 1 calc(25% - 20px);
+    margin-bottom: 20px;
+}
+
+footer .col a {
     display: block;
     text-decoration: none;
-    color: var(--text-color);
+    color: rgb(176, 176, 176);
     font-size: 14px;
     margin-bottom: 10px;
+    transition: color 0.3s ease;
 }
-footer .row{
-    align-items: flex-start;
-    padding: 10px 0;
+
+footer .col a:hover {
+    color: #fff;
 }
-footer .language-btn{
-    color: var(--white);
+
+footer .language-btn {
+    color: #fff;
     padding: 10px 20px;
-    border-radius: var(--radius-4);
+    background-color: #333;
+    border-radius: 3px;
+    display: inline-block;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    border: 2px solid #fff;
 }
-.copyright-txt{
+
+footer .language-btn:hover {
+    background-color: #444;
+}
+
+.copyright-txt {
     font-size: 14px;
     margin-top: 20px;
     margin-bottom: 10px;
+    text-align: left;
+    color: rgb(176, 176, 176);
 }
+
+
 /*---media-query-small-screen---*/
 @media only screen and (max-width: 600px){
     .logo{
