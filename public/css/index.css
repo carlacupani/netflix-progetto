@@ -1,15 +1,3 @@
-:root {
-    /*---COLORS---*/
-    --background: rgba(15, 17, 21, 1);
-    --banner-background: rgba(49, 48, 54, 1);
-    --white-alpha-20: rgba(255, 255, 255, 0.2);
-    --on-background: rgba(229, 238, 255, 1);
-    --on-surface: rgba(234, 229, 255, 1);
-    --on-surface-variant: rgba(111, 111, 113, 1);
-    --surface: rgba(26, 24, 32, 1);
-    --text-color: rgba(149, 148, 153, 1);
-}
-
 *{
     margin: 0;
     padding: 0;
@@ -29,7 +17,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--banner-background);
+    background-color: rgba(255, 255, 255, 0.7);
     border-radius: 8px;
 }
 /*---header---*/
@@ -63,8 +51,8 @@ nav{
 }
 .language-select{
     background-color: rgba(0,0,0,255);
-    border: 1px solid var(--white-alpha-20);
-    color: var(--on-background);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
     height: 40px;
     padding: 7px 22px;
     border-radius: 4px;
@@ -86,6 +74,11 @@ option{
     border-radius: 4px;
     letter-spacing: normal;
     margin-left: 20px;
+}
+
+.login-btn:hover{
+    cursor: pointer;
+    background-color: rgba(194,17,25,255);
 }
 
 .header-content{
