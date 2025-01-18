@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -7,7 +7,7 @@
 body {
     margin: 0;
     font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
-    background-color: rgba(0,0,0,255);
+    background-color: rgba(0, 0, 0, 255);
     color: #fff;
 }
 
@@ -20,11 +20,12 @@ body {
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 8px;
 }
+
 /*---header---*/
-header{
+header {
     width: 100%;
     height: 1000px;
-    background: linear-gradient(90deg, hsla(0, 0%, 0%, 0.842) 0%, rgba(15, 17, 21, 0.595) 100% ), url("../images/header-image.png");
+    background: linear-gradient(90deg, hsla(0, 0%, 0%, 0.842) 0%, rgba(15, 17, 21, 0.595) 100%), url("../images/header-image.png");
     background-size: cover;
     background-position: center;
     padding: 10px 8%;
@@ -32,25 +33,27 @@ header{
 }
 
 
-nav{
+nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 20px 50px;
 }
+
 .navbar-right {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.logo1{
+.logo1 {
     width: 167px;
     height: 45px;
     margin-right: auto;
 }
-.language-select{
-    background-color: rgba(0,0,0,255);
+
+.language-select {
+    background-color: rgba(0, 0, 0, 255);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #fff;
     height: 40px;
@@ -58,15 +61,17 @@ nav{
     border-radius: 4px;
     font-size: 14px;
 }
-option{
+
+option {
     background-color: rgba(255, 255, 255, 0.7);
 
 }
-.login-btn{
+
+.login-btn {
     border: 0;
     outline: 0;
     height: 40px;
-    background-color: rgb(226,14,21);
+    background-color: rgb(226, 14, 21);
     color: #fff;
     padding: 10px 20px;
     font-size: 14px;
@@ -76,12 +81,12 @@ option{
     margin-left: 20px;
 }
 
-.login-btn:hover{
+.login-btn:hover {
     cursor: pointer;
-    background-color: rgba(194,17,25,255);
+    background-color: rgba(194, 17, 25, 255);
 }
 
-.header-content{
+.header-content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -92,16 +97,19 @@ option{
     flex-direction: column;
     align-items: center;
 }
-.header-content h1{
+
+.header-content h1 {
     font-size: 48px;
     line-height: 70px;
     font-weight: 900;
 }
-.header-content h3{
+
+.header-content h3 {
     font-size: 24px;
     font-weight: 500;
     margin-bottom: 16px;
 }
+
 /*---email---*/
 .email-signup {
     display: flex;
@@ -120,7 +128,7 @@ option{
 
 .email-signup .form-control input {
     width: 100%;
-    background-color: rgba(15,15,15,255);
+    background-color: rgba(15, 15, 15, 255);
     border: none;
     outline: none;
     border-radius: 4px;
@@ -154,10 +162,10 @@ option{
     margin-top: 2px 0 20px;
 }
 
-.email-signup button{
+.email-signup button {
     flex-shrink: 0;
     height: 60px;
-    background-color:rgb(226,14,21);
+    background-color: rgb(226, 14, 21);
     border: 0;
     border-radius: 4px;
     outline: 0;
@@ -170,12 +178,12 @@ option{
     padding: 0 30px;
 }
 
-.email-signup button:hover{
-    background-color: rgba(194,17,25,255);
+.email-signup button:hover {
+    background-color: rgba(194, 17, 25, 255);
 }
 
 /*---annunci---*/
-.announcement{
+.announcement {
     text-align: center;
     font-size: 18px;
     padding: 0 148px;
@@ -183,7 +191,8 @@ option{
     margin-bottom: 64px;
     width: 100%;
 }
-.section1{
+
+.section1 {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
@@ -193,7 +202,7 @@ option{
     transition: transform 0.3s ease;
 }
 
-.section1:hover{
+.section1:hover {
     transform: scale(1.05);
 }
 
@@ -210,20 +219,22 @@ option{
     align-items: center;
     padding: 16px 32px;
     border-radius: 8px;
-    background: linear-gradient(to right, rgba(33,13,23,255), rgba(25,33,68,255));;
+    background: linear-gradient(to right, rgba(33, 13, 23, 255), rgba(25, 33, 68, 255));
+    ;
     color: #fff;
 }
 
 .announcement-bar:hover {
-    background: linear-gradient(to right, rgb(103,66,115), rgba(28,30,84,255));;
+    background: linear-gradient(to right, rgb(103, 66, 115), rgba(28, 30, 84, 255));
+    ;
 }
 
-.announcement-bar span{
+.announcement-bar span {
     text-align: left;
 }
 
 .announcement-bar button {
-    background-color: rgba(67,70,101,255);
+    background-color: rgba(67, 70, 101, 255);
     color: #fff;
     border: none;
     padding: 10px 16px;
@@ -250,7 +261,7 @@ option{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 50px;
-    padding: 8px ;
+    padding: 8px;
 }
 
 .card {
@@ -291,7 +302,7 @@ option{
     bottom: 0;
     left: 0;
     width: 100%;
-    background: rgb(226,14,21);
+    background: rgb(226, 14, 21);
     color: #fff;
     font-size: 16px;
     font-weight: bold;
@@ -325,7 +336,7 @@ option{
 }
 
 .feature-card {
-    background: linear-gradient(to bottom right, rgba(25,33,68,255), rgba(33,13,23,255)); 
+    background: linear-gradient(to bottom right, rgba(25, 33, 68, 255), rgba(33, 13, 23, 255));
     position: relative;
     height: 250px;
     border-radius: 16px;
@@ -343,12 +354,12 @@ option{
 .feature-description {
     font-size: 16px;
     margin-bottom: 20px;
-    color: rgb(139,140,152);
+    color: rgb(139, 140, 152);
 }
 
 .feature-icon {
     position: absolute;
-    bottom: 16px; 
+    bottom: 16px;
     right: 16px;
     width: 60px;
     height: auto;
@@ -356,29 +367,33 @@ option{
 }
 
 /*---faq---*/
-.faq{
+.faq {
     padding: 16px 160px;
     text-align: left;
     font-size: 18px;
 }
-.faq .section-title p{
+
+.faq .section-title p {
     margin: 16px;
     text-align: left;
     font-size: 24px;
     font-weight: 500 bold;
 }
+
 /*---accordion---*/
-.accordion{
+.accordion {
     margin: 60px auto;
     width: 100%;
     max-width: 1500px;
 }
-.accordion li{
+
+.accordion li {
     list-style: none;
     width: 100%;
     padding: 5px;
 }
-.accordion li button{
+
+.accordion li button {
     color: #fff;
     width: 100%;
     display: flex;
@@ -388,7 +403,7 @@ option{
     font-stretch: 100%;
     font-size: 24px;
     font-weight: 500;
-    background: rgba(45,45,45,255);
+    background: rgba(45, 45, 45, 255);
     margin-bottom: 5px;
     cursor: pointer;
     position: relative;
@@ -396,11 +411,12 @@ option{
     border: none;
     transition: transform 0.3s ease;
 }
-.accordion li button:hover{
-    background-color: rgb(90,90,90);
+
+.accordion li button:hover {
+    background-color: rgb(90, 90, 90);
 }
 
-.accordion li button img{
+.accordion li button img {
     transition: all 0.3s ease;
     float: right;
     width: 50px;
@@ -408,13 +424,13 @@ option{
     background-color: transparent;
 }
 
-input[type="radio"]{
+input[type="radio"] {
     display: none;
 }
 
-.accordion li .content{
+.accordion li .content {
     width: 100%;
-    background-color: rgba(45,45,45,255);
+    background-color: rgba(45, 45, 45, 255);
     text-align: left;
     margin: 2px;
     padding: 20px;
@@ -423,50 +439,75 @@ input[type="radio"]{
 }
 
 /*---faq email---*/
-.faq .email-form-title{
+.faq .email-form-title {
     text-align: center;
-    color: rgb(255, 255, 255);
+    color: rgb(139, 140, 152);
     font-size: 16px;
     font-weight: 400;
     line-height: 1.5;
 }
 
-/*---footer---*/
-footer{
-    padding: 50px 15% 10px;
+footer {
+    padding: 50px 160px 10px;
+    background-color: rgba(0, 0, 0, 255);
+    color: #fff;
 }
-footer h2{
-    font-size: 18px;
-    font-weight: 400;
-    margin-bottom: 12px;
-}
-footer .col{
-    flex-basis: 25%;
-    flex-grow: 1;
+
+footer h2 {
+    font-size: 16px;
+    font-weight: 500;
     margin-bottom: 20px;
 }
-footer .col a{
+
+footer .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+footer .col {
+    flex: 0 1 calc(25% - 20px);
+    margin-bottom: 20px;
+}
+
+footer .col a {
     display: block;
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgb(176, 176, 176);
     font-size: 14px;
     margin-bottom: 10px;
+    transition: color 0.3s ease;
 }
-footer .row{
-    align-items: flex-start;
-    padding: 10px 0;
+
+footer .col a:hover {
+    color: #fff;
 }
-footer .language-btn{
+
+footer .language-btn {
     color: #fff;
     padding: 10px 20px;
+    background-color: #333;
     border-radius: 3px;
+    display: inline-block;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    border: 2px solid #fff;
 }
-.copyright-txt{
+
+footer .language-btn:hover {
+    background-color: #444;
+}
+
+.copyright-txt {
     font-size: 14px;
     margin-top: 20px;
     margin-bottom: 10px;
+    text-align: left;
+    color: rgb(176, 176, 176);
 }
+
 /*---media-query-small-screen---*/
-@media only screen and (max-width: 600px){
-    
-}
+@media only screen and (max-width: 600px) {}
