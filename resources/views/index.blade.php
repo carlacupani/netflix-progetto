@@ -121,22 +121,22 @@
             <div class="feature-card">
                 <h3 class="feature-title">Goditi Netflix sulla tua TV</h3>
                 <p class="feature-description">Guarda Netflix su smart TV, Playstation, Xbox, Chromecast, Apple TV, lettori Blu-ray e molti altri dispositivi.</p>
-                <img src="{{ URL::to('images/feature-1.png') }}" alt="Netflix su TV" class="feature-icon">
+                <img src="{{ URL::to('images/feature-1.png') }}" alt="" class="feature-icon">
             </div>
             <div class="feature-card">
                 <h3 class="feature-title">Scarica le tue serie da guardare offline</h3>
                 <p class="feature-description">Salva facilmente i tuoi preferiti così avrai sempre qualcosa da guardare.</p>
-                <img src="{{ URL::to('images/feature-2.png') }}" alt="Download offline" class="feature-icon">
+                <img src="{{ URL::to('images/feature-2.png') }}" alt="" class="feature-icon">
             </div>
             <div class="feature-card">
                 <h3 class="feature-title">Guarda Netflix ovunque</h3>
                 <p class="feature-description">Cellulare, tablet, laptop e TV: scegli tu cosa usare per guardare in streaming film e serie TV senza limiti.</p>
-                <img src="{{ URL::to('images/feature-3.png') }}" alt="Netflix ovunque" class="feature-icon">
+                <img src="{{ URL::to('images/feature-3.png') }}" alt="" class="feature-icon">
             </div>
             <div class="feature-card">
                 <h3 class="feature-title">Crea profili per i bambini</h3>
                 <p class="feature-description">I bambini scoprono nuove avventure in compagnia dei loro personaggi preferiti in uno spazio tutto loro già incluso nel tuo abbonamento.</p>
-                <img src="{{ URL::to('images/feature-4.png') }}" alt="Profili per bambini" class="feature-icon">
+                <img src="{{ URL::to('images/feature-4.png') }}" alt="" class="feature-icon">
             </div>
         </div>
     </section>

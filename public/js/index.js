@@ -1,5 +1,3 @@
-"use strict";
-
 // Gestisce il clic sui pulsanti "Leggi di più" per mostrare/nascondere il contenuto
 const readMoreButtons = document.querySelectorAll('.faq li button');
 readMoreButtons.forEach(button => {
@@ -15,7 +13,6 @@ readMoreButtons.forEach(button => {
         }
     });
 });
-
 
 // Gestisce l'invio dell'email e aggiorna il testo del pulsante
 function setupEmailValidation(emailInputId, signupButtonId) {
@@ -42,23 +39,8 @@ function isValidEmail(email) {
 setupEmailValidation("signup-email-1", "signup-btn-1");
 setupEmailValidation("signup-email-2", "signup-btn-2");
 
-// Mostra il secondo logo e nasconde il primo al passaggio del mouse
-function showLogo2() {
-    var logo = document.getElementById("logo1");
-    var hiddenImage = document.getElementById("logo2");
-    hiddenImage.style.display = "inline-block";
-    logo.style.display = "none";
-}
 
-// Nasconde il secondo logo e mostra il primo quando il mouse esce
-function hideLogo2() {
-    var logo = document.getElementById("logo1");
-    var hiddenImage = document.getElementById("logo2");
-    hiddenImage.style.display = "none";
-    logo.style.display = "inline-block";
-}
-
-// Cliccando il pulsante mostra la pagina ads plan
+// Cliccando sul pulsante mostra la pagina ads plan
 function redirectToAdsPlan() {
     window.location.href = "https://www.netflix.com/it/ads-plan";
 }
