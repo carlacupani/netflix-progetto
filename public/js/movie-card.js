@@ -11,7 +11,7 @@ export function createMovieCard(movie) {
   const card = document.createElement("div");
   card.classList.add("movie-card");
 
-  const figure = document.createElement("figure");
+  const figure = document.createElement("div");
   figure.classList.add("poster-box", "card-banner");
 
   const img = document.createElement("img");

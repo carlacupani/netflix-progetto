@@ -49,7 +49,7 @@
       </div>
       <div class="nav-element">
         <button class="notification-btn">
-
+          <img src="{{ URL::to('images/notification-bell.png') }}">
         </button>
       </div>
       <!-- ACCOUNT -->
