@@ -63,56 +63,64 @@
                 <button onclick="redirectToAdsPlan()">Scopri di più</button>
             </div>
         </div>
-    <div class="section-title">
-        <h2>I titoli del momento</h2>
-        <div class="grid">
-            <div class="card">
-                <img src="{{ URL::to('images/film-1.jpg') }}" alt="">
-                <div class="rank">1</div>
-                <span>Aggiunto di recente</span>
-            </div>
-            <div class="card">
-                <img src="{{ URL::to('images/film-2.jpg') }}" alt="">
-                <div class="rank">2</div>
-                <span>Aggiunto di recente</span>
-            </div>
-            <div class="card">
-                <img src="{{ URL::to('images/film-3.jpg') }}" alt="">
-                <div class="rank">3</div>
-                <span>Aggiunto di recente</span>
-            </div>
-            <div class="card">
-                <img src="{{ URL::to('images/film-4.jpg') }}" alt="">
-                <div class="rank">4</div>
-                <span>Aggiunto di recente</span>
-            </div>
-            <div class="card">
-                <img src="{{ URL::to('images/film-5.jpg') }}" alt="">
-                <div class="rank">5</div>
-                <span>Aggiunto di recente</span>
-            </div>
-            <div class="card">
-                <img src="{{ URL::to('images/film-6.jpg') }}" alt="">
-                <div class="rank">6</div>
-                <span>Aggiunto di recente</span>
-            </div>
-            <div class="card">
-                <img src="{{ URL::to('images/film-7.jpg') }}" alt="">
-                <div class="rank">7</div>
-                <span>Aggiunto di recente</span>
-            </div>
-            <div class="card">
-                <img src="{{ URL::to('images/film-8.jpg') }}" alt="">
-                <div class="rank">8</div>
-                <span>Aggiunto di recente</span>
-            </div>
-            <div class="card">
-                <img src="{{ URL::to('images/film-9.jpg') }}" alt="">
-                <div class="rank">9</div>
-                <span>Aggiunto di recente</span>
+        <div class="section-title">
+            <h2>I titoli del momento</h2>
+            <div id="carousel" class="carousel">
+                <div class="arrow-div">
+                    <button class="arrow prev">></button>
+                </div>
+                <div class="gallery">
+                    <div class="card">
+                        <img src="{{ URL::to('images/film-1.jpg') }}" alt="">
+                        <div class="rank">1</div>
+                        <span>Aggiunto di recente</span>
+                    </div>
+                    <div class="card">
+                        <img src="{{ URL::to('images/film-2.jpg') }}" alt="">
+                        <div class="rank">2</div>
+                        <span>Aggiunto di recente</span>
+                    </div>
+                    <div class="card">
+                        <img src="{{ URL::to('images/film-3.jpg') }}" alt="">
+                        <div class="rank">3</div>
+                        <span>Aggiunto di recente</span>
+                    </div>
+                    <div class="card">
+                        <img src="{{ URL::to('images/film-4.jpg') }}" alt="">
+                        <div class="rank">4</div>
+                        <span>Aggiunto di recente</span>
+                    </div>
+                    <div class="card">
+                        <img src="{{ URL::to('images/film-5.jpg') }}" alt="">
+                        <div class="rank">5</div>
+                        <span>Aggiunto di recente</span>
+                    </div>
+                    <div class="card">
+                        <img src="{{ URL::to('images/film-6.jpg') }}" alt="">
+                        <div class="rank">6</div>
+                        <span>Aggiunto di recente</span>
+                    </div>
+                    <div class="card">
+                        <img src="{{ URL::to('images/film-7.jpg') }}" alt="">
+                        <div class="rank">7</div>
+                        <span>Aggiunto di recente</span>
+                    </div>
+                    <div class="card">
+                        <img src="{{ URL::to('images/film-8.jpg') }}" alt="">
+                        <div class="rank">8</div>
+                        <span>Aggiunto di recente</span>
+                    </div>
+                    <div class="card">
+                        <img src="{{ URL::to('images/film-9.jpg') }}" alt="">
+                        <div class="rank">9</div>
+                        <span>Aggiunto di recente</span>
+                    </div>
+                </div>
+                <div class="arrow-div">
+                    <button class="arrow next"><</button>
+                </div>
             </div>
         </div>
-    </div>
     </section>
     <!-- FEATURES -->
     <section class="features">

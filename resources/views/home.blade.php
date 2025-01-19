@@ -6,13 +6,7 @@
   <!-- TOKEN -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Benvenuto su Netflix</title>
-  <meta name="title" content="Netflix">
-  <!-- FAVICON -->
-  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
-  <!-- GOOGLE FONT LINK -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="images/netflix-logo-icon.ico" type="image/x-icon">
   <!-- CSS LINK -->
   <link rel="stylesheet" href='{{ URL::to("css/home.css") }}'>
   <!-- JS LINK -->
@@ -29,31 +23,43 @@
         <img src='{{ URL::to("images/logo.png") }}' width="140" height="32">
       </a>
       <ul class="navbar-links">
-        <li><a href="{{ URL::to("home") }}">Film</a></li>
+        <li><a href="{{ URL::to("home") }}">Home</a></li>
         <li><a href="{{ URL::to("serietv") }}">Serie Tv</a></li>
+        <li><a href="{{ URL::to("home") }}">Film</a></li>
+        <li><a href="">Nuovi e popolari</a></li>
         <li><a href="{{ URL::to("mialista") }}">La mia lista</a></li>
+        <li><a href="">Sfoglia per lingua</a></li>
       </ul>
     </div>
 
     <div class="navbar-right">
-      <div class="search-box" search-box>
-        <div class="search-wrapper" search-wrapper>
-          <input type="text" name="search" aria-label="search movies" placeholder="Search any movies..." class="search-field" autocomplete="off" search-field>
-          <img src="{{ URL::to("images/search.png") }}" width="24" height="24" alt="search" class="leading-icon">
+      <div class="nav-element">
+        <div class="search-box" search-box>
+          <div class="search-wrapper" search-wrapper>
+            <input type="text" name="search" aria-label="search movies" placeholder="Search any movies..." class="search-field" autocomplete="off" search-field>
+            <img src="{{ URL::to("images/search.png") }}" alt="" class="leading-icon">
+          </div>
+          <button class="search-btn" search-toggler>
+            <img src="{{ URL::to("images/close.png") }}" alt="">
+          </button>
         </div>
-        <button class="search-btn" search-toggler>
-          <img src="{{ URL::to("images/close.png") }}" width="24" height="24" alt="close search box">
+        <button class="search-btn" search-toggler menu-close>
+          <img src="{{ URL::to("images/search.png") }}" alt="">
         </button>
       </div>
-      <button class="search-btn" search-toggler menu-close>
-        <img src="{{ URL::to("images/search.png") }}" width="24" height="24" alt="open search box">
-      </button>
+      <div class="nav-element">
+        <button class="notification-btn">
+
+        </button>
+      </div>
       <!-- ACCOUNT -->
-      <div class="userInfo">
-        <a href="{{ URL::to("profile") }}">
-          <div class="avatar">
-          </div>
-        </a>
+      <div class="nav-element">
+        <div class="userInfo">
+          <a href="{{ URL::to("profile") }}">
+            <div class="avatar">
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </header>
@@ -93,7 +99,7 @@
             </div>
         </div>
         <p class="copyright-txt">Netflix Italia</p>
-    </footer>
+  </footer>
 </body>
 
 </html>

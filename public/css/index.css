@@ -28,7 +28,7 @@ header {
     background: linear-gradient(90deg, hsla(0, 0%, 0%, 0.842) 0%, rgba(15, 17, 21, 0.595) 100%), url("../images/header-image.png");
     background-size: cover;
     background-position: center;
-    padding: 10px 8%;
+    padding: 16px 148px;
     position: relative;
 }
 
@@ -37,7 +37,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 50px;
+    padding: 16px 32px;
 }
 
 .navbar-right {
@@ -47,7 +47,7 @@ nav {
 }
 
 .logo1 {
-    width: 167px;
+    width: 148px;
     height: 45px;
     margin-right: auto;
 }
@@ -257,11 +257,19 @@ option {
     font-weight: 500 bold;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 50px;
-    padding: 8px;
+.carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.gallery{
+    display: flex;
+    gap: 32px;
+    padding: 16px 32px;
+    flex-direction: row;
+    transition: transform 0.3s ease;
+    will-change: transform;
 }
 
 .card {
@@ -273,10 +281,12 @@ option {
     transition: transform 0.3s ease;
     overflow: visible;
     cursor: pointer;
+    flex: 0 0 auto;
 }
 
 .card img {
-    width: 100%;
+    width: 180px;
+    height: 252px;
     border-radius: 8px;
     display: block;
 }
@@ -313,6 +323,30 @@ option {
     letter-spacing: 0.5px;
 }
 
+.carousel .arrow-div{
+    position: absolute;
+    height: 100%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    background-color: rgb(0, 0, 0);
+    right: 0;
+    padding-left: 12px;
+}
+
+.carousel .arrow{
+    height: 120px;
+    width: 24px;
+    border-radius: 8px;
+    color: rgb(176, 176, 176);
+    background-color: rgb(60,60,60);
+}
+
+.carousel .arrow:hover {
+    background-color: rgb(87,87,87);
+}
 
 /*---features---*/
 .features {
@@ -509,6 +543,3 @@ footer .language-btn:hover {
     text-align: left;
     color: rgb(176, 176, 176);
 }
-
-/*---media-query-small-screen---*/
-@media only screen and (max-width: 600px) {}

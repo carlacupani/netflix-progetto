@@ -57,7 +57,7 @@ export function createMovieCard(movie) {
   anchor.href = "details_movie";
   anchor.classList.add("card-btn");
   anchor.title = title;
-  anchor.setAttribute("onclick", "getMovieDetail(" + movieId + ")");
+  anchor.setAttribute("onclick", "window.localStorage.setItem('movieId', '" + id + "')");
 
   card.appendChild(anchor);
 
