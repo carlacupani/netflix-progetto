@@ -1,7 +1,6 @@
 "use strict";
 
 // Importa le funzioni necessarie da altri moduli
-import { fetchDataFromServer } from "./api.js";
 import { createMovieCard } from "./movie-card.js";
 
 export function searchMovie() {
@@ -54,31 +53,44 @@ export function searchMovie() {
   
     searchResultModal.appendChild(movieListContainer);
   }
-  function handleSearchInput() {
+
+  async function fetchMovies(query) {
+    try {
+      const response = await fetch(`/search/movie?q=${encodeURIComponent(query)}`);
+      if (!response.ok) {
+        throw new Error("Errore nella richiesta al server");
+      }
+      const data = await response.json();
+      return data.results;
+    } catch (error) {
+      console.error("Errore durante il fetch dei dati:", error);
+      return [];
+    }
+  }
+
+  async function handleSearchInput() {
     const query = searchField.value.trim();
-  
+
     if (!query) {
       toggleSearchModal(false);
       searchWrapper.classList.remove("searching");
       clearTimeout(searchTimeout);
       return;
     }
-  
+
     searchWrapper.classList.add("searching");
     clearTimeout(searchTimeout);
-  
-    searchTimeout = setTimeout(() => {
-      fetchDataFromServer(`/search/movie?q=${encodeURIComponent(query)}`, ({ results: movieList }) => {
-        searchWrapper.classList.remove("searching");
-        toggleSearchModal(true);
-  
-        clearModalContent();
-        addModalHeader(query);
-        displayMovieResults(movieList);
-      });
+
+    searchTimeout = setTimeout(async () => {
+      const movieList = await fetchMovies(query);
+      searchWrapper.classList.remove("searching");
+      toggleSearchModal(true);
+
+      clearModalContent();
+      addModalHeader(query);
+      displayMovieResults(movieList);
     }, 500);
   }
-  
-  searchField.addEventListener("input", handleSearchInput);
 
+  searchField.addEventListener("input", handleSearchInput);
 }
