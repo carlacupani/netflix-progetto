@@ -66,9 +66,6 @@
         <div class="section-title">
             <h2>I titoli del momento</h2>
             <div id="carousel" class="carousel">
-                <div class="arrow-div">
-                    <button class="arrow prev">></button>
-                </div>
                 <div class="gallery">
                     <div class="card">
                         <img src="{{ URL::to('images/film-1.jpg') }}" alt="">
@@ -105,19 +102,6 @@
                         <div class="rank">7</div>
                         <span>Aggiunto di recente</span>
                     </div>
-                    <div class="card">
-                        <img src="{{ URL::to('images/film-8.jpg') }}" alt="">
-                        <div class="rank">8</div>
-                        <span>Aggiunto di recente</span>
-                    </div>
-                    <div class="card">
-                        <img src="{{ URL::to('images/film-9.jpg') }}" alt="">
-                        <div class="rank">9</div>
-                        <span>Aggiunto di recente</span>
-                    </div>
-                </div>
-                <div class="arrow-div">
-                    <button class="arrow next"><</button>
                 </div>
             </div>
         </div>

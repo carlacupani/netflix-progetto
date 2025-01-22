@@ -13,7 +13,6 @@ export function createMovieCard(movie) {
 
   const img = document.createElement("img");
   img.src = imageBaseURL + "w342" + poster_path;
-  img.alt = title;
   img.classList.add("img-cover");
   img.loading = "lazy";
 
@@ -36,7 +35,6 @@ export function createMovieCard(movie) {
   ratingImg.width = 20;
   ratingImg.height = 20;
   ratingImg.loading = "lazy";
-  ratingImg.alt = "rating";
 
   const ratingSpan = document.createElement("span");
   ratingSpan.classList.add("span");

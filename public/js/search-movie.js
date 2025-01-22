@@ -1,6 +1,5 @@
 "use strict";
 
-// Importa le funzioni necessarie da altri moduli
 import { createMovieCard } from "./movie-card.js";
 
 export function searchMovie() {

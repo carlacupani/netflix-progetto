@@ -223,6 +223,46 @@ body {
     }
 }
 
+/*---BANNER---*/
+.banner{
+    position: relative;
+    height: 700px;
+    border-radius: var(--radius-24);
+    overflow: hidden;
+}
+
+.banner-img{
+    width: 1792px;
+    height: 1008px;
+}
+
+.banner_contents{
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    bottom: 206px;
+    z-index: 1;
+    color: var(--text-color);
+}
+.banner .heading {
+    -webkit-line-clamp: 3;
+    margin-block-end: 16px;
+}
+
+.banner .genre {
+    margin-block: 12px;
+}
+
+.banner-description {
+    -webkit-line-clamp: 2;
+    margin-block-end: 24px;
+}
+
+.banner .btn {
+    background-color: var(--primary);
+}
+
+
 /*---CARD---*/
 .img-cover {
     width: 100%;

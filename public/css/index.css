@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -21,7 +22,7 @@ body {
     border-radius: 8px;
 }
 
-/*---header---*/
+/*---HEADER---*/
 header {
     width: 100%;
     height: 1000px;
@@ -260,6 +261,9 @@ option {
     position: relative;
     width: 100%;
     overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .gallery{
@@ -329,7 +333,7 @@ option {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 3;
+    z-index: 1;
     background-color: rgb(0, 0, 0);
     right: 0;
     padding-left: 12px;
@@ -341,6 +345,24 @@ option {
     border-radius: 8px;
     color: rgb(176, 176, 176);
     background-color: rgb(60,60,60);
+}
+
+.arrow.prev {
+    left: 10px;
+    font-size: 32px;
+    background: transparent;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+.arrow.next {
+    right: 10px;
+    font-size: 32px;
+    background: transparent;
+    color: #fff;
+    border: none;
+    cursor: pointer;
 }
 
 .carousel .arrow:hover {
