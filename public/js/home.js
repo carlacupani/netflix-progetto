@@ -50,7 +50,7 @@ function createBannerSection({ results: movies }) {
 
   infoButton.addEventListener('click', () => {
     window.localStorage.setItem('movieId', movieId);
-    window.location.href = "/movie_details?id=" + movieId;
+    window.location.href = "/details_movie";
   });
 
   buttons.appendChild(playButton);
@@ -67,7 +67,6 @@ function createBannerSection({ results: movies }) {
 
   banner.appendChild(bannerContents);
 }
-
 
 const genreList = {
   asString(genreIdList) {
@@ -95,26 +94,41 @@ function loadHomeSections() {
     fetch(url)
       .then((res) => res.json())
       .then((data) => createMovieSection(data, title))
-      .catch((error) => console.error(`Error fetching ${title}:`, error));
+      .catch((error) => console.error('Error fetching' + title + ':', error));
   });
 }
 
 function createMovieSection({ results: movies }, title) {
   const section = document.createElement("section");
   section.classList.add("movie-list");
-  
-  section.innerHTML = `
-    <div class="title-wrapper">
-      <h3 class="title-large">${title}</h3>
-    </div>
-    <div class="slider-list">
-      <div class="slider-inner">
-        ${movies.map((movie) => createMovieCard(movie).outerHTML).join("")}
-      </div>
-    </div>
-  `;
+
+  const titleWrapper = document.createElement("div");
+  titleWrapper.classList.add("title-wrapper");
+
+  const titleElement = document.createElement("h3");
+  titleElement.classList.add("title-large");
+  titleElement.textContent = title;
+
+  titleWrapper.appendChild(titleElement);
+
+  const sliderList = document.createElement("div");
+  sliderList.classList.add("slider-list");
+
+  const sliderInner = document.createElement("div");
+  sliderInner.classList.add("slider-inner");
+
+  movies.forEach((movie) => {
+    const movieCard = createMovieCard(movie);
+    sliderInner.appendChild(movieCard);
+  });
+
+  sliderList.appendChild(sliderInner);
+
+  section.appendChild(titleWrapper);
+  section.appendChild(sliderList);
 
   pageContent.appendChild(section);
 }
+
 
 searchMovie();
