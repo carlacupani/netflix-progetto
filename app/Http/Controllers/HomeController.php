@@ -346,7 +346,8 @@ class HomeController extends BaseController
 
                 foreach ($films as $film) {
                     $filmContent = json_decode($film->content, true);
-
+                    //return response()->json(['ok' => true, 'films' => $filmContent['isSerie']]);
+                    
                     if ($filmContent['isSerie'] == 1) {
                         
                         $responseData[] = [

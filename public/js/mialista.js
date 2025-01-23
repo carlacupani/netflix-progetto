@@ -1,5 +1,6 @@
 "use strict";
 
+import { fetchDataFromServer } from "./api.js";
 import {createMovieCard} from "./movie-card.js"
 import {createSerieCard} from "./serie-card.js"
 
@@ -14,7 +15,6 @@ const createFavoriteMovieList = function (movies) {
     pageContent.appendChild(noFavoritesMessage);
     return;
   }
-
   const movieListElem = document.createElement("section");
   movieListElem.classList.add("movie-list");
   movieListElem.ariaLabel = "La mia lista";
@@ -56,7 +56,6 @@ const createFavoriteMovieList = function (movies) {
       
     }
   }
-
   pageContent.appendChild(movieListElem);
 };
 
@@ -69,48 +68,3 @@ fetch("favorite_movie")
 })
   .catch((error) => console.error("Error:", error)); 
 
-
-
-// Funzione per ottenere e visualizzare una nuova citazione
-function fetchQuote() {
-  fetch('https://api.gameofthronesquotes.xyz/v1/random')
-      .then(response => {
-          // Verifica se la risposta è OK
-          if (!response.ok) {
-              console.log("response no ok");
-          }
-          return response.json();
-      })
-      .then(quote => {
-          const container = document.querySelector('.quote-wrapper');
-
-          // nodi precedenti
-          container.innerHTML = '';
-
-          const quoteBox = document.createElement('div');
-          quoteBox.id = 'quote-box';
-          quoteBox.className = 'quote-box';
-
-          const blockquote = document.createElement('blockquote');
-          blockquote.className = 'blockquote';
-          blockquote.id = 'quote';
-          blockquote.textContent = quote.sentence;
-
-          const footer = document.createElement('footer');
-          footer.id = 'autore';
-          footer.textContent = "- " + quote.character.name + ", " + quote.character.house.name;
-
-          blockquote.appendChild(footer);
-
-          quoteBox.appendChild(blockquote);
-
-          container.appendChild(quoteBox);
-      })
-      .catch(error => {
-          console.error('Errore durante il fetch:', error);
-          const container = document.querySelector('.quote-wrapper');
-          container.innerHTML = '<p>Errore nel recuperare la citazione. Riprova più tardi.</p>';
-      });
-}
-
-window.onload = fetchQuote;

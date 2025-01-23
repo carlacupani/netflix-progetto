@@ -5,13 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- TOKEN -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <!--google font link-->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
-  <!--css link-->
+  <!-- CSS LINK -->
   <link rel="stylesheet" href='{{ URL::to("css/home.css") }}'>
-  <!--custom js link-->
+  <!-- JS LINK -->
   <script src='{{ URL::to("js/global.js") }}' defer></script>
   <script src='{{ URL::to("js/detail_movie.js") }}' type="module"></script>
 </head>
