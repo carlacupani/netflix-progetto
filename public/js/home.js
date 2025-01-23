@@ -11,53 +11,63 @@ fetch("/movie/upcoming")
   .then((data) => createBannerSection(data))
   .catch((error) => console.error("Error fetching banner", error));
 
+function createBannerSection({ results: movies }) {
+  const banner = document.querySelector('.banner');
+  const movie = movies[0];
+  const movieId = movie.id;
 
-  function createBannerSection({ results: movies }) {
-    const banner = document.querySelector('.banner');
-  
-    const movie = movies[0]; 
+  banner.style.backgroundImage = "url('" + imageBaseURL + "w1280"+ movie.backdrop_path + "')";
 
-    const bannerContents = document.createElement('div');
-    bannerContents.classList.add('banner_contents');
-    
-    const bannerImg = document.createElement('img');
-    bannerImg.src = 'https://image.tmdb.org/t/p/w1280' + movie.backdrop_path;
-    bannerImg.classList.add('banner-img');
+  const bannerContents = document.createElement('div');
+  bannerContents.classList.add('banner-contents');
 
-    const titleText = document.createElement('div');
-    titleText.classList.add('banner-title');
-    titleText.textContent = movie.title;
-    
-    const seasonText = document.createElement('div');
-    seasonText.classList.add('banner-season');
-    seasonText.textContent = `Stagione 2 in arrivo il 30 gennaio`;
-  
-    const description = document.createElement('div');
-    description.classList.add('banner-description');
-    description.textContent = movie.overview || "Descrizione non disponibile.";
-    
-    const buttons = document.createElement('div');
-    buttons.classList.add('banner-buttons');
-    
-    const playButton = document.createElement('button');
-    playButton.classList.add('banner-btn1', 'play');
-    //playButton.innerHTML = `<img class="icon" src="../../images/HomePage/Header/play.svg">Assistir`;
-    
-    const infoButton = document.createElement('button');
-    infoButton.classList.add('banner-btn2', 'info');
-    //infoButton.innerHTML = `<img class="icon" src="../../images/HomePage/Header/info.svg">Informações`;
-  
-    buttons.appendChild(playButton);
-    buttons.appendChild(infoButton);
+  const titleText = document.createElement('div');
+  titleText.classList.add('banner-title');
+  titleText.textContent = movie.title;
 
-    bannerContents.appendChild(bannerImg);
-    bannerContents.appendChild(titleText);
-    bannerContents.appendChild(seasonText);
-    bannerContents.appendChild(description);
-    bannerContents.appendChild(buttons);
-    
-    banner.appendChild(bannerContents);
+  const description = document.createElement('div');
+  description.classList.add('banner-description');
+  description.textContent = movie.overview || "Descrizione non disponibile.";
+
+  const buttons = document.createElement('div');
+  buttons.classList.add('banner-buttons');
+
+  const playButton = document.createElement('button');
+  playButton.classList.add('banner-btn1');
+
+  const playIcon = document.createElement('img');
+  playIcon.classList.add('icon');
+  playIcon.src= '../images/play-button.png';
+  const playText = document.createTextNode('Riproduci');
+
+  const infoButton = document.createElement('button');
+  infoButton.classList.add('banner-btn2');
+
+  const infoIcon = document.createElement('img');
+  infoIcon.classList.add('icon');
+  infoIcon.src = '../images/menu.png';
+  const infoText = document.createTextNode('Altre info');
+
+  infoButton.addEventListener('click', () => {
+    window.localStorage.setItem('movieId', movieId);
+    window.location.href = "/movie_details?id=" + movieId;
+  });
+
+  buttons.appendChild(playButton);
+  playButton.appendChild(playIcon);
+  playButton.appendChild(playText);
+
+  buttons.appendChild(infoButton);
+  infoButton.appendChild(infoIcon);
+  infoButton.appendChild(infoText);
+
+  bannerContents.appendChild(titleText);
+  bannerContents.appendChild(description);
+  bannerContents.appendChild(buttons);
+
+  banner.appendChild(bannerContents);
 }
+
 
 const genreList = {
   asString(genreIdList) {

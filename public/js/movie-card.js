@@ -3,10 +3,10 @@
 const imageBaseURL = 'https://image.tmdb.org/t/p/';
 
 export function createMovieCard(movie) {
-  const { poster_path,
-    title,
-    id
-  } = movie;
+  
+  const posterPath = movie.poster_path;
+  const title = movie.title;
+  const id = movie.id;
 
   const card = document.createElement("div");
   card.classList.add("movie-card");
@@ -15,7 +15,7 @@ export function createMovieCard(movie) {
   figure.classList.add("poster-box", "card-banner");
 
   const img = document.createElement("img");
-  img.src = imageBaseURL + "w342" + poster_path;
+  img.src = imageBaseURL + "w342" + posterPath;
   img.classList.add("img-cover");
   img.loading = "lazy";
 

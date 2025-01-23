@@ -21,20 +21,18 @@ const getCreators = function (creatorsList) {
 };
 
 fetchDataFromServer("serietv/details?q=" + encodeURIComponent(serieId), function (serie) {
-  const {
-    backdrop_path,
-    poster_path,
-    name,
-    first_air_date,
-    last_air_date,
-    episode_run_time,
-    number_of_episodes,
-    number_of_seasons,
-    vote_average,
-    genres,
-    overview,
-    created_by,
-  } = serie;
+  const backdropPath = serie.backdrop_path;
+  const posterPath = serie.poster_path;
+  const name = serie.name;
+  const firstAirDate = serie.first_air_date;
+  const lastAirDate = serie.last_air_date;
+  const episodeRunTime = serie.episode_run_time;
+  const numberOfEpisodes = serie.number_of_episodes;
+  const numberOfSeasons = serie.number_of_seasons;
+  const voteAverage = serie.vote_average;
+  const genres = serie.genres;
+  const overview = serie.overview;
+  const createdBy = serie.created_by;
 
   document.title = name + " - Netflix";
 
@@ -43,13 +41,13 @@ fetchDataFromServer("serietv/details?q=" + encodeURIComponent(serieId), function
 
   const backdropImage = document.createElement("div");
   backdropImage.classList.add("backdrop-image");
-  backdropImage.style.backgroundImage = "url('" + imageBaseURL + (backdrop_path ? "w1280" : "original") + (backdrop_path || poster_path) + "')";
+  backdropImage.style.backgroundImage = "url('" + imageBaseURL + (backdropPath ? "w1280" : "original") + (backdropPath || posterPath) + "')";
 
   const figure = document.createElement("figure");
   figure.classList.add("poster-box", "serie-poster");
 
   const img = document.createElement("img");
-  img.src = imageBaseURL + "w342" + poster_path;
+  img.src = imageBaseURL + "w342" + posterPath;
   img.alt = name + "poster";
   img.classList.add("img-cover");
   figure.appendChild(img);
@@ -78,7 +76,7 @@ fetchDataFromServer("serietv/details?q=" + encodeURIComponent(serieId), function
 
   const ratingSpan = document.createElement("span");
   ratingSpan.classList.add("span");
-  ratingSpan.textContent = vote_average.toFixed(1);
+  ratingSpan.textContent = voteAverage.toFixed(1);
 
   metaItemRating.appendChild(ratingImg);
   metaItemRating.appendChild(ratingSpan);
@@ -88,18 +86,18 @@ fetchDataFromServer("serietv/details?q=" + encodeURIComponent(serieId), function
 
   const metaItemRuntime = document.createElement("div");
   metaItemRuntime.classList.add("meta-item");
-  metaItemRuntime.textContent = (episode_run_time && episode_run_time.length > 0 ? episode_run_time[0] : "N/A") + " min";
+  metaItemRuntime.textContent = (episodeRunTime && episodeRunTime.length > 0 ? episodeRunTime[0] : "N/A") + " min";
 
   const separator2 = document.createElement("div");
   separator2.classList.add("separator");
 
   const metaItemFirstAirDate = document.createElement("div");
   metaItemFirstAirDate.classList.add("meta-item");
-  metaItemFirstAirDate.textContent = first_air_date ? first_air_date.split("-")[0] : "N/A";
+  metaItemFirstAirDate.textContent = firstAirDate ? firstAirDate.split("-")[0] : "N/A";
 
   const metaItemLastAirDate = document.createElement("div");
   metaItemLastAirDate.classList.add("meta-item");
-  metaItemLastAirDate.textContent = last_air_date ? last_air_date.split("-")[0] : "N/A";
+  metaItemLastAirDate.textContent = lastAirDate ? lastAirDate.split("-")[0] : "N/A";
 
   metaList.appendChild(metaItemRating);
   metaList.appendChild(separator1);
@@ -127,7 +125,7 @@ fetchDataFromServer("serietv/details?q=" + encodeURIComponent(serieId), function
   listNameCreatedBy.textContent = "Creato Da";
 
   const listCreatedBy = document.createElement("p");
-  listCreatedBy.textContent = getCreators(created_by);
+  listCreatedBy.textContent = getCreators(createdBy);
 
   listItemCreatedBy.appendChild(listNameCreatedBy);
   listItemCreatedBy.appendChild(listCreatedBy);

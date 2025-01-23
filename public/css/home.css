@@ -224,42 +224,92 @@ body {
 }
 
 /*---BANNER---*/
-.banner{
+/* Struttura del banner */
+.banner {
     position: relative;
     height: 700px;
     border-radius: var(--radius-24);
     overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-.banner-img{
-    width: 1792px;
-    height: 1008px;
-}
-
-.banner_contents{
+.banner-contents {
     position: absolute;
-    left: 24px;
-    right: 24px;
-    bottom: 206px;
+    bottom: 250px;
+    left: 50px;
     z-index: 1;
-    color: var(--text-color);
-}
-.banner .heading {
-    -webkit-line-clamp: 3;
-    margin-block-end: 16px;
+    color: #fff;
+    max-width: 600px;
 }
 
-.banner .genre {
-    margin-block: 12px;
+.banner-title {
+    font-size: 64px;
+    font-weight: bold;
+    margin-bottom: 16px;
 }
 
 .banner-description {
-    -webkit-line-clamp: 2;
-    margin-block-end: 24px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 24px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.banner .btn {
-    background-color: var(--primary);
+.banner-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.banner-btn1 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 32px;
+    font-size: 24px;
+    color: rgba(0, 0, 0, 255);
+    background-color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.banner-btn1 .icon {
+    width: 33px;
+    height: 33px;
+}
+
+.banner-btn1:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.banner-btn2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 32px;
+    font-size: 24px;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.banner-btn2 .icon {
+    filter: invert(1);
+    width: 33px;
+    height: 33px;
+}
+
+.banner-btn2:hover {
+    background-color: rgba(255, 255, 255, 0.154);
 }
 
 
