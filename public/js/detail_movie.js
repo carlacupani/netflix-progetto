@@ -1,12 +1,12 @@
 "use strict";
 
-import { imageBaseURL, fetchDataFromServer } from "./api.js";
+const imageBaseURL = 'https://image.tmdb.org/t/p/';
+
 import { createMovieCard } from "./movie-card.js";
 import { searchMovie } from "./search-movie.js";
 
 
 const movieId = window.localStorage.getItem("movieId");
-
 
 const pageContent = document.querySelector("[page-content]");
 
@@ -45,24 +45,20 @@ const filterVideos = function (videoList) {
   );
 };
 
-
-
-fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(movie) {
-    const {
-      backdrop_path,
-      poster_path,
-      title,
-      release_date,
-      runtime,
-      vote_average,
-      releases: {
-        countries: [{ certification } = { certification: "N/A" }],
-      },
-      genres,
-      overview,
-      casts: { cast, crew },
-      videos: { results: videos },
-    } = movie;
+fetch("movie/details?q=" + encodeURIComponent(movieId))
+  .then((res) => res.json())
+  .then(movie => {
+    const backdropPath = movie.backdrop_path;
+    const posterPath = movie.poster_path;
+    const title = movie.title;
+    const releaseDate = movie.release_date;
+    const runtime = movie.runtime;
+    const voteAverage = movie.vote_average;
+    const certification = (movie.releases?.countries[0]?.certification) || "N/A";
+    const genres = movie.genres;
+    const overview = movie.overview;
+    const cast = movie.casts?.cast;
+    const crew = movie.casts?.crew;
 
     document.title = title + " - Netflix";
 
@@ -71,13 +67,13 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
 
     const backdropImage = document.createElement("div");
     backdropImage.classList.add("backdrop-image");
-    backdropImage.style.backgroundImage = "url(" + imageBaseURL + (backdrop_path || poster_path ? "w1280" : "original") + (backdrop_path || poster_path) + ")";
+    backdropImage.style.backgroundImage = "url(" + imageBaseURL + (backdropPath || posterPath ? "w1280" : "original") + (backdropPath || posterPath) + ")";
 
     const figure = document.createElement("figure");
     figure.classList.add("poster-box", "movie-poster");
 
     const img = document.createElement("img");
-    img.src = imageBaseURL + "w342" + poster_path;
+    img.src = imageBaseURL + "w342" + posterPath;
     img.alt = title + " poster";
     img.classList.add("img-cover");
     figure.appendChild(img);
@@ -106,7 +102,7 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
 
     const ratingSpan = document.createElement("span");
     ratingSpan.classList.add("span");
-    ratingSpan.textContent = vote_average.toFixed(1);
+    ratingSpan.textContent = voteAverage.toFixed(1);
 
     metaItemRating.appendChild(ratingImg);
     metaItemRating.appendChild(ratingSpan);
@@ -123,7 +119,7 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
 
     const metaItemReleaseDate = document.createElement("div");
     metaItemReleaseDate.classList.add("meta-item");
-    metaItemReleaseDate.textContent = release_date?.split("-")[0] ?? "Non rilasciato";
+    metaItemReleaseDate.textContent = releaseDate?.split("-")[0] ?? "Non rilasciato";
 
     const cardBadge = document.createElement("div");
     cardBadge.classList.add("meta-item", "card-badge");
@@ -207,34 +203,33 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
     movieDetail.appendChild(backdropImage);
     movieDetail.appendChild(figure);
     movieDetail.appendChild(detailBox);
-    
+
     const addToFavoritesButton = document.createElement("button");
     addToFavoritesButton.classList.add("add-to-favorites");
     addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
-    
+
     if (detailBox && detailContent) {
       detailBox.insertBefore(addToFavoritesButton, detailContent);
     } else {
       console.error("detailBox o detailContent non trovati");
     }
-    
+
     let isAddedToFavorites = false;
-    
+
     function saveMovie() {
-      
       const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
       const formData = new FormData();
       formData.append('movieId', movieId);
       formData.append('title', title);
-      formData.append('release_date', release_date);
+      formData.append('release_date', releaseDate);
       formData.append('runtime', runtime);
-      formData.append('vote_average', vote_average);
-      formData.append('genres', getGenres(genres)); // Usando la funzione per ottenere la stringa dei generi
+      formData.append('vote_average', voteAverage);
+      formData.append('genres', getGenres(genres));
       formData.append('overview', overview);
-      formData.append('backdrop_path', backdrop_path);
-      formData.append('poster_path', poster_path);
-    
+      formData.append('backdrop_path', backdropPath);
+      formData.append('poster_path', posterPath);
+
       const url = isAddedToFavorites ? "delete_movie" : "save_movie";
 
       fetch(url, {
@@ -244,27 +239,26 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
         },
         body: formData
       })
-      .then(response => response.json())
-      .then(data => {
-        if (data.ok) {
-          if (isAddedToFavorites) {
-            addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
+        .then(response => response.json())
+        .then(data => {
+          if (data.ok) {
+            if (isAddedToFavorites) {
+              addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
+            } else {
+              addToFavoritesButton.textContent = "Aggiunto!";
+            }
+            isAddedToFavorites = !isAddedToFavorites; // Alterna lo stato
           } else {
-            addToFavoritesButton.textContent = "Aggiunto!";
+            addToFavoritesButton.textContent = "Errore";
           }
-          isAddedToFavorites = !isAddedToFavorites; // Alterna lo stato
-        } else {
+        })
+        .catch(error => {
+          console.error('Errore:', error);
           addToFavoritesButton.textContent = "Errore";
-        }
-      })
-      .catch(error => {
-        console.error('Errore:', error);
-        addToFavoritesButton.textContent = "Errore";
-      });
+        });
     }
-    
+
     function checkIfMovieIsFavorited() {
-      // Prepara i dati da inviare al server
       var userIdElement = document.getElementById('userId');
       var userId = userIdElement ? userIdElement.getAttribute('data-user-id') : null;
       const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -272,7 +266,6 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
       formData.append('movieId', movieId);
       formData.append('userId', userId);
 
-    
       fetch("check_movie", {
         method: 'POST',
         headers: {
@@ -280,56 +273,45 @@ fetchDataFromServer("movie/details?q="+encodeURIComponent(movieId), function(mov
         },
         body: formData
       })
-      .then(response => response.json())
-      .then(data => {
-        if (data.isFavorited) {
-          addToFavoritesButton.textContent = "Aggiunto!";
-          isAddedToFavorites = true;
-        } else {
-          addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
-          isAddedToFavorites = false;
-        }
-      })
-      .catch(error => {
-        console.error('Errore:', error);
-      });
+        .then(response => response.json())
+        .then(data => {
+          if (data.isFavorited) {
+            addToFavoritesButton.textContent = "Aggiunto!";
+            isAddedToFavorites = true;
+          } else {
+            addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
+            isAddedToFavorites = false;
+          }
+        })
+        .catch(error => {
+          console.error('Errore:', error);
+        });
     }
-    
-    addToFavoritesButton.addEventListener("click", function() {
-      console.log("Button clicked!"); // Log per verificare il click
+
+    addToFavoritesButton.addEventListener("click", function () {
+      console.log("Button clicked!");
       saveMovie();
     });
-    
+
     checkIfMovieIsFavorited();
-    
-    for (const { key, name } of filterVideos(videos)) {
-      const videoCard = document.createElement("div");
-      videoCard.classList.add("video-card");
 
-      const iframe = document.createElement("iframe");
-      iframe.width = "500";
-      iframe.height = "294";
-      iframe.src = "https://www.youtube.com/embed/" + key + "?&theme=dark&color=white&rel=0";
-      iframe.style.border = "none";
-      iframe.allowFullscreen = true;
-      iframe.title = name;
-      iframe.classList.add("img-cover");
-      iframe.loading = "lazy";
-
-      videoCard.appendChild(iframe);
-      sliderInner.appendChild(videoCard);
-    }
-    
     pageContent.appendChild(movieDetail);
 
-    // Recupera e aggiunge i film suggeriti dall'API di TMDB
-    fetchDataFromServer("movie/recommendations?mid="+encodeURIComponent(movieId), addSuggestedMovies);
+    fetch("movie/recommendations?mid=" + encodeURIComponent(movieId))
+      .then((res) => res.json())
+      .then(data => addSuggestedMovies(data))
+      .catch(error => {
+        console.error('Errore nel recupero delle raccomandazioni:', error);
+      });
+  })
 
-  }
-);
+  .catch(error => {
+    console.error('Errore nel recupero dei dettagli del film:', error);
+  });
 
-// Funzione per aggiungere i film suggeriti alla pagina
-const addSuggestedMovies = function ({ results: movieList }, title) {
+
+const addSuggestedMovies = function (data, title) {
+  const movieList = data.results;
 
   const movieListElem = document.createElement("section");
   movieListElem.classList.add("movie-list");
@@ -355,15 +337,11 @@ const addSuggestedMovies = function ({ results: movieList }, title) {
   movieListElem.appendChild(titleWrapper);
   movieListElem.appendChild(sliderList);
 
-  // Crea e aggiunge una scheda per ogni film suggeritoDeadpool 533535
-  for ( const movie of movieList ) {
+  for (const movie of movieList) {
     const movieCard = createMovieCard(movie);
     sliderInner.appendChild(movieCard);
   }
-
-  // Aggiunge la sezione dei film suggeriti al contenuto della pagina
   pageContent.appendChild(movieListElem);
 };
 
-// Richiama la funzione di ricerca
 searchMovie();
