@@ -3,7 +3,7 @@
 const imageBaseURL = 'https://image.tmdb.org/t/p/';
 
 export function createSerieCard(serie) {
-  const backdropPath = serie.backdrop_path;
+  const posterPath = serie.poster_path;
   const name = serie.name;
   const id = serie.id;
 
@@ -14,7 +14,7 @@ export function createSerieCard(serie) {
   figure.classList.add("poster-box", "card-banner");
   
   const img = document.createElement("img");
-  img.src = imageBaseURL + "w342" + backdropPath;
+  img.src = imageBaseURL + "w342" + posterPath;
   img.classList.add("img-cover");
   img.loading = "lazy";
   

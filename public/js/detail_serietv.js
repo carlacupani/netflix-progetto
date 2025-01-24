@@ -1,6 +1,8 @@
 "use strict";
 
-import { imageBaseURL, fetchDataFromServer } from "./api.js";
+const imageBaseURL = 'https://image.tmdb.org/t/p/';
+
+import { fetchDataFromServer } from "./api.js";
 import { createSerieCard } from "./serie-card.js";
 import { searchSerie } from "./search-serie.js";
 

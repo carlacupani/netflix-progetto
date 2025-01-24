@@ -38,12 +38,6 @@ const getDirectors = function (crewList) {
   return directorList.join(", ");
 };
 
-const filterVideos = function (videoList) {
-  return videoList.filter(
-    ({ type, site }) =>
-      (type === "Trailer" || type === "Teaser") && site === "YouTube"
-  );
-};
 
 fetch("movie/details?q=" + encodeURIComponent(movieId))
   .then((res) => res.json())

@@ -61,7 +61,6 @@
         </div>
       </div>
     </div>
-
   </header>
   <main>
     <!--HEADER-->
@@ -69,11 +68,10 @@
     <!--FILM-->
     <article class="container" page-content></article>
   </main>
-
-    <!--FOOTER-->
-    <footer>
-        <h2>Domande? Chiama 800-130-364</h2>
-        <div class="row">
+  <!--FOOTER-->
+  <footer>
+      <h2>Domande? Chiama 800-130-364</h2>
+      <div class="row">
             <div class="col">
                 <a href="#">Autodescrizione</a>
                 <a href="https://ir.netflix.net/ir-overview/profile/default.aspx">Rapporti con gli investitori</a>

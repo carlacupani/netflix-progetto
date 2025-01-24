@@ -1,224 +1,135 @@
 "use strict";
 
-import { imageBaseURL, fetchDataFromServer } from "./api.js";
+const imageBaseURL = 'https://image.tmdb.org/t/p/';
+
 import { createSerieCard } from "./serie-card.js";
 import { searchSerie } from "./search-serie.js";
 
 const pageContent = document.querySelector("[page-content]");
 
-/* Creazione di un oggetto `genreList` per gestire i generi delle serie TV. */
-const genreList = {
-  asString(genreIdList) {
-    let newGenreList = [];
+fetch("/serietv/popular")
+  .then((res) => res.json())
+  .then((data) => createBannerSection(data))
+  .catch((error) => console.error("Error fetching banner", error));
 
-    for (const genreId of genreIdList) {
-      this[genreId] && newGenreList.push(this[genreId]);
-    }
+function createBannerSection({ results: serieList }) {
+    const banner = document.querySelector('.banner');
 
-    return newGenreList.join(", ");
-  },
-};
-
-fetch("/genre/serietv/list")
-  .then((response) => response.json())
-  .then((data) => {
-    for (const { id, name } of data.genres) {
-      genreList[id] = name;
-    }
-    
-    fetchDataFromServer("/serietv/popular", heroBanner);
-  })
-  .catch((error) => console.error("Error:", error));
-
-// Funzione per creare l'hero banner con le serie TV popolari
-const heroBanner = function ({ results: serieList }) {
-  const banner = document.createElement("section");
-  banner.classList.add("banner");
-  banner.ariaLabel = "Serie TV popolari";
-
-  const bannerSlider = document.createElement("div");
-  bannerSlider.classList.add("banner-slider");
-  banner.appendChild(bannerSlider);
-
-  const sliderControl = document.createElement("div");
-  sliderControl.classList.add("slider-control");
-
-  const controlInner = document.createElement("div");
-  controlInner.classList.add("control-inner");
-  sliderControl.appendChild(controlInner);
-
-  banner.appendChild(sliderControl);
-
-  let controlItemIndex = 0;
-
-  // Creazione degli elementi slider per ogni serie TV nella lista
-  for (const [index, serie] of serieList.entries()) {
-    const {
-      backdrop_path,
-      name, // Titolo della serie
-      first_air_date, // Data di prima messa in onda
-      genre_ids,
-      overview,
-      poster_path,
-      vote_average,
-      id,
-    } = serie;
-
-    const sliderItem = document.createElement("div");
-    sliderItem.classList.add("slider-item");
-    sliderItem.setAttribute("slider-item", "");
-
-    const img = document.createElement("img");
-    img.src = `${imageBaseURL}w1280${backdrop_path}`;
-    img.alt = name;
-    img.classList.add("img-cover");
-    img.loading = index === 0 ? "eager" : "lazy";
-    sliderItem.appendChild(img);
-
-    const bannerContent = document.createElement("div");
-    bannerContent.classList.add("banner-content");
-
-    const h2 = document.createElement("h2");
-    h2.classList.add("heading");
-    h2.textContent = name;
-    bannerContent.appendChild(h2);
-
-    // Crea e imposta la lista dei meta dati della serie TV
-    const metaList = document.createElement("div");
-    metaList.classList.add("meta-list");
-
-    const metaItemReleaseDate = document.createElement("div");
-    metaItemReleaseDate.classList.add("meta-item");
-    metaItemReleaseDate.textContent = first_air_date?.split("-")[0] ?? "Non rilasciato";
-    metaList.appendChild(metaItemReleaseDate);
-
-    const metaItemRating = document.createElement("div");
-    metaItemRating.classList.add("meta-item", "card-badge");
-    metaItemRating.textContent = vote_average.toFixed(1);
-    metaList.appendChild(metaItemRating);
-
-    bannerContent.appendChild(metaList);
-
-    const genreP = document.createElement("p");
-    genreP.classList.add("genre");
-    genreP.textContent = genreList.asString(genre_ids);
-    bannerContent.appendChild(genreP);
-
-    const bannerText = document.createElement("p");
-    bannerText.classList.add("banner-text");
-    bannerText.textContent = overview;
-    bannerContent.appendChild(bannerText);
-
-    const btn = document.createElement("a");
-    btn.href = "details_serietv";
-    btn.classList.add("btn");
-    btn.setAttribute("onclick", `getSerietvDetail(${id})`);
-
-    const playCircleImg = document.createElement("img");
-    playCircleImg.src = "./images/play_circle.png";
-    playCircleImg.width = 24;
-    playCircleImg.height = 24;
-    playCircleImg.ariaHidden = "true";
-    playCircleImg.alt = "play circle";
-    btn.appendChild(playCircleImg);
-
-    const span = document.createElement("span");
-    span.classList.add("span");
-    span.textContent = "Riproduci";
-    btn.appendChild(span);
-
-    bannerContent.appendChild(btn);
-
-    sliderItem.appendChild(bannerContent);
-    bannerSlider.appendChild(sliderItem);
-
-    const controlItem = document.createElement("button");
-    controlItem.classList.add("poster-box", "slider-item");
-    controlItem.setAttribute("slider-control", `${controlItemIndex}`);
-    controlItemIndex++;
-
-    const controlItemImg = document.createElement("img");
-    controlItemImg.src = `${imageBaseURL}w154${poster_path}`;
-    controlItemImg.alt = `Slide to ${name}`;
-    controlItemImg.loading = "lazy";
-    controlItemImg.draggable = false;
-    controlItemImg.classList.add("img-cover");
-    controlItem.appendChild(controlItemImg);
-
-    controlInner.appendChild(controlItem);
+    const serie = serieList[0];
+    const serieId = serie.id;
+  
+    banner.style.backgroundImage = "url('" + imageBaseURL + "w1280"+ serie.backdrop_path + "')";
+  
+    const bannerContents = document.createElement('div');
+    bannerContents.classList.add('banner-contents');
+  
+    const titleText = document.createElement('div');
+    titleText.classList.add('banner-title');
+    titleText.textContent = serie.name;
+  
+    const description = document.createElement('div');
+    description.classList.add('banner-description');
+    description.textContent = serie.overview || "Descrizione non disponibile.";
+  
+    const buttons = document.createElement('div');
+    buttons.classList.add('banner-buttons');
+  
+    const playButton = document.createElement('button');
+    playButton.classList.add('banner-btn1');
+  
+    const playIcon = document.createElement('img');
+    playIcon.classList.add('icon');
+    playIcon.src= '../images/play-button.png';
+    const playText = document.createTextNode('Riproduci');
+  
+    const infoButton = document.createElement('button');
+    infoButton.classList.add('banner-btn2');
+  
+    const infoIcon = document.createElement('img');
+    infoIcon.classList.add('icon');
+    infoIcon.src = '../images/menu.png';
+    const infoText = document.createTextNode('Altre info');
+  
+    infoButton.addEventListener('click', () => {
+      window.localStorage.setItem('serieId', serieId);
+      window.location.href = "/details_serie";
+    });
+  
+    buttons.appendChild(playButton);
+    playButton.appendChild(playIcon);
+    playButton.appendChild(playText);
+  
+    buttons.appendChild(infoButton);
+    infoButton.appendChild(infoIcon);
+    infoButton.appendChild(infoText);
+  
+    bannerContents.appendChild(titleText);
+    bannerContents.appendChild(description);
+    bannerContents.appendChild(buttons);
+  
+    banner.appendChild(bannerContents);
   }
 
-  pageContent.appendChild(banner);
-  addHeroSlide();
-
-  /* Fetch delle sezioni della homepage */
-  // Recupera le serie TV in uscita, in tendenza questa settimana, e più votate
-  fetchDataFromServer("/serietv/on_the_air", createSerieList, "In uscita");
-  fetchDataFromServer("/trending/tv/week", createSerieList, "In tendenza questa settimana");
-  fetchDataFromServer("/serietv/top_rated", createSerieList, "Più votati");
-  fetchDataFromServer("/serietv/popular", createSerieList, "Più popolari tra i giovani");
-};
-
-const addHeroSlide = function () {
-  const sliderItems = document.querySelectorAll("[slider-item]");
-  const sliderControls = document.querySelectorAll("[slider-control]");
-
-  let lastSliderItem = sliderItems[0];
-  let lastSliderControl = sliderControls[0];
-
-  lastSliderItem.classList.add("active");
-  lastSliderControl.classList.add("active");
-
-  const sliderStart = function () {
-    lastSliderItem.classList.remove("active");
-    lastSliderControl.classList.remove("active");
-
-    sliderItems[Number(this.getAttribute("slider-control"))].classList.add("active");
-    this.classList.add("active");
-
-    lastSliderItem = sliderItems[Number(this.getAttribute("slider-control"))];
-    lastSliderControl = this;
+  const genreList = {
+    asString(genreIdList) {
+      return genreIdList.map((id) => this[id]).filter(Boolean).join(", ");
+    },
   };
 
-  sliderControls.forEach(function (control) {
-    control.addEventListener("click", sliderStart);
+fetch("/genre/serietv/list")
+.then((res) => res.json())
+.then(({ genres }) => {
+  genres.forEach(({ id, name }) => (genreList[id] = name));
+  loadHomeSections();
+})
+.catch((error) => console.error("Error fetching genres:", error));
+
+function loadHomeSections() {
+  const sections = [
+    { url: "/serietv/on_the_air", title: "In uscita" },
+    { url: "/trending/tv/week", title: "In tendenza questa settimana" },
+    { url: "/serietv/top_rated", title: "Più votati" },
+    { url: "/serietv/popular", title: "Più popolari tra i giovani" },
+  ];
+
+  sections.forEach(({ url, title }) => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => createSerieSection(data, title))
+      .catch((error) => console.error('Error fetching' + title + ':', error));
   });
-};
+}
 
-// Funzione per creare e aggiungere le card delle serie TV nelle sezioni della homepage
-const createSerieList = function ({ results: serieList }, name) {
-  const serieListElem = document.createElement("section");
-  serieListElem.classList.add("serie-list");
-  serieListElem.ariaLabel = `${name}`;
+function createSerieSection({ results: serieList }, title) {
+  const section = document.createElement("section");
+  section.classList.add("serie-list");
 
-  const nameWrapper = document.createElement("div");
-  nameWrapper.classList.add("name-wrapper");
+  const titleWrapper = document.createElement("div");
+  titleWrapper.classList.add("title-wrapper");
 
-  const h3 = document.createElement("h3");
-  h3.classList.add("name-large");
-  h3.textContent = name; // Titolo della sezione
-  nameWrapper.appendChild(h3);
+  const titleElement = document.createElement("h3");
+  titleElement.classList.add("title-large");
+  titleElement.textContent = title;
 
-  serieListElem.appendChild(nameWrapper);
+  titleWrapper.appendChild(titleElement);
 
   const sliderList = document.createElement("div");
   sliderList.classList.add("slider-list");
 
   const sliderInner = document.createElement("div");
   sliderInner.classList.add("slider-inner");
-  sliderList.appendChild(sliderInner);
 
-  serieListElem.appendChild(sliderList);
-
-  // Creazione delle card delle serie TV per la sezione
-  for (const serie of serieList) {
+  serieList.forEach((serie) => {
     const serieCard = createSerieCard(serie);
     sliderInner.appendChild(serieCard);
-  }
+  });
 
-  // Aggiunge la sezione della lista delle serie TV al contenuto della pagina
-  pageContent.appendChild(serieListElem);
-};
+  sliderList.appendChild(sliderInner);
 
-// Avvia la ricerca delle serie TV
+  section.appendChild(titleWrapper);
+  section.appendChild(sliderList);
+
+  pageContent.appendChild(section);
+}
+
 searchSerie();

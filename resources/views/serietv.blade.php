@@ -68,9 +68,10 @@
       </div>
     </div>
   </header>
-
   <main>
-    <!--FILM--> 
+    <!--HEADER-->
+    <div class="banner"></div>
+    <!--FILM-->
     <article class="container" page-content></article>
   </main>
 
