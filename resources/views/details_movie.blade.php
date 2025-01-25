@@ -99,3 +99,19 @@
 </body>
 
 </html>
+
+<div class="movie-detail">
+  <div class="detail-wrapper">
+    <div class="backdrop-image">
+      <img src="" alt="" class="img-cover">
+    </div>
+    <div class="detail-box">
+      <div class="detail-content">
+        <h1 class="heading"></h1>
+        <div class="meta-list">
+          <div class="meta-item"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

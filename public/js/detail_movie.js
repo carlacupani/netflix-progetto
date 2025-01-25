@@ -177,12 +177,6 @@ fetch("movie/details?q=" + encodeURIComponent(movieId))
     const titleWrapper = document.createElement("div");
     titleWrapper.classList.add("title-wrapper");
 
-    const titleLarge = document.createElement("h3");
-    titleLarge.classList.add("title-large");
-    titleLarge.textContent = "Trailers e Clips";
-
-    titleWrapper.appendChild(titleLarge);
-
     const sliderList = document.createElement("div");
     sliderList.classList.add("slider-list");
 
@@ -309,7 +303,6 @@ const addSuggestedMovies = function (data, title) {
 
   const movieListElem = document.createElement("section");
   movieListElem.classList.add("movie-list");
-  movieListElem.ariaLabel = "Potrebbe piacerti";
 
   const titleWrapper = document.createElement("div");
   titleWrapper.classList.add("title-wrapper");
