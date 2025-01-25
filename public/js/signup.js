@@ -1,7 +1,7 @@
 function checkName(event) {
     const input = event.currentTarget;
 
-    if (formStatus[input.name] = input.value.length > 0) {
+    if (formStatus[input.name] = (input.value.length > 0)) {
         input.parentNode.classList.remove('errorj');
     } else {
         input.parentNode.classList.add('errorj');
@@ -11,7 +11,7 @@ function checkName(event) {
 function checkSurname(event) {
     const input = event.currentTarget;
     
-    if (formStatus[input.surname] = input.value.length > 0) {
+    if (formStatus[input.surname] = (input.value.length > 0)) {
         input.parentNode.classList.remove('errorj');
     } else {
         input.parentNode.classList.add('errorj');
@@ -23,7 +23,7 @@ function jsonCheckUsername(json) {
     if (formStatus.username = !json.exists) {
         document.querySelector('.username').classList.remove('errorj');
     } else {
-        document.querySelector('.username span').textContent = "Nome utente già utilizzato";
+        document.querySelector('.username-error').textContent = "Nome utente già utilizzato";
         document.querySelector('.username').classList.add('errorj');
     }
 }
@@ -33,7 +33,7 @@ function jsonCheckEmail(json) {
     if (formStatus.email = !json.exists) {
         document.querySelector('.email').classList.remove('errorj');
     } else {
-        document.querySelector('.email span').textContent = "Email già utilizzata";
+        document.querySelector('.email-error').textContent = "Email già utilizzata";
         document.querySelector('.email').classList.add('errorj');
     }
 }
@@ -50,7 +50,7 @@ function checkUsername() {
 
     return new Promise((resolve, reject) => {
         if (!/^[a-zA-Z0-9_]{1,15}$/.test(input.value)) {
-            input.parentNode.querySelector('span').textContent = "Sono ammesse lettere, numeri e underscore. Max. 15";
+            input.parentNode.querySelector('username-error').textContent = "Sono ammesse lettere, numeri e underscore. Max. 15";
             input.parentNode.classList.add('errorj');
             resolve(false);  // Nome utente non valido
         } else {
@@ -65,18 +65,18 @@ function checkUsername() {
             .then(response => response.json())
             .then(data => {
                 if (data.exists) {
-                    input.parentNode.querySelector('span').textContent = "Nome utente già in uso";
+                    input.parentNode.querySelector('.username-error').textContent = "Nome utente già in uso";
                     input.parentNode.classList.add('errorj');
                     resolve(false);  // Nome utente esistente
                 } else {
-                    input.parentNode.querySelector('span').textContent = "";
+                    input.parentNode.querySelector('.username-error').textContent = "";
                     input.parentNode.classList.remove('errorj');
-                    resolve(true);  // Nome utente valido
+                    resolve(true);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                reject(error);  // Errore nella richiesta
+                reject(error); 
             });
         }
     });

@@ -1,47 +1,3 @@
-:root {
-    /*---COLORS---*/
-    --background: rgba(15, 17, 21, 1);
-    --banner-background: rgba(51, 51, 51, 1);
-    --white-alpha-20: rgba(255, 255, 255, 0.2);
-    --on-background: rgba(229, 238, 255, 1);
-    --on-surface: rgba(234, 229, 255, 1);
-    --on-surface-variant: rgba(111, 111, 113, 1);
-    --primary: rgba(229, 9, 20, 1);
-    --primary-variant: rgba(196, 8, 18, 1);
-    --rating-color: rgba(250, 183, 0, 1);
-    --surface: rgba(26, 24, 32, 1);
-    --text-color: rgba(149, 148, 153, 1);
-    --white: rgba(255, 255, 255, 1);
-    --blue: rgba(0, 113, 235, 1);
-    /*---GRADIENT-COLORS---*/
-    --banner-overlay: 0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 60%;
-    --bottom-overlay: 180deg, rgba(26, 24, 32, 0), rgba(26, 24, 32, 1);
-    /*---FONT-FAMILY---*/
-    --ff-dm-sans: 'DM Sans', sans-serif;
-    /*---FONT-SIZE---*/
-    --fs-heading: 64px;
-    --fs-title-lg: 41.6px;
-    --fs-title: 32px;
-    --fs-body: 28.8px;
-    --fs-button: 24px;
-    --fs-label: 16px;
-    /*---FONT-WEIGHT*/
-    --weight-bold: 700;
-    --weight-light: 400;
-    /*---SHADOW---*/
-    --shadow-1: 0 1px 4px rgba(0, 0, 0, 0.75);
-    --shadow-2: 0 2px 4px rgba(219, 0, 37, 0.3);
-    /*---BORDER-RADIUS---*/
-    --radius-4: 4px;
-    --radius-8: 8px;
-    --radius-16: 16px;
-    --radius-24: 24px;
-    --radius-36: 36px;
-    /*---TRANSITION---*/
-    --transition-short: 250ms ease;
-    --transition-long: 500ms ease;
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -61,55 +17,15 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgb(176, 176, 176);
     border-radius: 8px;
-}
-
-/*---ALLERT---*/
-.alert {
-    padding: 16px;
-    margin-bottom: 20px;
-    border-radius: 4px;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.4;
-    color: #333;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid transparent;
-}
-
-.alert.alert-success {
-    background-color: #e6f7e6;
-    border-color: #b2d8b2;
-    color: #2d572c;
-}
-.alert.alert-error {
-    background-color: #fdecea;
-    border-color: #f5c6c6;
-    color: #a94442;
-}
-
-.alert .close-btn {
-    background: transparent;
-    border: none;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 1;
-    color: inherit; /* text color of the allert */
-    cursor: pointer;
-}
-
-.alert .close-btn:hover {
-    opacity: 0.7;
 }
 
 /*---HEADER---*/
 header{
     width: 100%;
     height: 1000px;
-    background-image: linear-gradient(var(--banner-overlay)), url(../images/signup_background.webp);
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 60%), url(../images/signup_background.webp);
     background-size: cover;
     background-position: center;
     padding: 10px 8%;
@@ -140,11 +56,11 @@ button{
     border: 0;
     outline: 0;
     height: 40px;
-    background: var(--primary);
-    color: var(--white);
+    background: rgb(226, 14, 21);
+    color: #fff;
     padding: 7px 20px;
     font-size: 12px solid;
-    border-radius: var(--radius-4);
+    border-radius: 4px;
     margin-left: 20px;
 }
 
@@ -182,11 +98,11 @@ button{
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 40px 60px;
-    border-radius: var(--radius-8);
+    border-radius: 8px;
 }
 
 .login-body .title {
-    font-size: var(--fs-title);
+    font-size: 32px;
     font-weight: 900;
 }
 
@@ -201,12 +117,13 @@ button{
 
 .form-control input {
     width: 100%;
-    background-color: var(--banner-background);
+    background-color: rgba(0, 0, 0, 255);
     border: none;
     outline: none;
-    border-radius: var(--radius-4);
-    color: var(--white);
-    font-size: var(--fs-label);
+    border-radius: 4px;
+    border: rgb(176, 176, 176) solid;
+    color: rgb(176, 176, 176);
+    font-size: 16px;
     padding: 15px 20px;
 }
 
@@ -234,13 +151,13 @@ button{
 
 .login-body .login-form button {
     width: 100%;
-    background-color: var(--primary);
-    color: var(--white);
+    background-color: rgb(226, 14, 21);
+    color: #fff;
     font-size: 16px;
-    font-weight: var(--weight-bold);
+    font-weight: 700;
     border: none;
     outline: none;
-    border-radius: var(--radius-4);
+    border-radius: 4px;
     padding: 16px 0;
     margin: 10px 0;
     cursor: pointer;
@@ -248,7 +165,7 @@ button{
 }
 
 .login-form button:hover {
-    background-color: var(--primary-variant);
+    background-color: rgba(194, 17, 25, 255);
 }
 
 .login-body a {
@@ -260,7 +177,7 @@ button{
 }
 
 .login-body :where(label, p, a) {
-    color: var(--text-color);
+    color: rgb(176, 176, 176);
 }
 
 .login-form .form-help {
@@ -274,7 +191,7 @@ button{
 
 .login-form .allow input {
     margin-right: 5px;
-    accent-color: var(--text-color);
+    accent-color: rgb(176, 176, 176);
 }
 
 .login-form .form-help :where(label, a) {
@@ -282,7 +199,7 @@ button{
 }
 
 .login-body .sign-up a {
-    color: var(--white);
+    color: #fff;
 }
 
 .login-body .short-desc {
@@ -291,7 +208,7 @@ button{
 }
 
 .login-body .short-desc a {
-    color: var(--blue);
+    color: rgba(0, 113, 235, 1);
 }
 
 .header-content{
@@ -316,16 +233,30 @@ button{
     margin-bottom: 16px;
 }
 
-form span {
-    opacity: 0;
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 20px;
-    letter-spacing: 0.25px;
+/*---ALLERT---*/
+.form-control .username-error {
+    color: rgb(226, 14, 21); 
+    font-size: 14px; 
+    font-weight: 400; 
+    line-height: 1.5; 
+    margin-top: 5px; 
+    display: block; 
+    opacity: 1;
     transition: opacity 0.3s ease;
 }
 
-/*---footer---*/
+.form-control .email-error{
+    color: rgb(226, 14, 21); 
+    font-size: 14px; 
+    font-weight: 400; 
+    line-height: 1.5;
+    margin-top: 5px; 
+    display: block; 
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/*---FOOTER---*/
 footer {
     padding: 50px 160px 10px;
     background-color: rgba(0, 0, 0, 255);
@@ -388,30 +319,4 @@ footer .language-btn:hover {
     color: rgb(176, 176, 176);
 }
 
-
-/*---media-query-small-screen---*/
-@media only screen and (max-width: 600px){
-    .logo{
-        width: 100px;
-    }
-    nav button{
-        padding: 5px 10px;
-    }
-    nav .language-btn{
-        padding: 4px 8px;
-    }
-    .header-content{
-        position: unset;
-        transform: none;
-        padding-top: 150px;
-    }
-    .header-content h1{
-        font-size: 30px;
-    }
-    .container .login-body {
-        width: 100%;
-        height: 100%;
-        background-color: var(--background);
-        padding: 60px 50px;
-    }
-}
+/* MEDIA QUERIES */
