@@ -75,36 +75,51 @@ fetch("favorite_movie")
 function fetchQuote() {
   fetch('https://api.gameofthronesquotes.xyz/v1/random')
       .then(response => {
-          // Verifica se la risposta è OK
           if (!response.ok) {
               console.log("response no ok");
           }
           return response.json();
       })
       .then(quote => {
-          const container = document.querySelector('.quote-wrapper');
+        const container = document.querySelector('.quote-wrapper');
 
-          // nodi precedenti
-          container.innerHTML = '';
+        container.innerHTML = '';
+        
+        const quoteBox = document.createElement('div');
+        quoteBox.className = 'quote-box';
+        
+        // Creazione del blockquote
+        const blockquote = document.createElement('blockquote');
+        blockquote.className = 'blockquote';
+        
+        // Aggiungi un contenitore per immagine e testo
+        const contentWrapper = document.createElement('div');
+        contentWrapper.className = 'content-wrapper';
+        
+        // Immagine del brush
+        const brushImage = document.createElement('img');
+        brushImage.src = '../images/brush.png';
+        brushImage.className = 'brush-icon';
+        
+        // Testo della frase
+        const quoteText = document.createElement('span');
+        quoteText.textContent = quote.sentence;
+        quoteText.className = 'quote-text';
+        
+        // Aggiungi immagine e testo al contenitore
+        contentWrapper.appendChild(brushImage);
+        contentWrapper.appendChild(quoteText);
+        blockquote.appendChild(contentWrapper);
+        
+        // Footer per autore e casa
+        const author = document.createElement('div');
+        author.className = 'author';
+        author.textContent = "- " + quote.character.name + ", " + quote.character.house.name;
+        
+        blockquote.appendChild(author);
+        quoteBox.appendChild(blockquote);
+        container.appendChild(quoteBox);
 
-          const quoteBox = document.createElement('div');
-          quoteBox.id = 'quote-box';
-          quoteBox.className = 'quote-box';
-
-          const blockquote = document.createElement('blockquote');
-          blockquote.className = 'blockquote';
-          blockquote.id = 'quote';
-          blockquote.textContent = quote.sentence;
-
-          const footer = document.createElement('footer');
-          footer.id = 'autore';
-          footer.textContent = "- " + quote.character.name + ", " + quote.character.house.name;
-
-          blockquote.appendChild(footer);
-
-          quoteBox.appendChild(blockquote);
-
-          container.appendChild(quoteBox);
       })
       .catch(error => {
           console.error('Errore durante il fetch:', error);

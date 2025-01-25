@@ -1,3 +1,21 @@
+:root {
+    /*---COLORS---*/
+    --background: rgba(15, 17, 21, 1);
+    --banner-background: rgba(51, 51, 51, 1);
+    --white-alpha-20: rgba(255, 255, 255, 0.2);
+    --on-background: rgba(229, 238, 255, 1);
+    --on-surface: rgba(234, 229, 255, 1);
+    --on-surface-variant: rgba(111, 111, 113, 1);
+    --primary: rgba(229, 9, 20, 1);
+    --primary-variant: rgba(196, 8, 18, 1);
+    --rating-color: rgba(250, 183, 0, 1);
+    --surface: rgba(26, 24, 32, 1);
+    --text-color: rgba(149, 148, 153, 1);
+    --white: rgba(255, 255, 255, 1);
+
+}
+
+
 *,
 *::before,
 *::after {
@@ -170,12 +188,12 @@ body {
 
 .heading {
     color: #fff;
-    font-size: var(--fs-heading);
+    font-size: 36px;
     line-height: 1.2;
 }
 
 .title-large {
-    font-size: var(--fs-title-lg);
+    font-size: v24px;
 }
 
 .img-cover {
@@ -199,31 +217,27 @@ body {
 }
 
 .btn {
-    color: var(--white);
-    font-size: var(--fs-button);
-    font-weight: var(--weight-bold);
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
     max-width: max-content;
     display: flex;
     align-items: center;
     gap: 12px;
     padding-block: 12px;
     padding-inline: 20px 24px;
-    border-radius: var(--radius-8);
-    transition: var(--transition-short);
+    border-radius: 8px;
+    transition: 250ms ease;
 }
 
 .card-badge {
-    background-color: var(--banner-background);
-    color: var(--white);
-    font-size: var(--fs-label);
-    font-weight: var(--weight-bold);
+    background-color: rgba(0, 0, 0, 255);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
     padding-inline: 6px;
-    border-radius: var(--radius-4);
+    border-radius: 4px;
 }
-
-
-
-
 
 .title-wrapper {
     margin-block-end: 24px;
@@ -241,7 +255,7 @@ body {
 }
 
 .slider-list:is(:hover, :focus-within)::-webkit-scrollbar-thumb {
-    background-color: var(--banner-background);
+    background-color: rgba(0, 0, 0, 255);
 }
 
 .slider-list::-webkit-scrollbar-button {
@@ -270,12 +284,12 @@ body {
 
 /*---RANDOM-QUOTES---*/
 .quote-wrapper {
-    padding: 18px;
-    background-color: var(--background);
+    padding: 20px;
     display: flex;
-    flex: 1;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    min-height: 200px;
+    border-radius: 8px;
 }
 
 .quote-box {
@@ -283,27 +297,50 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #000;
-    background-color: white;
-    border: 2px solid #000;
-    border-radius: 20px;
+    background: linear-gradient(to right, rgba(33, 13, 23, 255), rgba(25, 33, 68, 255));
+    color: #e5e5e5; /* Testo chiaro */
+    padding: 20px 30px;
+    border: 1px solid #333; /* Bordo sottile per separare */
+    border-radius: 15px;
+    text-align: center;
+    max-width: 600px;
+    transition: transform 0.3s ease;
 }
 
-.blockquote {
-    border: 0;
-    margin: 10px;
-    font-style: oblique;
-    font-family: "Segoe Print", "Times New Roman", Verdana;
-    padding-left: 48px;
-    background: url('http://www.xul.fr/css/images/blockquote.png');
-    background-repeat: no-repeat;
-    min-height: 30px;
+.quote-box:hover {
+    background: linear-gradient(to right, rgb(103, 66, 115), rgba(28, 30, 84, 255));
 }
 
-.blockquote footer {
-    color: var(--text-color);
+.content-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.brush-icon {
+    filter: invert(1);
+    width: 36px;
+    height: 36px;
+}
+
+.quote-text {
+    font-size: 24px;
+    font-style: italic;
+    color: #fff;
+    margin: 0;
+    padding: 15px 20px;
+    line-height: 1.2;
+    position: relative;
+}
+
+.blockquote .author{
+    margin-top: 10px;
+    font-size: 16px;
     font-style: normal;
-    min-height: 30px;
+    color: rgb(176, 176, 176);
+    background-color: transparent;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 /*---ALLERT---*/
@@ -340,7 +377,6 @@ body {
     font-weight: bold;
     line-height: 1;
     color: inherit;
-    /* text color of the allert */
     cursor: pointer;
 }
 
@@ -352,18 +388,19 @@ body {
 .profile-section {
     margin-top: 2%;
     margin-left: 20%;
-    font-size: var(--fs-heading);
+    font-size: 36px;
     padding: 0 10px;
     width: 50%;
 }
 
 .profile-section h2 {
-    font-size: var(--fs-title);
+    font-size: 24px;
     margin-bottom: 10px;
 }
 
 .profile-section .profile-card {
-    background-color: var(--banner-background);
+    background-color: rgba(0, 0, 0, 255);
+    border: rgb(176, 176, 176) solid;
     border-radius: 8px;
     height: auto;
     margin-bottom: 10px;
@@ -372,7 +409,8 @@ body {
 
 .profile-section .profile-card table {
     border: none;
-    font-size: var(--fs-label);
+    color: rgb(176, 176, 176);
+    font-size: 24px;
     height: 270px;
     width: 100%;
 }
@@ -386,12 +424,12 @@ body {
 
 .edit-account-btn {
     height: 50px;
-    background: var(--on-surface-variant);
+    background: rgb(176, 176, 176);
     border: none;
-    border-radius: var(--radius-16);
+    border-radius: 16px;
     outline: none;
-    color: var(--white);
-    font-size: var(--fs-label);
+    color: #fff;
+    font-size: 16px;
     font-weight: 700;
     letter-spacing: 1px;
     cursor: pointer;
@@ -405,13 +443,13 @@ body {
 
 .logout-btn {
     height: 50px;
-    background: var(--on-surface-variant);
+    background: rgb(176, 176, 176);
     border: none;
-    border-radius: var(--radius-16);
+    border-radius: 16px;
     outline: none;
     color: #fff;
-    font-size: var(--fs-label);
-    font-weight: var(--weight-bold);
+    font-size: 16px;
+    font-weight: 700;
     letter-spacing: 1px;
     cursor: pointer;
     margin-left: 20px;
@@ -441,7 +479,7 @@ h1 {
 }
 
 .item {
-    background-color: var(--background);
+    background-color: rgba(0, 0, 0, 255);
     border-radius: 8px;
     overflow: hidden;
     width: 200px;

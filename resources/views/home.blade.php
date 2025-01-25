@@ -100,5 +100,4 @@
         <p class="copyright-txt">Netflix Italia</p>
     </footer>
 </body>
-
 </html>

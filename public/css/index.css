@@ -220,7 +220,6 @@ option {
     padding: 16px 32px;
     border-radius: 8px;
     background: linear-gradient(to right, rgba(33, 13, 23, 255), rgba(25, 33, 68, 255));
-    ;
     color: #fff;
 }
 
@@ -326,6 +325,7 @@ option {
     letter-spacing: 0.5px;
 }
 
+/*--in-sospeso--*/
 .carousel .arrow-div{
     position: absolute;
     height: 100%;
