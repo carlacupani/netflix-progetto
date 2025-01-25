@@ -33,18 +33,17 @@
     </div>
     <div class="navbar-right">
       <div class="nav-element">
-        <div class="search-box" search-box>
-          <div class="search-wrapper" search-wrapper>
-            <input type="text" name="search" aria-label="search movies" placeholder="Search any movies..." class="search-field" autocomplete="off" search-field>
-            <img src="{{ URL::to("images/search.png") }}" alt="" class="leading-icon">
+        <div class="search-box">
+          <button class="search-btn">
+            <img src="{{ URL::to("images/search.png") }}" alt="">
+          </button>
+          <div class="search-wrapper">
+            <input type="text" name="search" aria-label="search movies" placeholder="Titoli, persone, generi" class="search-field" autocomplete="off"/>
           </div>
-          <button class="search-btn" search-toggler>
-            <img src="{{ URL::to("images/close.png") }}" alt="">
+          <button class="close-btn">
+            <img src="{{ URL::to("images/close-button.png") }}" alt="">
           </button>
         </div>
-        <button class="search-btn" search-toggler menu-close>
-          <img src="{{ URL::to("images/search.png") }}" alt="">
-        </button>
       </div>
       <div class="nav-element">
         <button class="notification-btn">
