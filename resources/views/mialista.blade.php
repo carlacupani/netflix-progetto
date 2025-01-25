@@ -32,9 +32,9 @@
         <li><a href="{{ URL::to("home") }}">Home</a></li>
         <li><a href="{{ URL::to("serietv") }}">Serie Tv</a></li>
         <li><a href="{{ URL::to("home") }}">Film</a></li>
-        <li><a href="">Nuovi e popolari</a></li>
+        <li><a href="#">Nuovi e popolari</a></li>
         <li><a href="{{ URL::to("mialista") }}">La mia lista</a></li>
-        <li><a href="">Sfoglia per lingua</a></li>
+        <li><a href="#">Sfoglia per lingua</a></li>
       </ul>
     </div>
     <div class="navbar-right">

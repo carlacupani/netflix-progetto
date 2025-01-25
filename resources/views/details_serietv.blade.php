@@ -24,31 +24,42 @@
         <img src='{{ URL::to("images/logo.png") }}' width="140" height="32">
       </a>
       <ul class="navbar-links">
-        <li><a href="{{ URL::to("home") }}">Film</a></li>
+        <li><a href="{{ URL::to("home") }}">Home</a></li>
         <li><a href="{{ URL::to("serietv") }}">Serie Tv</a></li>
+        <li><a href="{{ URL::to("home") }}">Film</a></li>
+        <li><a href="#">Nuovi e popolari</a></li>
         <li><a href="{{ URL::to("mialista") }}">La mia lista</a></li>
+        <li><a href="#">Sfoglia per lingua</a></li>
       </ul>
     </div>
-
     <div class="navbar-right">
-      <div class="search-box" search-box>
-        <div class="search-wrapper" search-wrapper>
-          <input type="text" name="search" aria-label="search movies" placeholder="Search any movies..." class="search-field" autocomplete="off" search-field>
-          <img src="./images/search.png" width="24" height="24" alt="search" class="leading-icon">
+      <div class="nav-element">
+        <div class="search-box" search-box>
+          <div class="search-wrapper" search-wrapper>
+            <input type="text" name="search" aria-label="search movies" placeholder="Search any movies..." class="search-field" autocomplete="off" search-field>
+            <img src="{{ URL::to("images/search.png") }}" alt="" class="leading-icon">
+          </div>
+          <button class="search-btn" search-toggler>
+            <img src="{{ URL::to("images/close.png") }}" alt="">
+          </button>
         </div>
-        <button class="search-btn" search-toggler>
-          <img src="./images/close.png" width="24" height="24" alt="close search box">
+        <button class="search-btn" search-toggler menu-close>
+          <img src="{{ URL::to("images/search.png") }}" alt="">
         </button>
       </div>
-      <button class="search-btn" search-toggler menu-close>
-        <img src="./images/search.png" width="24" height="24" alt="open search box">
-      </button>
+      <div class="nav-element">
+        <button class="notification-btn">
+          <img src="{{ URL::to('images/notification-bell.png') }}">
+        </button>
+      </div>
       <!-- ACCOUNT -->
-      <div class="userInfo">
-        <a href="{{ URL::to("profile") }}">
-          <div class="avatar">
-          </div>
-        </a>
+      <div class="nav-element">
+        <div class="userInfo">
+          <a href="{{ URL::to("profile") }}">
+            <div class="avatar">
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </header>
