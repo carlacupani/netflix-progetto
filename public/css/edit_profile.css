@@ -1,71 +1,82 @@
-:root {
-    /*---COLORS---*/
-    --background: rgba(15, 17, 21, 1);
-    --banner-background: rgba(51, 51, 51, 1);
-    --white-alpha-20: rgba(255, 255, 255, 0.2);
-    --on-background: rgba(229, 238, 255, 1);
-    --on-surface: rgba(234, 229, 255, 1);
-    --on-surface-variant: rgba(111, 111, 113, 1);
-    --primary: rgba(229, 9, 20, 1);
-    --primary-variant: rgba(196, 8, 18, 1);
-    --rating-color: rgba(250, 183, 0, 1);
-    --surface: rgba(26, 24, 32, 1);
-    --text-color: rgba(149, 148, 153, 1);
-    --white: rgba(255, 255, 255, 1);
-    --blue: rgba(0, 113, 235, 1);
-    /*---GRADIENT-COLORS---*/
-    --banner-overlay: 0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 60%;
-    --bottom-overlay: 180deg, rgba(26, 24, 32, 0), rgba(26, 24, 32, 1);
-    /*---FONT-FAMILY---*/
-    --ff-dm-sans: 'DM Sans', sans-serif;
-    /*---FONT-SIZE---*/
-    --fs-heading: 40px;
-    --fs-title-lg: 25px;
-    --fs-title: 25px;
-    --fs-body: 23px;
-    --fs-button: 30px;
-    --fs-label: 15px;
-    /*---FONT-WEIGHT*/
-    --weight-bold: 700;
-    --weight-light: 400;
-    /*---SHADOW---*/
-    --shadow-1: 0 1px 4px rgba(0, 0, 0, 0.75);
-    --shadow-2: 0 2px 4px rgba(219, 0, 37, 0.3);
-    /*---BORDER-RADIUS---*/
-    --radius-4: 4px;
-    --radius-8: 8px;
-    --radius-16: 16px;
-    --radius-24: 24px;
-    --radius-36: 36px;
-    /*---TRANSITION---*/
-    --transition-short: 250ms ease;
-    --transition-long: 500ms ease;
-}
-
-*{
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
-    font-family: var(--ff-dm-sans);
-    box-sizing: border-box;
 }
-body{
-    background: var(--background);
-    color: var(--white);
+
+li {
+    list-style: none;
 }
+
+a,
+img,
+span,
+iframe,
+button {
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    height: auto;
+}
+
+input,
+button {
+    background: none;
+    border: none;
+    font: inherit;
+    color: inherit;
+}
+
+input {
+    width: 100%;
+}
+
+button {
+    text-align: left;
+    cursor: pointer;
+}
+
+html {
+    font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+    font-size: 10px;
+    scroll-behavior: smooth;
+    line-height: 1.2;
+}
+
+body {
+    margin: 0;
+    background-color: rgba(0, 0, 0, 255);
+    color: #fff;
+    font-size: 24px;
+    line-height: 1.2;
+}
+
+:focus-visible {
+    outline-color: rgb(226, 14, 21);
+}
+
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--banner-background);
-    border-radius: var(--radius-8);
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
 }
+
 /*---HEADER---*/
 header{
     width: 100%;
     height: 1000px;
-    background-color: var(--background);
+    background-color: rgba(0, 0, 0, 255);
     background-size: cover;
     background-position: center;
     padding: 10px 8%;
@@ -126,11 +137,11 @@ button{
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 40px 60px;
-    border-radius: var(--radius-8);
+    border-radius: 8px;
 }
 
 .edit-account-body .title {
-    font-size: var(--fs-title);
+    font-size: 24px;
     font-weight: 900;
 }
 
@@ -145,12 +156,12 @@ button{
 
 .form-control input {
     width: 100%;
-    background-color: var(--banner-background);
+    background-color: rgba(0, 0, 0, 255);
     border: none;
     outline: none;
-    border-radius: var(--radius-4);
-    color: var(--white);
-    font-size: var(--fs-label);
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
     padding: 15px 20px;
 }
 
@@ -184,11 +195,11 @@ button{
     height: 50px;
     background: var(--on-surface-variant);
     border: none;
-    border-radius: var(--radius-16);
+    border-radius: 16px;
     outline: none;
-    color: var(--white);
-    font-size: var(--fs-label);
-    font-weight: var(--weight-bold);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
     letter-spacing: 1px;
     cursor: pointer;
     margin-left: 20px;
@@ -196,7 +207,7 @@ button{
 }
 
 .edit-account-btn:hover {
-    background-color: var(--primary-variant);
+    background-color: rgba(194, 17, 25, 255);
 }
 
 .edit-account-body a {
@@ -208,7 +219,7 @@ button{
 }
 
 .edit-account-body :where(label, p, a) {
-    color: var(--text-color);
+    color: rgb(176, 176, 176);
 }
 
 .edit-account-form .form-help {
@@ -222,7 +233,7 @@ button{
 
 .edit-account-form .allow input {
     margin-right: 5px;
-    accent-color: var(--text-color);
+    accent-color: rgb(176, 176, 176);
 }
 
 .edit-account-form .form-help :where(label, a) {
@@ -230,7 +241,7 @@ button{
 }
 
 .edit-account-body .sign-up a {
-    color: var(--white);
+    color: #fff;
 }
 
 .edit-bod .short-desc {
@@ -239,7 +250,7 @@ button{
 }
 
 .edit-body .short-desc a {
-    color: var(--blue);
+    color: rgba(0, 113, 235, 1);
 }
 
 .header-content{
@@ -305,7 +316,7 @@ form span {
     font-size: 16px;
     font-weight: bold;
     line-height: 1;
-    color: inherit; /* text color of the allert */
+    color: inherit;
     cursor: pointer;
 }
 
@@ -313,74 +324,67 @@ form span {
     opacity: 0.7;
 }
 
+/*---FOOTER---*/
+footer {
+    padding: 50px 160px 10px;
+    background-color: rgba(0, 0, 0, 255);
+    color: #fff;
+}
 
-/*---footer---*/
-.row{
-    display: flex;
-    width: 100%;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 72px 0;
-}
-footer{
-    padding: 50px 15% 10px;
-    border-top: var(--radius-8) solid #333;
-    color: var(--text-color);
-}
-footer h2{
-    font-size: 18px;
-    font-weight: 400;
-    margin-bottom: 12px;
-}
-footer .col{
-    flex-basis: 25%;
-    flex-grow: 1;
+footer h2 {
+    font-size: 16px;
+    font-weight: 500;
     margin-bottom: 20px;
 }
-footer .col a{
+
+footer .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+footer .col {
+    flex: 0 1 calc(25% - 20px);
+    margin-bottom: 20px;
+}
+
+footer .col a {
     display: block;
     text-decoration: none;
-    color: var(--text-color);
+    color: rgb(176, 176, 176);
     font-size: 14px;
     margin-bottom: 10px;
+    transition: color 0.3s ease;
 }
-footer .row{
-    align-items: flex-start;
-    padding: 10px 0;
+
+footer .col a:hover {
+    color: #fff;
 }
-footer .language-btn{
-    color: var(--white);
+
+footer .language-btn {
+    color: #fff;
     padding: 10px 20px;
-    border-radius: var(--radius-4);
+    background-color: #333;
+    border-radius: 3px;
+    display: inline-block;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    border: 2px solid #fff;
 }
-.copyright-txt{
+
+footer .language-btn:hover {
+    background-color: #444;
+}
+
+.copyright-txt {
     font-size: 14px;
     margin-top: 20px;
     margin-bottom: 10px;
+    text-align: left;
+    color: rgb(176, 176, 176);
 }
-/*---media-query-small-screen---*/
-@media only screen and (max-width: 600px){
-    .logo{
-        width: 100px;
-    }
-    nav button{
-        padding: 5px 10px;
-    }
-    nav .language-btn{
-        padding: 4px 8px;
-    }
-    .header-content{
-        position: unset;
-        transform: none;
-        padding-top: 150px;
-    }
-    .header-content h1{
-        font-size: 30px;
-    }
-    .container .edit-account-body {
-        width: 100%;
-        height: 100%;
-        background-color: var(--background);
-        padding: 60px 50px;
-    }
-}
+
+/* MEDIA QUERIES */
