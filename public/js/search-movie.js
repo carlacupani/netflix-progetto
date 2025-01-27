@@ -75,54 +75,66 @@ export function searchMovie() {
     searchResultModal.appendChild(movieListContainer);
   }
 
-  // --- Funzioni per la ricerca ---
-  async function fetchMovies(query) {
-    try {
-      const response = await fetch(`/search/movie?q=${encodeURIComponent(query)}`);
+
+// --- Funzioni per la ricerca ---
+function fetchMovies(query) {
+  return fetch(`/search/movie?q=${encodeURIComponent(query)}`)
+    .then((response) => {
       if (!response.ok) {
-        throw new Error("Errore nella richiesta al server");
+        console.log('Errore nella risposta della rete:', response.status);
+        return [];
       }
-      const data = await response.json();
-      return data.results;
-    } catch (error) {
-      console.error("Errore durante il fetch dei dati:", error);
+      return response.json();
+    })
+    .then((data) => {
+      if (data && data.results) {
+        return data.results;
+      } else {
+        console.log('Nessun risultato trovato');
+        return [];
+      }
+    })
+    .catch((error) => {
+      console.log('Errore durante il fetch dei dati:', error);
       return [];
-    }
-  }
+    });
+}
 
-  function handleSearchInput() {
-    const query = searchField.value.trim();
 
-    if (!query) {
-      toggleSearchModal(false);
-      searchWrapper.classList.remove("searching");
-      clearTimeout(searchTimeout);
-      return;
-    }
+function handleSearchInput() {
+  const query = searchField.value.trim();
 
-    searchWrapper.classList.add("searching");
+  if (!query) {
+    toggleSearchModal(false);
+    searchWrapper.classList.remove("searching");
     clearTimeout(searchTimeout);
-
-    searchTimeout = setTimeout(async () => {
-      const movieList = await fetchMovies(query);
-      searchWrapper.classList.remove("searching");
-      toggleSearchModal(true);
-
-      clearModalContent();
-      //addModalHeader(query);
-      displayMovieResults(movieList);
-    }, 500);
+    return;
   }
+
+  searchWrapper.classList.add("searching");
+  clearTimeout(searchTimeout);
+
+  searchTimeout = setTimeout(() => {
+    fetchMovies(query)
+      .then((movieList) => {
+        searchWrapper.classList.remove("searching");
+        toggleSearchModal(true);
+
+        clearModalContent();
+        // addModalHeader(query);
+        displayMovieResults(movieList);
+      })
+      .catch((error) => {
+        console.error("Errore durante la ricerca dei film:", error);
+        searchWrapper.classList.remove("searching");
+        toggleSearchModal(false);
+      });
+  }, 300);
+}
 
   // --- Event listener ---
   searchBtn.addEventListener("click", openSearch); // Apre la barra di ricerca
   closeBtn.addEventListener("click", closeSearch); // Chiude la barra di ricerca
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeSearch(); // Chiude la barra con il tasto ESC
-    }
-  });
 
   searchField.addEventListener("input", handleSearchInput); // Gestisce l'input
 }
