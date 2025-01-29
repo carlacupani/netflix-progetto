@@ -46,9 +46,12 @@ class ApiController extends BaseController
     }
 
     // Recupera la lista di film in base ad un parola di ricerca
-    public function getSearchMovie(Request $request)
+    public function getSearchMovie()
     {
-        $query = urlencode($request->get("q"));
+        if(!Session::has('user_id')){
+            exit;
+        }
+        $query = urlencode(Request::get("q"));
         $url = env('API_BASE_URL') . "/search/movie?include_adult=false&language=it-IT&page=1&query=" . $query;
 
         $curl = curl_init();
@@ -72,45 +75,32 @@ class ApiController extends BaseController
 
         curl_close($curl);
 
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            echo $response;
-        }
+        return $response;
     }
 
     // Recupera la lista dei dettagli di un determinato film
-    public function getDetailsMovie(Request $request)
+    public function getDetailsMovie(string $movieId)
     {
-        //`https://api.themoviedb.org/3/movie/${movieId}?api_key=${api_key}&append_to_response=casts,videos,images,releases&language=it`,
-        $movieId = urlencode($request->get("q"));
-        $url = env('API_BASE_URL') . "/movie/" . $movieId . "?append_to_response=casts,videos,images,releases&language=it-IT";
-
+        $url = env('API_BASE_URL') . "/movie/{$movieId}?append_to_response=casts,videos,images,releases&language=it-IT";
+        
         $curl = curl_init();
-
+        
         curl_setopt_array($curl, [
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => [
                 "Authorization: Bearer " . env('API_KEY_AUTH'),
                 "accept: application/json"
             ],
         ]);
-
+        
         $response = curl_exec($curl);
-        $err = curl_error($curl);
-
         curl_close($curl);
-
-        if ($err) {
-            echo "cURL Error #:" . $err;
+        
+        if ($response) {
+            return response()->json(json_decode($response));
         } else {
-            echo $response;
+            return response()->json(['error' => 'Errore nel recupero dei dettagli']);
         }
     }
 

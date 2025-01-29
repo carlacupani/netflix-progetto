@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Movie;
+use App\Http\Controllers\ApiController;
 
 class HomeController extends BaseController
 {
@@ -151,10 +152,17 @@ class HomeController extends BaseController
 
     }
 
-
-    public function showDetailsMovie()
+    public function showDetailsMovie(string $movieId)
     {
-        return view('details_movie');
+        $apiController = new ApiController();
+
+        $movieDetails = $apiController->getDetailsMovie($movieId);
+    
+        if (!$movieDetails) {
+            return redirect()->route('home')->with('error', 'Dettagli del film non trovati.');
+        }
+
+        return view('details_movie', compact('movieDetails'));
     }
 
     /**
@@ -205,21 +213,13 @@ class HomeController extends BaseController
         }
     }
     
-
     public function saveMovie(Request $request)
     {
         if (!Session::has('user_id')) {
             return ['ok' => false];
         }
-        
-        $filmEsistente = Movie::where('content->movieId', $request->post('movieId'))
-                              ->where('user', Session::get('user_id'))
-                              ->first();
-        
-        if ($filmEsistente) {
-            return ['ok' => true];
-        }
-        
+    
+        // Recupera i dati dalla richiesta
         $movieId = $request->post('movieId');
         $title = $request->post('title');
         $release_date = $request->post('release_date');
@@ -230,11 +230,19 @@ class HomeController extends BaseController
         $backdrop_path = $request->post('backdrop_path');
         $poster_path = $request->post('poster_path');
         $genre_ids = $request->post('genre_ids');
-        
-        $user_id = Session::get('user_id');
-        
+    
+        // Verifica se il film esiste già nel database
+        $filmEsistente = Movie::where('content->movieId', $movieId)
+                              ->where('user', Session::get('user_id'))
+                              ->first();
+    
+        if ($filmEsistente) {
+            return ['ok' => true]; // Il film è già presente
+        }
+    
+        // Salva il nuovo film
         $film = new Movie;
-        $film->user = $user_id; // Imposta l'ID dell'utente
+        $film->user = Session::get('user_id'); // Imposta l'ID dell'utente
         $film->content = json_encode([
             'movieId' => $movieId,
             'title' => $title,
@@ -249,25 +257,19 @@ class HomeController extends BaseController
             'isSerie' => 0
         ]);
         $film->save();
-
-        return ['ok' => true];
-        
+    
+        return ['ok' => true]; // Il film è stato salvato correttamente
     }
+    
 
     public function saveSerie(Request $request)
     {
+        // Verifica se l'utente è loggato
         if (!Session::has('user_id')) {
             return ['ok' => false];
         }
         
-        $filmEsistente = Movie::where('content->serieId', $request->post('serieId'))
-                              ->where('user', Session::get('user_id'))
-                              ->first();
-        
-        if ($filmEsistente) {
-            return ['ok' => true];
-        }
-        
+        // Recupera i dati dalla richiesta
         $serieId = $request->post('serieId');
         $name = $request->post('name');
         $first_air_date = $request->post('first_air_date');
@@ -282,6 +284,16 @@ class HomeController extends BaseController
         
         $user_id = Session::get('user_id');
         
+        // Verifica se la serie esiste già nel database
+        $filmEsistente = Movie::where('content->serieId', $serieId)
+                              ->where('user', $user_id)
+                              ->first();
+    
+        if ($filmEsistente) {
+            return ['ok' => true]; // La serie è già presente
+        }
+        
+        // Salva la nuova serie
         $film = new Movie;
         $film->user = $user_id; // Imposta l'ID dell'utente
         $film->content = json_encode([
@@ -299,34 +311,39 @@ class HomeController extends BaseController
             'isSerie' => 1
         ]);
         $film->save();
-
-        return ['ok' => true];
-        
+    
+        return ['ok' => true]; // La serie è stata salvata correttamente
     }
 
     public function deleteMovie(Request $request)
     {
+        // Verifica se l'utente è loggato
         if (!Session::has('user_id')) {
             return ['ok' => false];
         }
-
+    
+        // Ottieni l'ID dell'utente dalla sessione
         $user_id = Session::get('user_id');
-
+    
+        // Recupera l'ID del film dalla richiesta
         $movieId = $request->post('movieId');
-
+    
+        // Verifica se il film esiste nel database
         $filmEsistente = Movie::where('content->movieId', $movieId)
-            ->where('user', $user_id)
-            ->first();
-
+                              ->where('user', $user_id)
+                              ->first();
+    
+        // Se il film esiste, eliminalo
         if ($filmEsistente) {
             $filmEsistente->delete();
             return ['ok' => true];
         }
-
+    
+        // Se il film non esiste, restituisci un errore
         return ['ok' => false];
     }
 
-    public function getFavoriteMovie(Request $request)
+    public function getFavoriteMovie()
     {
 
         if (!Session::has('user_id')) {

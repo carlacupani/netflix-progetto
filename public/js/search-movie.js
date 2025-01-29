@@ -43,21 +43,6 @@ export function searchMovie() {
     searchResultModal.innerHTML = "";
   }
 
-  /**
-   function addModalHeader(query) {
-    const label = document.createElement("p");
-    label.classList.add("label");
-    label.textContent = "Risultati per ...";
-
-    const heading = document.createElement("h1");
-    heading.classList.add("heading");
-    heading.textContent = query;
-
-    searchResultModal.appendChild(label);
-    searchResultModal.appendChild(heading);
-  }
-  
-   */
 
   function displayMovieResults(movieList) {
     const movieListContainer = document.createElement("div");
@@ -78,6 +63,7 @@ export function searchMovie() {
 
 // --- Funzioni per la ricerca ---
 function fetchMovies(query) {
+  query
   return fetch(`/search/movie?q=${encodeURIComponent(query)}`)
     .then((response) => {
       if (!response.ok) {

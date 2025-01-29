@@ -5,300 +5,281 @@ const imageBaseURL = 'https://image.tmdb.org/t/p/';
 import { createMovieCard } from "./movie-card.js";
 import { searchMovie } from "./search-movie.js";
 
+const movieContainer = document.getElementById('movie-container');
+const movieData = JSON.parse(movieContainer.dataset.movie);
+//console.log(movieData);
 
-const movieId = window.localStorage.getItem("movieId");
+const movieContent = document.querySelector(".movie-content");
 
-const pageContent = document.querySelector("[page-content]");
-
-const getGenres = function (genreList) {
+function getGenres (genreList) {
   const newGenreList = [];
-
   for (const { name } of genreList) newGenreList.push(name);
-
   return newGenreList.join(", ");
 };
 
-const getCasts = function (castList) {
+function getCasts (castList) {
   const newCastList = [];
-
   for (let i = 0, len = castList.length; i < len && i < 10; i++) {
     const { name } = castList[i];
     newCastList.push(name);
   }
-
   return newCastList.join(", ");
 };
 
-const getDirectors = function (crewList) {
+function getDirectors (crewList) {
   const directors = crewList.filter(({ job }) => job === "Director");
-
   const directorList = [];
   for (const { name } of directors) directorList.push(name);
-
   return directorList.join(", ");
 };
 
+// Usando movieData per costruire i dettagli del film
+const movieId = movieData.original.id;
+const backdropPath = movieData.original.backdrop_path;
+const posterPath = movieData.original.poster_path;
+const title = movieData.original.title;
+const releaseDate = movieData.original.release_date;
+const runtime = movieData.original.runtime;
+const voteAverage = movieData.original.vote_average;
+const certification = (movieData.original.releases?.countries[0]?.certification) || "N/A";
+const genres = movieData.original.genres;
+const overview = movieData.original.overview;
+const cast = movieData.original.casts?.cast || [];
+const crew = movieData.original.casts?.crew || [];
 
-fetch("movie/details?q=" + encodeURIComponent(movieId))
-  .then((res) => res.json())
-  .then(movie => {
-    const backdropPath = movie.backdrop_path;
-    const posterPath = movie.poster_path;
-    const title = movie.title;
-    const releaseDate = movie.release_date;
-    const runtime = movie.runtime;
-    const voteAverage = movie.vote_average;
-    const certification = (movie.releases?.countries[0]?.certification) || "N/A";
-    const genres = movie.genres;
-    const overview = movie.overview;
-    const cast = movie.casts?.cast;
-    const crew = movie.casts?.crew;
+document.title = title + " - Netflix";
 
-    document.title = title + " - Netflix";
+const movieDetail = document.createElement("div");
+movieDetail.classList.add("movie-detail");
 
-    const movieDetail = document.createElement("div");
-    movieDetail.classList.add("movie-detail");
+const backdropImage = document.createElement("div");
+backdropImage.classList.add("backdrop-image");
+backdropImage.style.backgroundImage = "url(" + imageBaseURL + (backdropPath || posterPath ? "w1280" : "original") + (backdropPath || posterPath) + ")";
 
-    const backdropImage = document.createElement("div");
-    backdropImage.classList.add("backdrop-image");
-    backdropImage.style.backgroundImage = "url(" + imageBaseURL + (backdropPath || posterPath ? "w1280" : "original") + (backdropPath || posterPath) + ")";
+const figure = document.createElement("figure");
+figure.classList.add("poster-box", "movie-poster");
 
-    const figure = document.createElement("figure");
-    figure.classList.add("poster-box", "movie-poster");
+const img = document.createElement("img");
+img.src = imageBaseURL + "w342" + posterPath;
+img.alt = title + " poster";
+img.classList.add("img-cover");
+figure.appendChild(img);
 
-    const img = document.createElement("img");
-    img.src = imageBaseURL + "w342" + posterPath;
-    img.alt = title + " poster";
-    img.classList.add("img-cover");
-    figure.appendChild(img);
+const detailBox = document.createElement("div");
+detailBox.classList.add("detail-box");
 
-    const detailBox = document.createElement("div");
-    detailBox.classList.add("detail-box");
+const detailContent = document.createElement("div");
+detailContent.classList.add("detail-content");
 
-    const detailContent = document.createElement("div");
-    detailContent.classList.add("detail-content");
+const heading = document.createElement("h1");
+heading.classList.add("heading");
+heading.textContent = title;
 
-    const heading = document.createElement("h1");
-    heading.classList.add("heading");
-    heading.textContent = title;
+const metaList = document.createElement("div");
+metaList.classList.add("meta-list");
 
-    const metaList = document.createElement("div");
-    metaList.classList.add("meta-list");
+const metaItemRating = document.createElement("div");
+metaItemRating.classList.add("meta-item");
 
-    const metaItemRating = document.createElement("div");
-    metaItemRating.classList.add("meta-item");
+const ratingImg = document.createElement("img");
+ratingImg.src = "/images/star.png";
+ratingImg.width = 20;
+ratingImg.height = 20;
 
-    const ratingImg = document.createElement("img");
-    ratingImg.src = "./images/star.png";
-    ratingImg.width = 20;
-    ratingImg.height = 20;
-    ratingImg.alt = "rating";
+const ratingSpan = document.createElement("span");
+ratingSpan.classList.add("span");
+ratingSpan.textContent = (voteAverage ? voteAverage.toFixed(1) : "N/A");
 
-    const ratingSpan = document.createElement("span");
-    ratingSpan.classList.add("span");
-    ratingSpan.textContent = voteAverage.toFixed(1);
+metaItemRating.appendChild(ratingImg);
+metaItemRating.appendChild(ratingSpan);
 
-    metaItemRating.appendChild(ratingImg);
-    metaItemRating.appendChild(ratingSpan);
+const separator1 = document.createElement("div");
+separator1.classList.add("separator");
 
-    const separator1 = document.createElement("div");
-    separator1.classList.add("separator");
+const metaItemRuntime = document.createElement("div");
+metaItemRuntime.classList.add("meta-item");
+metaItemRuntime.textContent = `${runtime}m`;
 
-    const metaItemRuntime = document.createElement("div");
-    metaItemRuntime.classList.add("meta-item");
-    metaItemRuntime.textContent = `${runtime}m`;
+const separator2 = document.createElement("div");
+separator2.classList.add("separator");
 
-    const separator2 = document.createElement("div");
-    separator2.classList.add("separator");
+const metaItemReleaseDate = document.createElement("div");
+metaItemReleaseDate.classList.add("meta-item");
+metaItemReleaseDate.textContent = releaseDate?.split("-")[0] ?? "Non rilasciato";
 
-    const metaItemReleaseDate = document.createElement("div");
-    metaItemReleaseDate.classList.add("meta-item");
-    metaItemReleaseDate.textContent = releaseDate?.split("-")[0] ?? "Non rilasciato";
+metaList.appendChild(metaItemRating);
+metaList.appendChild(separator1);
+metaList.appendChild(metaItemRuntime);
+metaList.appendChild(separator2);
+metaList.appendChild(metaItemReleaseDate);
 
-    const cardBadge = document.createElement("div");
-    cardBadge.classList.add("meta-item", "card-badge");
-    cardBadge.textContent = certification;
+const genreP = document.createElement("p");
+genreP.classList.add("genre");
+genreP.textContent = getGenres(genres);
 
-    metaList.appendChild(metaItemRating);
-    metaList.appendChild(separator1);
-    metaList.appendChild(metaItemRuntime);
-    metaList.appendChild(separator2);
-    metaList.appendChild(metaItemReleaseDate);
-    metaList.appendChild(cardBadge);
+const overviewP = document.createElement("p");
+overviewP.classList.add("overview");
+overviewP.textContent = overview;
 
-    const genreP = document.createElement("p");
-    genreP.classList.add("genre");
-    genreP.textContent = getGenres(genres);
+const detailList = document.createElement("ul");
+detailList.classList.add("detail-list");
 
-    const overviewP = document.createElement("p");
-    overviewP.classList.add("overview");
-    overviewP.textContent = overview;
+const listItemCast = document.createElement("div");
+listItemCast.classList.add("list-item");
 
-    const detailList = document.createElement("ul");
-    detailList.classList.add("detail-list");
+const listNameCast = document.createElement("p");
+listNameCast.classList.add("list-name");
+listNameCast.textContent = "Cast";
 
-    const listItemCast = document.createElement("div");
-    listItemCast.classList.add("list-item");
+const listCast = document.createElement("p");
+listCast.textContent = getCasts(cast);
 
-    const listNameCast = document.createElement("p");
-    listNameCast.classList.add("list-name");
-    listNameCast.textContent = "Cast";
+listItemCast.appendChild(listNameCast);
+listItemCast.appendChild(listCast);
 
-    const listCast = document.createElement("p");
-    listCast.textContent = getCasts(cast);
+const listItemDirector = document.createElement("div");
+listItemDirector.classList.add("list-item");
 
-    listItemCast.appendChild(listNameCast);
-    listItemCast.appendChild(listCast);
+const listNameDirector = document.createElement("p");
+listNameDirector.classList.add("list-name");
+listNameDirector.textContent = "Diretto Da";
 
-    const listItemDirector = document.createElement("div");
-    listItemDirector.classList.add("list-item");
+const listDirector = document.createElement("p");
+listDirector.textContent = getDirectors(crew);
 
-    const listNameDirector = document.createElement("p");
-    listNameDirector.classList.add("list-name");
-    listNameDirector.textContent = "Diretto Da";
+listItemDirector.appendChild(listNameDirector);
+listItemDirector.appendChild(listDirector);
 
-    const listDirector = document.createElement("p");
-    listDirector.textContent = getDirectors(crew);
+detailList.appendChild(listItemCast);
+detailList.appendChild(listItemDirector);
 
-    listItemDirector.appendChild(listNameDirector);
-    listItemDirector.appendChild(listDirector);
+detailContent.appendChild(heading);
+detailContent.appendChild(metaList);
+detailContent.appendChild(genreP);
+detailContent.appendChild(overviewP);
+detailContent.appendChild(detailList);
 
-    detailList.appendChild(listItemCast);
-    detailList.appendChild(listItemDirector);
+detailBox.appendChild(detailContent);
 
-    detailContent.appendChild(heading);
-    detailContent.appendChild(metaList);
-    detailContent.appendChild(genreP);
-    detailContent.appendChild(overviewP);
-    detailContent.appendChild(detailList);
+const titleWrapper = document.createElement("div");
+titleWrapper.classList.add("title-wrapper");
 
-    detailBox.appendChild(detailContent);
+const sliderList = document.createElement("div");
+sliderList.classList.add("slider-list");
 
-    const titleWrapper = document.createElement("div");
-    titleWrapper.classList.add("title-wrapper");
+const sliderInner = document.createElement("div");
+sliderInner.classList.add("slider-inner");
 
-    const sliderList = document.createElement("div");
-    sliderList.classList.add("slider-list");
+sliderList.appendChild(sliderInner);
 
-    const sliderInner = document.createElement("div");
-    sliderInner.classList.add("slider-inner");
+detailBox.appendChild(titleWrapper);
+detailBox.appendChild(sliderList);
 
-    sliderList.appendChild(sliderInner);
+movieDetail.appendChild(backdropImage);
+movieDetail.appendChild(figure);
+movieDetail.appendChild(detailBox);
 
-    detailBox.appendChild(titleWrapper);
-    detailBox.appendChild(sliderList);
+const addToFavoritesButton = document.createElement("button");
+addToFavoritesButton.classList.add("add-to-favorites");
+addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
 
-    movieDetail.appendChild(backdropImage);
-    movieDetail.appendChild(figure);
-    movieDetail.appendChild(detailBox);
+if (detailBox && detailContent) {
+  detailBox.insertBefore(addToFavoritesButton, detailContent);
+} else {
+  console.error("detailBox o detailContent non trovati");
+}
 
-    const addToFavoritesButton = document.createElement("button");
-    addToFavoritesButton.classList.add("add-to-favorites");
-    addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
+let isAddedToFavorites = false;
 
-    if (detailBox && detailContent) {
-      detailBox.insertBefore(addToFavoritesButton, detailContent);
-    } else {
-      console.error("detailBox o detailContent non trovati");
-    }
+function saveMovie() {
+  const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    let isAddedToFavorites = false;
+  const formData = new FormData();
+  formData.append('movieId', movieId);
+  formData.append('title', title);
+  formData.append('release_date', releaseDate);
+  formData.append('runtime', runtime);
+  formData.append('vote_average', voteAverage);
+  formData.append('genres', getGenres(genres));
+  formData.append('overview', overview);
+  formData.append('backdrop_path', backdropPath);
+  formData.append('poster_path', posterPath);
 
-    function saveMovie() {
-      const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  const url = isAddedToFavorites ? "delete_movie" : "save_movie";
 
-      const formData = new FormData();
-      formData.append('movieId', movieId);
-      formData.append('title', title);
-      formData.append('release_date', releaseDate);
-      formData.append('runtime', runtime);
-      formData.append('vote_average', voteAverage);
-      formData.append('genres', getGenres(genres));
-      formData.append('overview', overview);
-      formData.append('backdrop_path', backdropPath);
-      formData.append('poster_path', posterPath);
-
-      const url = isAddedToFavorites ? "delete_movie" : "save_movie";
-
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'X-CSRF-TOKEN': token,
-        },
-        body: formData
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.ok) {
-            if (isAddedToFavorites) {
-              addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
-            } else {
-              addToFavoritesButton.textContent = "Aggiunto!";
-            }
-            isAddedToFavorites = !isAddedToFavorites; // Alterna lo stato
-          } else {
-            addToFavoritesButton.textContent = "Errore";
-          }
-        })
-        .catch(error => {
-          console.error('Errore:', error);
-          addToFavoritesButton.textContent = "Errore";
-        });
-    }
-
-    function checkIfMovieIsFavorited() {
-      var userIdElement = document.getElementById('userId');
-      var userId = userIdElement ? userIdElement.getAttribute('data-user-id') : null;
-      const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-      const formData = new FormData();
-      formData.append('movieId', movieId);
-      formData.append('userId', userId);
-
-      fetch("check_movie", {
-        method: 'POST',
-        headers: {
-          'X-CSRF-TOKEN': token,
-        },
-        body: formData
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.isFavorited) {
-            addToFavoritesButton.textContent = "Aggiunto!";
-            isAddedToFavorites = true;
-          } else {
-            addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
-            isAddedToFavorites = false;
-          }
-        })
-        .catch(error => {
-          console.error('Errore:', error);
-        });
-    }
-
-    addToFavoritesButton.addEventListener("click", function () {
-      console.log("Button clicked!");
-      saveMovie();
-    });
-
-    checkIfMovieIsFavorited();
-
-    pageContent.appendChild(movieDetail);
-
-    fetch("movie/recommendations?mid=" + encodeURIComponent(movieId))
-      .then((res) => res.json())
-      .then(data => addSuggestedMovies(data))
-      .catch(error => {
-        console.error('Errore nel recupero delle raccomandazioni:', error);
-      });
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'X-CSRF-TOKEN': token,
+    },
+    body: formData
   })
+    .then(response => response.json())
+    .then(data => {
+      if (data.ok) {
+        if (isAddedToFavorites) {
+          addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
+        } else {
+          addToFavoritesButton.textContent = "Aggiunto!";
+        }
+        isAddedToFavorites = !isAddedToFavorites; // Alterna lo stato
+      } else {
+        addToFavoritesButton.textContent = "Errore";
+      }
+    })
+    .catch(error => {
+      console.error('Errore:', error);
+      addToFavoritesButton.textContent = "Errore";
+    });
+}
 
+function checkIfMovieIsFavorited() {
+  var userIdElement = document.getElementById('userId');
+  var userId = userIdElement ? userIdElement.getAttribute('data-user-id') : null;
+  const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  const formData = new FormData();
+  formData.append('movieId', movieId);
+  formData.append('userId', userId);
+
+  fetch("check_movie", {
+    method: 'POST',
+    headers: {
+      'X-CSRF-TOKEN': token,
+    },
+    body: formData
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.isFavorited) {
+        addToFavoritesButton.textContent = "Aggiunto!";
+        isAddedToFavorites = true;
+      } else {
+        addToFavoritesButton.textContent = "Aggiungi ai Preferiti";
+        isAddedToFavorites = false;
+      }
+    })
+    .catch(error => {
+      console.error('Errore:', error);
+    });
+}
+
+addToFavoritesButton.addEventListener("click", function () {
+  console.log("Button clicked!");
+  saveMovie();
+});
+
+checkIfMovieIsFavorited();
+
+movieContent.appendChild(movieDetail);
+
+fetch("movie/recommendations?mid=" + encodeURIComponent(movieId))
+  .then((res) => res.json())
+  .then(data => addSuggestedMovies(data))
   .catch(error => {
-    console.error('Errore nel recupero dei dettagli del film:', error);
+    console.error('Errore nel recupero delle raccomandazioni:', error);
   });
 
-
-const addSuggestedMovies = function (data, title) {
+function addSuggestedMovies (data, title) {
   const movieList = data.results;
 
   const movieListElem = document.createElement("section");

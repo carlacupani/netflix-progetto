@@ -34,16 +34,16 @@
     </div>
     <div class="navbar-right">
       <div class="nav-element">
-        <div class="search-box" search-box>
-          <div class="search-wrapper" search-wrapper>
-            <input type="text" name="search" aria-label="search movies" placeholder="Search any movies..." class="search-field" autocomplete="off" search-field>
+        <div class="search-box">
+          <div class="search-wrapper">
+            <input type="text" name="search" aria-label="search movies" placeholder="Search any movies..." class="search-field" autocomplete="off">
             <img src="{{ URL::to("images/search.png") }}" alt="" class="leading-icon">
           </div>
-          <button class="search-btn" search-toggler>
+          <button class="search-btn">
             <img src="{{ URL::to("images/close.png") }}" alt="">
           </button>
         </div>
-        <button class="search-btn" search-toggler menu-close>
+        <button class="search-btn">
           <img src="{{ URL::to("images/search.png") }}" alt="">
         </button>
       </div>
@@ -65,9 +65,7 @@
   </header>
 
   <main>
-    <div class="overlay" overlay menu-toggler></div>
-    <article class="container" page-content></article>
-    <div hidden id="userId" data-user-id="{{ Session::get('user_id') }}"></div>
+  <div class="serietv-content" id="serietv-container" data-movie="{{ json_encode($serietvDetails) }}"></div>
   </main>
 
   <!--FOOTER-->

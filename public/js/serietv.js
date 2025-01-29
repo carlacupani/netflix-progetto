@@ -5,7 +5,8 @@ const imageBaseURL = 'https://image.tmdb.org/t/p/';
 import { createSerieCard } from "./serie-card.js";
 import { searchSerie } from "./search-serie.js";
 
-const pageContent = document.querySelector("[page-content]");
+const sectionContainer = document.querySelector(".section-container");
+
 
 fetch("/serietv/popular")
   .then((res) => res.json())
@@ -16,7 +17,7 @@ function createBannerSection({ results: serieList }) {
     const banner = document.querySelector('.banner');
 
     const serie = serieList[0];
-    const serieId = serie.id;
+    const serietvId = serie.id;
   
     banner.style.backgroundImage = "url('" + imageBaseURL + "w1280"+ serie.backdrop_path + "')";
   
@@ -47,12 +48,11 @@ function createBannerSection({ results: serieList }) {
   
     const infoIcon = document.createElement('img');
     infoIcon.classList.add('icon');
-    infoIcon.src = '../images/menu.png';
+    infoIcon.src = '/images/menu.png';
     const infoText = document.createTextNode('Altre info');
   
     infoButton.addEventListener('click', () => {
-      window.localStorage.setItem('serieId', serieId);
-      window.location.href = "/details_serie";
+      window.location.href = "serietv/details" + serietvId;
     });
   
     buttons.appendChild(playButton);
@@ -129,7 +129,7 @@ function createSerieSection({ results: serieList }, title) {
   section.appendChild(titleWrapper);
   section.appendChild(sliderList);
 
-  pageContent.appendChild(section);
+  sectionContainer.appendChild(section);
 }
 
 searchSerie();

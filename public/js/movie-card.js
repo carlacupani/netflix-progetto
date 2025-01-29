@@ -6,7 +6,7 @@ export function createMovieCard(movie) {
   
   const posterPath = movie.poster_path;
   const title = movie.title;
-  const id = movie.id;
+  const movieId = movie.id;
 
   const card = document.createElement("div");
   card.classList.add("movie-card");
@@ -23,12 +23,9 @@ export function createMovieCard(movie) {
   card.appendChild(figure);
 
   const anchor = document.createElement("a");
-  anchor.href = "details_movie";
+  anchor.href = "movie/details" + movieId;
   anchor.classList.add("card-btn");
   anchor.title = title;
-  anchor.addEventListener("click", () => {
-    window.localStorage.setItem("movieId", String(id));
-  });
 
   card.appendChild(anchor);
 

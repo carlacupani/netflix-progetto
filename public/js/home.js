@@ -4,7 +4,7 @@ const imageBaseURL = 'https://image.tmdb.org/t/p/';
 import { createMovieCard } from "./movie-card.js";
 import { searchMovie } from "./search-movie.js";
 
-const pageContent = document.querySelector("[page-content]");
+const sectionContainer = document.querySelector(".section-container");
 
 fetch("/movie/upcoming")
   .then((res) => res.json())
@@ -49,8 +49,7 @@ function createBannerSection({ results: movies }) {
   const infoText = document.createTextNode('Altre info');
 
   infoButton.addEventListener('click', () => {
-    window.localStorage.setItem('movieId', movieId);
-    window.location.href = "/details_movie";
+    window.location.href = "movie//details/" + movieId;
   });
 
   buttons.appendChild(playButton);
@@ -126,8 +125,7 @@ function createMovieSection({ results: movies }, title) {
 
   section.appendChild(titleWrapper);
   section.appendChild(sliderList);
-
-  pageContent.appendChild(section);
+  sectionContainer.appendChild(section);
 }
 
 

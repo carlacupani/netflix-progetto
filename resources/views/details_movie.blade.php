@@ -30,16 +30,16 @@
     </div>
     <div class="navbar-right">
       <div class="nav-element">
-        <div class="search-box" search-box>
-          <div class="search-wrapper" search-wrapper>
-            <input type="text" name="search" aria-label="search movies" placeholder="Search any movies..." class="search-field" autocomplete="off" search-field>
+        <div class="search-box">
+          <div class="search-wrapper">
+            <input type="text" name="search" aria-label="search movies" placeholder="Search any movies..." class="search-field" autocomplete="off">
             <img src="{{ URL::to("images/search.png") }}" alt="" class="leading-icon">
           </div>
-          <button class="search-btn" search-toggler>
+          <button class="search-btn">
             <img src="{{ URL::to("images/close.png") }}" alt="">
           </button>
         </div>
-        <button class="search-btn" search-toggler menu-close>
+        <button class="search-btn">
           <img src="{{ URL::to("images/search.png") }}" alt="">
         </button>
       </div>
@@ -61,9 +61,9 @@
   </header>
 
   <main>
-    <article class="container" page-content></article>
-    <div hidden id="userId" data-user-id="{{ Session::get('user_id') }}"></div>
+    <div class="movie-content" id="movie-container" data-movie="{{ json_encode($movieDetails) }}"></div>
   </main>
+
 
     <!--FOOTER-->
     <footer>
@@ -97,21 +97,4 @@
         <p class="copyright-txt">Netflix Italia</p>
     </footer>
 </body>
-
 </html>
-
-<div class="movie-detail">
-  <div class="detail-wrapper">
-    <div class="backdrop-image">
-      <img src="" alt="" class="img-cover">
-    </div>
-    <div class="detail-box">
-      <div class="detail-content">
-        <h1 class="heading"></h1>
-        <div class="meta-list">
-          <div class="meta-item"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>

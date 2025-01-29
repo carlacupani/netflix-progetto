@@ -29,7 +29,7 @@
         <img src='{{ URL::to("images/logo.png") }}' width="140" height="32">
       </a>
       <ul class="navbar-links">
-        <li><a href="{{ URL::to("home") }}">Home</a></li>
+        <li><a href="{{ URL::to("movie") }}">Home</a></li>
         <li><a href="{{ URL::to("serietv") }}">Serie Tv</a></li>
         <li><a href="{{ URL::to("home") }}">Film</a></li>
         <li><a href="#">Nuovi e popolari</a></li>
@@ -39,16 +39,16 @@
     </div>
     <div class="navbar-right">
       <div class="nav-element">
-        <div class="search-box" search-box>
-          <div class="search-wrapper" search-wrapper>
-            <input type="text" name="search" aria-label="search movies" placeholder="Search any movies..." class="search-field" autocomplete="off" search-field>
+        <div class="search-box">
+          <div class="search-wrapper">
+            <input type="text" name="search" aria-label="search movies" placeholder="Search any movies..." class="search-field" autocomplete="off">
             <img src="{{ URL::to("images/search.png") }}" alt="" class="leading-icon">
           </div>
-          <button class="search-btn" search-toggler>
+          <button class="search-btn">
             <img src="{{ URL::to("images/close.png") }}" alt="">
           </button>
         </div>
-        <button class="search-btn" search-toggler menu-close>
+        <button class="search-btn">
           <img src="{{ URL::to("images/search.png") }}" alt="">
         </button>
       </div>
@@ -72,7 +72,7 @@
     <!--HEADER-->
     <div class="banner"></div>
     <!--FILM-->
-    <article class="container" page-content></article>
+    <section class="section-container"></section>
   </main>
 
   <!--FOOTER-->
