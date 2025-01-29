@@ -173,12 +173,12 @@ class HomeController extends BaseController
 
         $movieId = $request->input('movieId');
         $userId = $request->input('userId'); // Corretto qui
-
+    
         $result = DB::table('films')
                     ->where('user', $userId)
                     ->whereRaw("JSON_EXTRACT(content, '$.movieId') = ?", [$movieId])
                     ->exists();
-
+    
         if ($result) {
             return response()->json(['isFavorited' => true]);
         } else {
@@ -224,8 +224,7 @@ class HomeController extends BaseController
             'overview' => $overview,
             'backdrop_path' => $backdrop_path,
             'poster_path' => $poster_path,
-            'genre_ids' => $genre_ids,
-            'isSerie' => 0
+            'genre_ids' => $genre_ids
         ]);
         $film->save();
     
@@ -269,6 +268,8 @@ class HomeController extends BaseController
                     ->select('content')
                     ->where('user', $user_id)
                     ->get();
+        
+        $responseData = [];
 
         if(isset($films) && !empty($films)){
 
@@ -279,17 +280,15 @@ class HomeController extends BaseController
                     //return response()->json(['ok' => true, 'films' => $filmContent['isSerie']]);
                         
                         $responseData[] = [
-                            'serieId' => $filmContent['serieId'],
-                            'name' => $filmContent['name'],
-                            'first_air_date' => $filmContent['first_air_date'],
-                            'last_air_date' => $filmContent['last_air_date'],
-                            'episode_run_time' => $filmContent['episode_run_time'],
+                            'movieId' => $filmContent['movieId'],
+                            'title' => $filmContent['title'],
+                            'release_date' => $filmContent['release_date'],
+                            'runtime' => $filmContent['runtime'],
                             'vote_average' => $filmContent['vote_average'],
                             'genres' => $filmContent['genres'],
-                            'created_by' => $filmContent['created_by'],
                             'overview' => $filmContent['overview'],
                             'backdrop_path' => $filmContent['backdrop_path'],
-                            'poster_path' => $filmContent['poster_path'],
+                            'poster_path' => $filmContent['poster_path']
                         ];
                 }
 

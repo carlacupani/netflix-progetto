@@ -1,6 +1,7 @@
 "use strict";
 
 import {createMovieCard} from "./movie-card.js"
+//import {createSerieCard} from "./serie-card.js"
 
 const pageContent = document.querySelector(".container");
 
@@ -35,14 +36,8 @@ const createFavoriteMovieList = function (movies) {
   movieListElem.appendChild(sliderList);
 
   for (const movie of movies) {
-
-    if(movie.isSerie == 1){
-      const serieCard = createSerieCard(movie);
-      sliderInner.appendChild(serieCard);
-    }else{
       const movieCard = createMovieCard(movie);
       sliderInner.appendChild(movieCard);
-    }
   }
   pageContent.appendChild(movieListElem);
 };
@@ -50,7 +45,7 @@ const createFavoriteMovieList = function (movies) {
 fetch("favorite_movie")
   .then((response) => response.json())
   .then((data) => {
-    //console.log(data.films);
+    console.log(data.films);
     createFavoriteMovieList(data.films);
 })
   .catch((error) => console.error("Error:", error)); 
