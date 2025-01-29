@@ -173,12 +173,12 @@ class HomeController extends BaseController
 
         $movieId = $request->input('movieId');
         $userId = $request->input('userId'); // Corretto qui
-    
+
         $result = DB::table('films')
                     ->where('user', $userId)
                     ->whereRaw("JSON_EXTRACT(content, '$.movieId') = ?", [$movieId])
                     ->exists();
-    
+
         if ($result) {
             return response()->json(['isFavorited' => true]);
         } else {
@@ -277,8 +277,6 @@ class HomeController extends BaseController
                 foreach ($films as $film) {
                     $filmContent = json_decode($film->content, true);
                     //return response()->json(['ok' => true, 'films' => $filmContent['isSerie']]);
-                    
-                    if ($filmContent['isSerie'] == 1) {
                         
                         $responseData[] = [
                             'serieId' => $filmContent['serieId'],
@@ -292,25 +290,7 @@ class HomeController extends BaseController
                             'overview' => $filmContent['overview'],
                             'backdrop_path' => $filmContent['backdrop_path'],
                             'poster_path' => $filmContent['poster_path'],
-                            'isSerie' => $filmContent['isSerie'],
                         ];
-                        
-                    }else{
-
-                        $responseData[] = [
-                            'movieId' => $filmContent['movieId'],
-                            'title' => $filmContent['title'],
-                            'release_date' => $filmContent['release_date'],
-                            'runtime' => $filmContent['runtime'],
-                            'vote_average' => $filmContent['vote_average'],
-                            'genres' => $filmContent['genres'],
-                            'overview' => $filmContent['overview'],
-                            'backdrop_path' => $filmContent['backdrop_path'],
-                            'poster_path' => $filmContent['poster_path'],
-                            'isSerie' => $filmContent['isSerie'],
-                        ];
-                    }
-
                 }
 
             }
