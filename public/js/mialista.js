@@ -45,7 +45,7 @@ const createFavoriteMovieList = function (movies) {
 fetch("favorite_movie")
   .then((response) => response.json())
   .then((data) => {
-    console.log(data.films);
+    //console.log(data.films);
     createFavoriteMovieList(data.films);
 })
   .catch((error) => console.error("Error:", error)); 
