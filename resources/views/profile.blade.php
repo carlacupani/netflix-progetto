@@ -30,7 +30,7 @@
       </a>
       <ul class="navbar-links">
         <li><a href="{{ URL::to("home") }}">Home</a></li>
-        <li><a href="{{ URL::to("serietv") }}">Serie Tv</a></li>
+        <li><a href="#">Serie Tv</a></li>
         <li><a href="{{ URL::to("movie") }}">Film</a></li>
         <li><a href="#">Nuovi e popolari</a></li>
         <li><a href="{{ URL::to("mialista") }}">La mia lista</a></li>

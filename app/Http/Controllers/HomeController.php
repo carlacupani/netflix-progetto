@@ -15,11 +15,13 @@ use App\Http\Controllers\ApiController;
 
 class HomeController extends BaseController
 {
+    //
     public function showIndex()
     {
         return view('index');
     }
     
+    //
     public function showHome()
     {
         if (!Session::has('user_id')) {
@@ -27,11 +29,14 @@ class HomeController extends BaseController
         }
         return view('home');
     }
+
+    //
     public function showSerietv()
     {
         return view('serietv');
     }
 
+    //
     public function showProfile(){
         if (!Session::has('user_id')) {
             return redirect('login');
@@ -47,6 +52,7 @@ class HomeController extends BaseController
             ->with('user', $user);
     }
     
+    //
     public function showEditProfile()
     {
         if (!Session::has('user_id')) {
@@ -62,6 +68,8 @@ class HomeController extends BaseController
         return view('edit_profile')
             ->with('user', $user);;
     }
+
+    //
     public function editProfile(Request $request){
         if (!Session::has('user_id')) {
             return redirect('login');
@@ -127,7 +135,7 @@ class HomeController extends BaseController
         }
     }
     
-
+    //
     public function showMiaLista(){
         if (!Session::has('user_id')) {
             return redirect('login');
@@ -152,6 +160,7 @@ class HomeController extends BaseController
 
     }
 
+    //
     public function showDetailsMovie(string $movieId)
     {
         $apiController = new ApiController();
@@ -164,20 +173,8 @@ class HomeController extends BaseController
 
         return view('details_movie', compact('movieDetails'));
     }
-
     
-    public function showDetailsSerietv(string $serieId)
-    {
-        $apiController = new ApiController();
-
-        $serietvDetails = $apiController->getDetailsSerietv($serieId);
-    
-        if (!$serietvDetails) {
-            return redirect()->route('home')->with('error', 'Dettagli del film non trovati.');
-        }
-        return view('details_serietv', compact('serietvDetails'));
-    }
-    
+    //
     public function checkMovie(Request $request){
 
         $movieId = $request->input('movieId');
@@ -194,31 +191,14 @@ class HomeController extends BaseController
             return response()->json(['isFavorited' => false]);
         }
     }
-
-    public function checkSerie(Request $request){
-
-        $serieId = $request->input('serieId');
-        $userId = $request->input('userId'); // Corretto qui
     
-        $result = DB::table('films')
-                    ->where('user', $userId)
-                    ->whereRaw("JSON_EXTRACT(content, '$.serieId') = ?", [$serieId])
-                    ->exists();
-    
-        if ($result) {
-            return response()->json(['isFavorited' => true]);
-        } else {
-            return response()->json(['isFavorited' => false]);
-        }
-    }
-    
+    // Salvare un film tra i preferiti
     public function saveMovie(Request $request)
     {
         if (!Session::has('user_id')) {
             return ['ok' => false];
         }
     
-        // Recupera i dati dalla richiesta
         $movieId = $request->post('movieId');
         $title = $request->post('title');
         $release_date = $request->post('release_date');
@@ -230,18 +210,16 @@ class HomeController extends BaseController
         $poster_path = $request->post('poster_path');
         $genre_ids = $request->post('genre_ids');
     
-        // Verifica se il film esiste già nel database
         $filmEsistente = Movie::where('content->movieId', $movieId)
                               ->where('user', Session::get('user_id'))
                               ->first();
     
         if ($filmEsistente) {
-            return ['ok' => true]; // Il film è già presente
+            return ['ok' => true];
         }
     
-        // Salva il nuovo film
         $film = new Movie;
-        $film->user = Session::get('user_id'); // Imposta l'ID dell'utente
+        $film->user = Session::get('user_id');
         $film->content = json_encode([
             'movieId' => $movieId,
             'title' => $title,
@@ -257,91 +235,33 @@ class HomeController extends BaseController
         ]);
         $film->save();
     
-        return ['ok' => true]; // Il film è stato salvato correttamente
-    }
-    
-
-    public function saveSerie(Request $request)
-    {
-        // Verifica se l'utente è loggato
-        if (!Session::has('user_id')) {
-            return ['ok' => false];
-        }
-        
-        // Recupera i dati dalla richiesta
-        $serieId = $request->post('serieId');
-        $name = $request->post('name');
-        $first_air_date = $request->post('first_air_date');
-        $last_air_date = $request->post('last_air_date');
-        $episode_run_time = $request->post('episode_run_time');
-        $vote_average = $request->post('vote_average');
-        $genres = $request->post('genres');
-        $created_by = $request->post('created_by');
-        $overview = $request->post('overview');
-        $backdrop_path = $request->post('backdrop_path');
-        $poster_path = $request->post('poster_path');
-        
-        $user_id = Session::get('user_id');
-        
-        // Verifica se la serie esiste già nel database
-        $filmEsistente = Movie::where('content->serieId', $serieId)
-                              ->where('user', $user_id)
-                              ->first();
-    
-        if ($filmEsistente) {
-            return ['ok' => true]; // La serie è già presente
-        }
-        
-        // Salva la nuova serie
-        $film = new Movie;
-        $film->user = $user_id; // Imposta l'ID dell'utente
-        $film->content = json_encode([
-            'serieId' => $serieId,
-            'name' => $name,
-            'first_air_date' => $first_air_date,
-            'last_air_date' => $last_air_date,
-            'episode_run_time' => $episode_run_time,
-            'vote_average' => $vote_average,
-            'genres' => $genres,
-            'created_by' => $created_by,
-            'overview' => $overview,
-            'backdrop_path' => $backdrop_path,
-            'poster_path' => $poster_path,
-            'isSerie' => 1
-        ]);
-        $film->save();
-    
-        return ['ok' => true]; // La serie è stata salvata correttamente
+        return ['ok' => true];
     }
 
+    // Eliminare un film dai preferiti 
     public function deleteMovie(Request $request)
     {
-        // Verifica se l'utente è loggato
         if (!Session::has('user_id')) {
             return ['ok' => false];
         }
     
-        // Ottieni l'ID dell'utente dalla sessione
         $user_id = Session::get('user_id');
     
-        // Recupera l'ID del film dalla richiesta
         $movieId = $request->post('movieId');
     
-        // Verifica se il film esiste nel database
         $filmEsistente = Movie::where('content->movieId', $movieId)
                               ->where('user', $user_id)
                               ->first();
     
-        // Se il film esiste, eliminalo
         if ($filmEsistente) {
             $filmEsistente->delete();
             return ['ok' => true];
         }
     
-        // Se il film non esiste, restituisci un errore
         return ['ok' => false];
     }
 
+    //
     public function getFavoriteMovie()
     {
 
@@ -407,4 +327,5 @@ class HomeController extends BaseController
     }
 
     
+
 }

@@ -17,6 +17,7 @@ class AuthController extends BaseController
         return view('login');
     }
 
+    //
     public function login(Request $request)
     {
         if (Session::has('user_id')) {
@@ -67,14 +68,13 @@ class AuthController extends BaseController
         }
     }
 
+    //
     public function checkUsername(Request $request)
     {
-        $username = $request->input('username'); // Ottieni il nome utente dal corpo della richiesta
-    
-        // Ottieni le righe degli utenti che corrispondono al nome utente
+        $username = $request->input('username');
+
         $users_row = DB::table('users')->where('username', $username)->count();
     
-        // Controlla se la query ha restituito almeno una riga
         if ($users_row > 0) {
             return response()->json(['exists' => true]);
         } else {
@@ -82,12 +82,12 @@ class AuthController extends BaseController
         }
     }
 
+    //
     public function registerUser(Request $request) {
         if (Session::has('user_id')) {
             return response()->json(['redirect' => 'home'], 200);
         }
     
-        // Logga i dati ricevuti per il debug
         Log::info('Dati ricevuti:', $request->all());
 
         $errors = [];
@@ -123,18 +123,16 @@ class AuthController extends BaseController
                 }
             }
         }
-    
-        // Se ci sono errori, reindirizza alla pagina di registrazione con gli errori e i dati inseriti
+
         if (!empty($error)) {
             return redirect('signup')
-                ->withInput()  // Ritorna i dati inseriti
-                ->withErrors($error);  // Ritorna gli errori
+                ->withInput()
+                ->withErrors($error);
         }
     
-        // Ottieni e hash la password
         $password = password_hash($request->input('password'), PASSWORD_BCRYPT);
     
-        // Crea un nuovo utente
+        // NUOVO UTENTE
         $user = new User;
         $user->username = $request->input('username');
         $user->password = $password;
@@ -150,13 +148,12 @@ class AuthController extends BaseController
             return response()->json(['error' => 'Errore durante il salvataggio dell\'utente.'], 500);
         }
     
-        // Salva l'ID dell'utente nella sessione
         Session::put('user_id', $user->id);
     
-        // Reindirizza l'utente alla home
         return response()->json(['redirect' => 'home'], 200);
     }
 
+    //
     public function loginUser(Request $request)
     {
         $user = User::where('email', $request->input('email'))->first();
@@ -169,7 +166,6 @@ class AuthController extends BaseController
             return redirect('login');
         }
     
-        // Test per verificare se la sessione viene impostata
         Session::put('test_key', 'test_value');
     
         if (Session::get('test_key') !== 'test_value') {

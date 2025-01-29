@@ -41,7 +41,6 @@ const title = movieData.original.title;
 const releaseDate = movieData.original.release_date;
 const runtime = movieData.original.runtime;
 const voteAverage = movieData.original.vote_average;
-const certification = (movieData.original.releases?.countries[0]?.certification) || "N/A";
 const genres = movieData.original.genres;
 const overview = movieData.original.overview;
 const cast = movieData.original.casts?.cast || [];

@@ -13,7 +13,6 @@ use App\Models\Movie;
 
 class ApiController extends BaseController
 {
-
     // Recupera la lista dei generi dei film
     public function getGenreMovieList()
     {
@@ -38,10 +37,10 @@ class ApiController extends BaseController
 
         curl_close($curl);
 
-        if ($err) {
-            return "cURL Error #:" . $err;
+        if ($response) {
+            return response()->json(json_decode($response));
         } else {
-            return $response;
+            return response()->json(['error' => 'Errore nel recupero della lista dei generi']);
         }
     }
 
@@ -75,7 +74,6 @@ class ApiController extends BaseController
         $err = curl_error($curl);
 
         curl_close($curl);
-
         return $response;
     }
 
@@ -129,11 +127,10 @@ class ApiController extends BaseController
 
         curl_close($curl);
 
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            echo $response;
-        }
+        if ($response)
+            return $response;
+        else
+            return $err;
     }
 
     // Recupera la lista dei film raccomandati in base ad un determinato film
@@ -165,11 +162,10 @@ class ApiController extends BaseController
 
         curl_close($curl);
 
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            echo $response;
-        }
+        if ($response)
+            return $response;
+        else
+            return $err;
     }
 
     // Recupera la lista dei film più valutati
@@ -196,11 +192,10 @@ class ApiController extends BaseController
 
         curl_close($curl);
 
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            echo $response;
-        }
+        if ($response)
+            return $response;
+        else
+            return $err;
     }
 
     // Recupera la lista dei film in tendenza
@@ -225,11 +220,10 @@ class ApiController extends BaseController
 
         curl_close($curl);
 
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            echo $response;
-        }
+        if ($response)
+            return $response;
+        else
+            return $err;
     }
 
     // Recupera la lista dei film in uscita
@@ -256,265 +250,11 @@ class ApiController extends BaseController
 
     curl_close($curl);
 
-    if ($err) {
-        echo "cURL Error #:" . $err;
-    } else {
-        echo $response;
-    }
-    }
-
-// Recupera i dettagli di una determinata serie TV
-public function getDetailsSerietv(string $serieId)
-{
-    $url = env('API_BASE_URL') . "/tv/{$serieId}?append_to_response=casts,videos,images,releases&language=it-IT";
-
-    $curl = curl_init();
-
-    curl_setopt_array($curl, [
-        CURLOPT_URL => $url,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "GET",
-        CURLOPT_HTTPHEADER => [
-            "Authorization: Bearer " . env('API_KEY_AUTH'),
-            "Accept: application/json"
-        ],
-    ]);
-
-    $response = curl_exec($curl);
-    curl_close($curl);
-    
-    if ($response) {
-        return response()->json(json_decode($response, true));
-    } else {
-        return response()->json(['error' => 'Errore nel recupero dei dettagli']);
-    }
-}
-
-
-    // Recupera la lista dei film raccomandati in base ad un determinato film
-    public function getRecommendationsSerietv(Request $request)
-    {
-        $serieId = urlencode($request->get("mid"));
-        $url = env('API_BASE_URL') . "/tv/" . $serieId . "/recommendations?language=it-IT&page=1";
-
-        $curl = curl_init();
-
-        curl_setopt_array($curl, [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => [
-                "Authorization: Bearer " . env('API_KEY_AUTH'),
-                "accept: application/json"
-            ],
-        ]);
-
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        curl_close($curl);
-
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            echo $response;
-        }
-    }
-
-    // Recupera la lista delle serie tv in tendenza
-    public function getTrendingSerietv()
-    {
-        $curl = curl_init();
-
-        curl_setopt_array($curl, [
-            CURLOPT_URL => env('API_BASE_URL') . "/trending/tv/week?language=it-IT",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => [
-                "Authorization: Bearer " . env('API_KEY_AUTH'),
-                "accept: application/json"
-            ],
-        ]);
-
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        curl_close($curl);
-
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            echo $response;
-        }
-    }
-
-    // Recupera la lista delle serie tv in onda
-    public function getOntheairSerietv()
-    {
-        $curl = curl_init();
-
-        curl_setopt_array($curl, [
-            CURLOPT_URL => env('API_BASE_URL') . "/tv/on_the_air?language=it-IT&page=1",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => [
-                "Authorization: Bearer " . env('API_KEY_AUTH'),
-                "accept: application/json"
-            ],
-        ]);
-
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        curl_close($curl);
-
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            echo $response;
-        } 
-    }
-    // Recupera la lista delle serie tv più valutate
-    public function getTopratedSerietv()
-    {
-        $curl = curl_init();
-
-        curl_setopt_array($curl, [
-            CURLOPT_URL => env('API_BASE_URL') . "/tv/top_rated?language=it-IT&page=1",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => [
-                "Authorization: Bearer " . env('API_KEY_AUTH'),
-                "accept: application/json"
-            ],
-        ]);
-
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        curl_close($curl);
-
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            echo $response;
-        } 
-    }
-
-    // Recupera la lista delle serie tv più popolari
-    public function getPopularSerietv()
-    {
-        $curl = curl_init();
-
-        curl_setopt_array($curl, [
-            CURLOPT_URL => env('API_BASE_URL') . "/tv/popular?language=it-IT&page=1",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => [
-                "Authorization: Bearer " . env('API_KEY_AUTH'),
-                "accept: application/json"
-            ],
-        ]);
-
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        curl_close($curl);
-
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            echo $response;
-        } 
-    }
-
-    // Recupera la lista dei generi delle serie tv
-    public function getGenreSerietvList()
-    {
-        $curl = curl_init();
-
-        curl_setopt_array($curl, [
-            CURLOPT_URL => env('API_BASE_URL') . "/genre/tv/list?language=it",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => [
-                "Authorization: Bearer " . env('API_KEY_AUTH'),
-                "accept: application/json"
-            ],
-        ]);
-
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        curl_close($curl);
-
-        if ($err) {
-            return "cURL Error #:" . $err;
-        } else {
-            return $response;
-        }
-    }
-
-    // Recupera la lista delle serie tv in base ad un parametro di ricerca
-    public function getSearchSerietv(Request $request)
-    {
-        $query = urlencode($request->get("q"));
-        $url = env('API_BASE_URL') . "/search/tv?include_adult=false&language=it-IT&page=1&query=" . $query;
-
-        $curl = curl_init();
-
-        curl_setopt_array($curl, [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => [
-                "Authorization: Bearer " . env('API_KEY_AUTH'),
-                "accept: application/json"
-            ],
-        ]);
-
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        curl_close($curl);
-
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            echo $response;
-        }
+    if ($response)
+        return $response;
+    else
+        return $err;
+        
     }
 
     // Recupera frase random di un anime e il suo personaggio
@@ -527,14 +267,16 @@ public function getDetailsSerietv(string $serieId)
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         $response = curl_exec($ch);
+        $err = curl_errno($ch);
 
-        if(curl_errno($ch)) {
-            echo 'cURL error: ' . curl_error($ch);
+        curl_close($ch);
+
+        if($err) {
+            return $err;
         } else {
             $quote = json_decode($response, true);
         }
 
-        curl_close($ch);
     }
 
 }
