@@ -49,7 +49,7 @@ function createBannerSection({ results: movies }) {
   const infoText = document.createTextNode('Altre info');
 
   infoButton.addEventListener('click', () => {
-    window.location.href = "movie//details/" + movieId;
+    window.location.href = "movie/details/" + movieId;
   });
 
   buttons.appendChild(playButton);

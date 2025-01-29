@@ -52,7 +52,7 @@ function createBannerSection({ results: serieList }) {
     const infoText = document.createTextNode('Altre info');
   
     infoButton.addEventListener('click', () => {
-      window.location.href = "serietv/details" + serietvId;
+      window.location.href = "serietv/details/" + serietvId;
     });
   
     buttons.appendChild(playButton);

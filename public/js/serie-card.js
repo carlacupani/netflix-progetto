@@ -22,7 +22,7 @@ export function createSerieCard(serie) {
   card.appendChild(figure);
   
   const anchor = document.createElement("a");
-  anchor.href = "serietv/details" + serieId;
+  anchor.href = "serietv/details/" + serieId;
   anchor.classList.add("card-btn");
   anchor.title = name;
   

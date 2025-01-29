@@ -23,7 +23,7 @@ export function createMovieCard(movie) {
   card.appendChild(figure);
 
   const anchor = document.createElement("a");
-  anchor.href = "movie/details" + movieId;
+  anchor.href = "movie/details/" + movieId;
   anchor.classList.add("card-btn");
   anchor.title = title;
 
