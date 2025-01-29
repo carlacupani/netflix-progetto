@@ -61,29 +61,29 @@ export function searchMovie() {
   }
 
 
-// --- Funzioni per la ricerca ---
-function fetchMovies(query) {
-  return fetch("/search/movie?q="+ encodeURIComponent(query))
-    .then((response) => {
-      if (!response.ok) {
-        console.log('Errore nella risposta della rete:', response.status);
+  // --- Funzioni per la ricerca ---
+  function fetchMovies(query) {
+    return fetch("/search/movie?q="+ encodeURIComponent(query))
+      .then((response) => {
+        if (!response.ok) {
+          console.log('Errore nella risposta della rete:', response.status);
+          return [];
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data && data.results) {
+          return data.results;
+        } else {
+          console.log('Nessun risultato trovato');
+          return [];
+        }
+      })
+      .catch((error) => {
+        console.log('Errore durante il fetch dei dati:', error);
         return [];
-      }
-      return response.json();
-    })
-    .then((data) => {
-      if (data && data.results) {
-        return data.results;
-      } else {
-        console.log('Nessun risultato trovato');
-        return [];
-      }
-    })
-    .catch((error) => {
-      console.log('Errore durante il fetch dei dati:', error);
-      return [];
-    });
-}
+      });
+  }
 
 
 function handleSearchInput() {
@@ -96,26 +96,26 @@ function handleSearchInput() {
     return;
   }
 
-  searchWrapper.classList.add("searching");
-  clearTimeout(searchTimeout);
+    searchWrapper.classList.add("searching");
+    clearTimeout(searchTimeout);
 
-  searchTimeout = setTimeout(() => {
-    fetchMovies(query)
-      .then((movieList) => {
-        searchWrapper.classList.remove("searching");
-        toggleSearchModal(true);
+    searchTimeout = setTimeout(() => {
+      fetchMovies(query)
+        .then((movieList) => {
+          searchWrapper.classList.remove("searching");
+          toggleSearchModal(true);
 
-        clearModalContent();
-        // addModalHeader(query);
-        displayMovieResults(movieList);
-      })
-      .catch((error) => {
-        console.error("Errore durante la ricerca dei film:", error);
-        searchWrapper.classList.remove("searching");
-        toggleSearchModal(false);
-      });
-  }, 300);
-}
+          clearModalContent();
+          // addModalHeader(query);
+          displayMovieResults(movieList);
+        })
+        .catch((error) => {
+          console.error("Errore durante la ricerca dei film:", error);
+          searchWrapper.classList.remove("searching");
+          toggleSearchModal(false);
+        });
+    }, 300);
+  }
 
   // --- Event listener ---
   searchBtn.addEventListener("click", openSearch); // Apre la barra di ricerca

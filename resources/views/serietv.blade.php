@@ -38,7 +38,7 @@
       </ul>
     </div>
     <div class="navbar-right">
-    <div class="nav-element">
+      <div class="nav-element">
         <div class="search-box">
           <button class="search-btn">
             <img src="{{ URL::to("images/search.png") }}" alt="">

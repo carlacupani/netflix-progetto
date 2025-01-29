@@ -39,19 +39,6 @@
     </div>
     <div class="navbar-right">
       <div class="nav-element">
-        <div class="search-box">
-          <button class="search-btn">
-            <img src="{{ URL::to("images/search.png") }}" alt="">
-          </button>
-          <div class="search-wrapper">
-            <input type="text" name="search" aria-label="search movies" placeholder="Titoli, persone, generi" class="search-field" autocomplete="off"/>
-          </div>
-          <button class="close-btn">
-            <img src="{{ URL::to("images/close-button.png") }}" alt="">
-          </button>
-        </div>
-      </div>
-      <div class="nav-element">
         <button class="notification-btn">
           <img src="{{ URL::to('images/notification-bell.png') }}">
         </button>

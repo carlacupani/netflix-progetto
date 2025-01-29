@@ -17,7 +17,7 @@ function createBannerSection({ results: serieList }) {
     const banner = document.querySelector('.banner');
 
     const serie = serieList[0];
-    const serietvId = serie.id;
+    const serieId = serie.id;
   
     banner.style.backgroundImage = "url('" + imageBaseURL + "w1280"+ serie.backdrop_path + "')";
   
@@ -52,7 +52,7 @@ function createBannerSection({ results: serieList }) {
     const infoText = document.createTextNode('Altre info');
   
     infoButton.addEventListener('click', () => {
-      window.location.href = "serietv/details/" + serietvId;
+      window.location.href = "serietv/details/" + serieId;
     });
   
     buttons.appendChild(playButton);

@@ -5,9 +5,9 @@ const imageBaseURL = 'https://image.tmdb.org/t/p/';
 import { createSerieCard } from "./serie-card.js";
 import { searchSerie } from "./search-serie.js";
 
-const movieContainer = document.getElementById('serietv-container');
-const movieData = JSON.parse(movieContainer.dataset.movie);
-console.log(movieData);
+const serieContainer = document.getElementById('serietv-container');
+const serieData = JSON.parse(serieContainer.dataset.serie);
+console.log(serieData);
 
 const serietvContent = document.querySelector(".serietv-content");
 
@@ -243,10 +243,17 @@ addToFavoritesButton.addEventListener("click", function () {
 checkIfSerieIsFavorited();
 serietvContent.appendChild(serieDetail);
 
-fetchDataFromServer("serietv/recommendations?sid=" + encodeURIComponent(serieId), addSuggestedSeries);
+fetch("serietv/recommendations?mid=" + encodeURIComponent(serieId))
+  .then((res) => res.json())
+  .then(data => addSuggestedSerietv(data))
+  .catch(error => {
+    console.error('Errore nel recupero delle raccomandazioni:', error);
+  });
 
 
-function addSuggestedSeries({ results: serieList }) {
+function addSuggestedSerietv(data) {
+  const serieList = data.results;
+  
   const serieListElem = document.createElement("section");
   serieListElem.classList.add("serie-list");
   serieListElem.ariaLabel = "Potrebbe piacerti";

@@ -272,15 +272,16 @@ checkIfMovieIsFavorited();
 
 movieContent.appendChild(movieDetail);
 
-fetch("movie/recommendations?mid=" + encodeURIComponent(movieId))
+searchMovie();
+
+/*fetch("movie/recommendations?mid=" + encodeURIComponent(movieId))
   .then((res) => res.json())
   .then(data => addSuggestedMovies(data))
   .catch(error => {
     console.error('Errore nel recupero delle raccomandazioni:', error);
   });
 
-
-function addSuggestedMovies (data, title) {
+function addSuggestedMovies (data) {
   const movieList = data.results;
 
   const movieListElem = document.createElement("section");
@@ -313,4 +314,6 @@ function addSuggestedMovies (data, title) {
   movieContent.appendChild(movieListElem);
 };
 
-searchMovie();
+*/
+
+

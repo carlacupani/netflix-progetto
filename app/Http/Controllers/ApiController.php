@@ -51,7 +51,7 @@ class ApiController extends BaseController
         if(!Session::has('user_id')){
             exit;
         }
-        
+
         $query = urlencode($request->get("q"));
         $url = env('API_BASE_URL') . "/search/movie?include_adult=false&language=it-IT&page=1&query=" . $query;
 
@@ -263,39 +263,37 @@ class ApiController extends BaseController
     }
     }
 
-    // Recupera i dettagli di una determinata serie tv
-    public function getDetailsSerietv(Request $request)
-    {
-        $serieId = urlencode($request->get("q"));
-        $url = env('API_BASE_URL') . "/tv/" . $serieId . "?append_to_response=casts,videos,images,releases&language=it-IT";
+// Recupera i dettagli di una determinata serie TV
+public function getDetailsSerietv(string $serieId)
+{
+    $url = env('API_BASE_URL') . "/tv/{$serieId}?append_to_response=casts,videos,images,releases&language=it-IT";
 
-        $curl = curl_init();
+    $curl = curl_init();
 
-        curl_setopt_array($curl, [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => [
-                "Authorization: Bearer " . env('API_KEY_AUTH'),
-                "accept: application/json"
-            ],
-        ]);
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => [
+            "Authorization: Bearer " . env('API_KEY_AUTH'),
+            "Accept: application/json"
+        ],
+    ]);
 
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        curl_close($curl);
-
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            echo $response;
-        }
+    $response = curl_exec($curl);
+    curl_close($curl);
+    
+    if ($response) {
+        return response()->json(json_decode($response, true));
+    } else {
+        return response()->json(['error' => 'Errore nel recupero dei dettagli']);
     }
+}
+
 
     // Recupera la lista dei film raccomandati in base ad un determinato film
     public function getRecommendationsSerietv(Request $request)

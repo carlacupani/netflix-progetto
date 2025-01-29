@@ -1,65 +1,125 @@
 "use strict";
 
-import { fetchDataFromServer } from "./api.js";
 import { createSerieCard } from "./serie-card.js";
 
+// Funzione principale per la gestione della barra di ricerca
 export function searchSerie() {
-  const searchWrapper = document.querySelector("[search-wrapper]");
-  const searchField = document.querySelector("[search-field]");
+  // Elementi del DOM
+  const searchWrapper = document.querySelector(".search-wrapper");
+  const searchField = document.querySelector(".search-field");
+  const searchBtn = document.querySelector(".search-btn");
+  const closeBtn = document.querySelector(".close-btn");
 
+  // Modal dei risultati
   const searchResultModal = document.createElement("div");
   searchResultModal.classList.add("search-modal");
   document.querySelector("main").appendChild(searchResultModal);
 
-  let searchTimeout;
+  let searchTimeout; // Timeout per la ricerca
 
-  searchField.addEventListener("input", function () {
-    if (!searchField.value.trim()) {
+  // --- Funzioni per l'apertura e la chiusura della barra di ricerca ---
+  function openSearch() {
+    searchWrapper.classList.add("active");
+    searchField.focus();
+  }
+
+  function closeSearch() {
+    searchWrapper.classList.remove("active");
+    searchField.value = ""; // Pulisce il campo di ricerca
+    clearModalContent(); // Pulisce i risultati
+    toggleSearchModal(false); // Nasconde il modal
+  }
+
+  // --- Gestione del modal dei risultati ---
+  function toggleSearchModal(show) {
+    if (show) {
+      searchResultModal.classList.add("active");
+    } else {
       searchResultModal.classList.remove("active");
-      searchWrapper.classList.remove("searching");
-      clearTimeout(searchTimeout);
-      return;
     }
+  }
+
+  function clearModalContent() {
+    searchResultModal.innerHTML = "";
+  }
+
+
+  function displayMovieResults(movieList) {
+    const movieListContainer = document.createElement("div");
+    movieListContainer.classList.add("serie-list");
+
+    const gridList = document.createElement("div");
+    gridList.classList.add("grid-list");
+    movieListContainer.appendChild(gridList);
+
+    movieList.forEach((serie) => {
+      const movieCard = createSerieCard(serie);
+      gridList.appendChild(serieCard);
+    });
+
+    searchResultModal.appendChild(movieListContainer);
+  }
+
+
+  // --- Funzioni per la ricerca ---
+  function fetchMovies(query) {
+    return fetch("/search/serietv?q="+ encodeURIComponent(query))
+      .then((response) => {
+        if (!response.ok) {
+          console.log('Errore nella risposta della rete:', response.status);
+          return [];
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data && data.results) {
+          return data.results;
+        } else {
+          console.log('Nessun risultato trovato');
+          return [];
+        }
+      })
+      .catch((error) => {
+        console.log('Errore durante il fetch dei dati:', error);
+        return [];
+      });
+  }
+
+
+function handleSearchInput() {
+  const query = searchField.value.trim();
+
+  if (!query) {
+    toggleSearchModal(false);
+    searchWrapper.classList.remove("searching");
+    clearTimeout(searchTimeout);
+    return;
+  }
 
     searchWrapper.classList.add("searching");
     clearTimeout(searchTimeout);
 
-    searchTimeout = setTimeout(function () {
-      fetchDataFromServer(
-        "/search/serietv?q=" + encodeURIComponent(searchField.value),
-        function ({ results: serieList }) {
+    searchTimeout = setTimeout(() => {
+      fetchMovies(query)
+        .then((movieList) => {
           searchWrapper.classList.remove("searching");
-          searchResultModal.classList.add("active");
+          toggleSearchModal(true);
 
-          while (searchResultModal.firstChild) {
-            searchResultModal.removeChild(searchResultModal.firstChild);
-          }
+          clearModalContent();
+          // addModalHeader(query);
+          displayMovieResults(movieList);
+        })
+        .catch((error) => {
+          console.error("Errore durante la ricerca dei film:", error);
+          searchWrapper.classList.remove("searching");
+          toggleSearchModal(false);
+        });
+    }, 300);
+  }
 
-          const label = document.createElement("p");
-          label.classList.add("label");
-          label.textContent = "Risultati per ...";
-          searchResultModal.appendChild(label);
+  // --- Event listener ---
+  searchBtn.addEventListener("click", openSearch); // Apre la barra di ricerca
+  closeBtn.addEventListener("click", closeSearch); // Chiude la barra di ricerca
 
-          const heading = document.createElement("h1");
-          heading.classList.add("heading");
-          heading.textContent = searchField.value;
-          searchResultModal.appendChild(heading);
-
-          const serieListContainer = document.createElement("div");
-          serieListContainer.classList.add("serie-list");
-
-          const gridList = document.createElement("div");
-          gridList.classList.add("grid-list");
-          serieListContainer.appendChild(gridList);
-
-          searchResultModal.appendChild(serieListContainer);
-
-          for (const serie of serieList) {
-            const serieCard = createSerieCard(serie);
-            gridList.appendChild(serieCard);
-          }
-        }
-      );
-    }, 500); // Ritarda la ricerca di 0.5secondi
-  });
+  searchField.addEventListener("input", handleSearchInput); // Gestisce l'input
 }

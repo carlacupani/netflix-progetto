@@ -165,18 +165,17 @@ class HomeController extends BaseController
         return view('details_movie', compact('movieDetails'));
     }
 
-    /**
-    * public function showDetailsMovie($movieId)
-    * {
-    * $movie = Movie::find($movieId);
-    *  return view('detail_movie', ['movie' => $movie]);
-    * }
-    */
-
     
-    public function showDetailsSerietv()
+    public function showDetailsSerietv(string $serieId)
     {
-        return view('details_serietv');
+        $apiController = new ApiController();
+
+        $serietvDetails = $apiController->getDetailsSerietv($serieId);
+    
+        if (!$serietvDetails) {
+            return redirect()->route('home')->with('error', 'Dettagli del film non trovati.');
+        }
+        return view('details_serietv', compact('serietvDetails'));
     }
     
     public function checkMovie(Request $request){

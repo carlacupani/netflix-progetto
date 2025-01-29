@@ -65,7 +65,7 @@
   </header>
 
   <main>
-  <div class="serietv-content" id="serietv-container" data-movie="{{ json_encode($serietvDetails) }}"></div>
+  <div class="serietv-content" id="serietv-container" data-serie="{{ json_encode($serietvDetails) }}"></div>
   </main>
 
   <!--FOOTER-->
