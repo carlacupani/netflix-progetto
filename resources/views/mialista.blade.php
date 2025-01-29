@@ -17,7 +17,6 @@
     <!-- CSS LINK -->
     <link rel="stylesheet" href='{{ URL::to("css/mialista.css") }}'>
     <!-- JS LINK-->
-    <script src='{{ URL::to("js/global.js") }}' defer="true"></script>
     <script src='{{ URL::to("js/mialista.js") }}' type="module"></script>
 </head>
 
@@ -56,7 +55,7 @@
   </header>
   <main>
         <!--FAVORITE FILMS-->
-        <article class="container" page-content></article>
+        <section class="container"></section>
     </main>
     <!--FOOTER-->
     <footer>

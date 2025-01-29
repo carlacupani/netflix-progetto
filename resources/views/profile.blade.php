@@ -17,8 +17,7 @@
     <!-- CSS LINK -->
     <link rel="stylesheet" href='{{ URL::to("css/profile.css") }}'>
     <!-- JS LINK-->
-    <script src='{{ URL::to("js/global.js") }}' defer="true"></script>
-    <script src='{{ URL::to("js/profile.js") }}' type="module"></script>
+    <script src='{{ URL::to("js/profile.js") }}' defer></script>
 </head>
 
 <body>

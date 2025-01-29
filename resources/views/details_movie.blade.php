@@ -8,7 +8,6 @@
   <!-- CSS LINK -->
   <link rel="stylesheet" href='{{ URL::to("css/home.css") }}'>
   <!-- JS LINK -->
-  <script src='{{ URL::to("js/global.js") }}' defer></script>
   <script src='{{ URL::to("js/detail_movie.js") }}' type="module"></script>
 </head>
 

@@ -118,8 +118,7 @@ function handleSearchInput() {
   }
 
   // --- Event listener ---
-  searchBtn.addEventListener("click", openSearch); // Apre la barra di ricerca
-  closeBtn.addEventListener("click", closeSearch); // Chiude la barra di ricerca
-
-  searchField.addEventListener("input", handleSearchInput); // Gestisce l'input
+  searchBtn.addEventListener("click", openSearch);
+  closeBtn.addEventListener("click", closeSearch);
+  searchField.addEventListener("input", handleSearchInput);
 }

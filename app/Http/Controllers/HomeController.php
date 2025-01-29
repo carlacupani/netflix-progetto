@@ -15,13 +15,13 @@ use App\Http\Controllers\ApiController;
 
 class HomeController extends BaseController
 {
-    //
+    // INDEX
     public function showIndex()
     {
         return view('index');
     }
     
-    //
+    // HOME
     public function showHome()
     {
         if (!Session::has('user_id')) {
@@ -30,13 +30,7 @@ class HomeController extends BaseController
         return view('home');
     }
 
-    //
-    public function showSerietv()
-    {
-        return view('serietv');
-    }
-
-    //
+    // PROFILO
     public function showProfile(){
         if (!Session::has('user_id')) {
             return redirect('login');
@@ -52,7 +46,7 @@ class HomeController extends BaseController
             ->with('user', $user);
     }
     
-    //
+    // MODIFICA PROFILO
     public function showEditProfile()
     {
         if (!Session::has('user_id')) {
@@ -69,7 +63,7 @@ class HomeController extends BaseController
             ->with('user', $user);;
     }
 
-    //
+    // MODIFICA PROFILO
     public function editProfile(Request $request){
         if (!Session::has('user_id')) {
             return redirect('login');
@@ -135,7 +129,7 @@ class HomeController extends BaseController
         }
     }
     
-    //
+    // LA MIA LISTA
     public function showMiaLista(){
         if (!Session::has('user_id')) {
             return redirect('login');
@@ -160,7 +154,7 @@ class HomeController extends BaseController
 
     }
 
-    //
+    // DETTAGLI MOVIE
     public function showDetailsMovie(string $movieId)
     {
         $apiController = new ApiController();
@@ -174,7 +168,7 @@ class HomeController extends BaseController
         return view('details_movie', compact('movieDetails'));
     }
     
-    //
+    // 
     public function checkMovie(Request $request){
 
         $movieId = $request->input('movieId');
@@ -192,7 +186,7 @@ class HomeController extends BaseController
         }
     }
     
-    // Salvare un film tra i preferiti
+    // SALVATAGGIO MOVIE IN MIA LISTA
     public function saveMovie(Request $request)
     {
         if (!Session::has('user_id')) {
@@ -238,7 +232,7 @@ class HomeController extends BaseController
         return ['ok' => true];
     }
 
-    // Eliminare un film dai preferiti 
+    // ELIMINARE MOVIE DA MIA LISTA
     public function deleteMovie(Request $request)
     {
         if (!Session::has('user_id')) {
@@ -261,7 +255,7 @@ class HomeController extends BaseController
         return ['ok' => false];
     }
 
-    //
+    // MOSTRA 
     public function getFavoriteMovie()
     {
 

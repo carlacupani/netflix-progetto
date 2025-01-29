@@ -1,9 +1,5 @@
-"use strict";
-
-const pageContent = document.querySelector("[page-content]");
-
 function fetchQuote() {
-  fetch('https://api.gameofthronesquotes.xyz/v1/random')
+  fetch('random_quote')
     .then((res) => res.json())
     .then(quote => {
       const container = document.querySelector('.quote-wrapper');

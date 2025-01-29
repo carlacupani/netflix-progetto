@@ -271,12 +271,11 @@ class ApiController extends BaseController
 
         curl_close($ch);
 
-        if($err) {
-            return $err;
+        if ($err) {
+            return curl_strerror($err);
         } else {
-            $quote = json_decode($response, true);
+            return json_decode($response, true);
         }
-
     }
 
 }
