@@ -279,6 +279,7 @@ fetch("movie/recommendations?mid=" + encodeURIComponent(movieId))
     console.error('Errore nel recupero delle raccomandazioni:', error);
   });
 
+
 function addSuggestedMovies (data, title) {
   const movieList = data.results;
 
@@ -309,7 +310,7 @@ function addSuggestedMovies (data, title) {
     const movieCard = createMovieCard(movie);
     sliderInner.appendChild(movieCard);
   }
-  pageContent.appendChild(movieListElem);
+  movieContent.appendChild(movieListElem);
 };
 
 searchMovie();

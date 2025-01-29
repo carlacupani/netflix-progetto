@@ -46,12 +46,13 @@ class ApiController extends BaseController
     }
 
     // Recupera la lista di film in base ad un parola di ricerca
-    public function getSearchMovie()
+    public function getSearchMovie(Request $request)
     {
         if(!Session::has('user_id')){
             exit;
         }
-        $query = urlencode(Request::get("q"));
+        
+        $query = urlencode($request->get("q"));
         $url = env('API_BASE_URL') . "/search/movie?include_adult=false&language=it-IT&page=1&query=" . $query;
 
         $curl = curl_init();

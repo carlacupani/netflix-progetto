@@ -63,8 +63,7 @@ export function searchMovie() {
 
 // --- Funzioni per la ricerca ---
 function fetchMovies(query) {
-  query
-  return fetch(`/search/movie?q=${encodeURIComponent(query)}`)
+  return fetch("/search/movie?q="+ encodeURIComponent(query))
     .then((response) => {
       if (!response.ok) {
         console.log('Errore nella risposta della rete:', response.status);

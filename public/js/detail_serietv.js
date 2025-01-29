@@ -276,7 +276,7 @@ function addSuggestedSeries({ results: serieList }) {
     sliderInner.appendChild(serieCard);
   }
 
-  pageContent.appendChild(serieListElem);
+  serietvContent.appendChild(serieListElem);
 };
 
 searchSerie();

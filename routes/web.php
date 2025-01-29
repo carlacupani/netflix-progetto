@@ -41,7 +41,7 @@ Route::post('movie/details/delete_movie', [HomeController::class, 'deleteMovie']
 
 // Api film routes
 Route::get('genre/movie/list', [ApiController::class, 'getGenreMovieList']);
-Route::get('search/movie/{query}', [ApiController::class, 'getSearchMovie'])->name('search_movie');
+Route::get('search/movie', [ApiController::class, 'getSearchMovie'])->name('search_movie');
 Route::get('movie/recommendations', [ApiController::class,'getRecommendationsMovie'])->name('recommendations_movie');
 Route::get('movie/popular', [ApiController::class,'getPopularMovieList'])->name('popular_movie');
 Route::get('movie/top_rated', [ApiController::class,'getTopratedMovie'])->name('toprated_movie');
