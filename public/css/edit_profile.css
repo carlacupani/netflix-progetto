@@ -387,3 +387,52 @@ footer .language-btn:hover {
 }
 
 /* MEDIA QUERIES */
+@media screen and (max-width: 768px) {
+    .header {
+        height: 100px;
+        padding: 0 5px;
+    }
+
+    .navbar-left {
+        display: flex;
+        gap: 5px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-links {
+        gap: 5px;
+        font-size: 10px;
+        margin: 0;
+    }
+
+    .navbar-links li {
+        margin: 5px 0;
+    }
+
+    .navbar-right {
+        right: 10px;
+    }
+
+    .notification-btn {
+        padding: 6px;
+    }
+
+    .userInfo .avatar {
+        width: 24px;
+        height: 24px;
+    }
+    
+    footer {
+        padding: 20px 40px;
+    }
+
+    footer .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    footer .col {
+        width: 100%;
+    }
+  }
